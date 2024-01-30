@@ -12,26 +12,44 @@ struct ProjectCardView: View {
     @Binding var selectedId: UUID?
     
     var body: some View {
-        VStack(alignment: .leading) {
+        let layout = selectedId == project.id ? AnyLayout(VStackLayout()) : AnyLayout(HStackLayout())
+        
+        VStack(alignment: .leading, spacing: 20) {
+            if selectedId == project.id {
+                Button("Back") { selectedId = nil }
+            }
+            
             HStack {
-                Image(project.image)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                VStack(alignment: .leading) {
-                    Text(project.name)
-                    Text(project.category.rawValue.capitalized)
+                if selectedId == project.id {
+                    Spacer()
                 }
+                
+                layout {
+                    Image(project.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: selectedId == project.id ? 100 : 50)
+                    VStack(alignment: selectedId == project.id ? .center : .leading) {
+                        Text(project.name)
+                        Text(project.category.rawValue.capitalized)
+                    }
+                }
+                
                 Spacer()
-                Button { 
-                    selectedId = selectedId == project.id ? nil : project.id
-                } label: {
-                    Image(
-                        systemName: selectedId == project.id
-                        ? "rectangle.compress.vertical"
-                        : "rectangle.expand.vertical")
+                
+                if selectedId != project.id {
+                    Button { selectedId = project.id } label: {
+                        Image(systemName: "rectangle.expand.vertical")
+                    }
                 }
             }
-            Text(project.description).lineLimit(selectedId == project.id ? nil : 2)
+            
+            Text(project.description)
+                .lineLimit(selectedId == project.id ? nil : 2)
+            
+            if selectedId == project.id, let url = URL(string: project.url) {
+                Link("App Store", destination: url)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -45,6 +63,7 @@ extension ProjectCardView {
         let category: Category
         let image: ImageResource
         let description: String
+        let url: String
         let id = UUID()
         
         enum Category: String {
@@ -59,7 +78,8 @@ extension ProjectCardView {
             name: "Project Name",
             category: .shopping,
             image: .gemJewel, 
-            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales"
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales", 
+            url: ""
         ),
         selectedId: .constant(nil)
     )

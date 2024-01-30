@@ -9,8 +9,20 @@ import SwiftUI
 
 struct ProjectsView: View {
     let projects: [ProjectCardView.Project] = [
-        .init(name: "Gem + Jewel", category: .shopping, image: .gemJewel, description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales"),
-        .init(name: "Second", category: .shopping, image: .gemJewel, description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales")
+        .init(
+            name: "Gem + Jewel",
+            category: .shopping,
+            image: .gemJewel,
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            url: "https://apps.apple.com/us/app/gem-jewel/id6466446330"
+        ),
+        .init(
+            name: "Second",
+            category: .shopping,
+            image: .gemJewel, 
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            url: ""
+        )
     ]
     @State var selectedId: UUID? 
     
@@ -22,6 +34,7 @@ struct ProjectsView: View {
                 }
             }
         }
+        .toolbar(selectedId == nil ? .automatic : .hidden, for: .tabBar)
         .animation(.default, value: selectedId)
     }
 }
