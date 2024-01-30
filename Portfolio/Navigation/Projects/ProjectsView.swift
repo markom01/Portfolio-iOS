@@ -14,14 +14,16 @@ struct ProjectsView: View {
             category: .shopping,
             image: .gemJewel,
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
-            url: "https://apps.apple.com/us/app/gem-jewel/id6466446330"
+            appStoreURL: "https://apps.apple.com/us/app/gem-jewel/id6466446330", 
+            videoURL: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ),
         .init(
             name: "Second",
             category: .shopping,
             image: .gemJewel, 
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
-            url: ""
+            appStoreURL: "",
+            videoURL: ""
         )
     ]
     @State var selectedId: UUID? 
