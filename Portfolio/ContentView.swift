@@ -9,51 +9,55 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    let tabs: [TabScreenView.Data] = [
+        .init(
+            navigation: .init(
+                title: "Projects", tabIcon: "folder"
+            ), 
+            content: .init(Text("A"))
+        ),
+        .init(
+            navigation: .init(
+                title: "About", tabIcon: "person"
+            ), 
+            content: .init(Text("B"))
+        ),
+    ]
+    
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        TabView {
+            ForEach(tabs) { data in
+                TabScreenView(data: data)
             }
         }
     }
 }
 
+struct TabScreenView: View {
+    let data: Data
+
+    var body: some View {
+        NavigationStack {
+            data.content
+                .navigationTitle(data.navigation.title)
+        }
+        .tabItem { Label(data.navigation.title, systemImage: data.navigation.tabIcon) }
+    }
+    
+    struct Data: Identifiable {
+        let navigation: Navigation
+        let content: AnyView
+        let id = UUID()
+        
+        struct Navigation {
+            let title: String
+            let tabIcon: String
+        }
+    }
+}
+
+
+
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
