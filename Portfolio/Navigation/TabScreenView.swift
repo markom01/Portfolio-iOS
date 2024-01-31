@@ -14,9 +14,10 @@ struct TabScreenView: View {
         NavigationStack {
             ScrollView {
                 data.content
-                    .padding(.top, 20)
-                    .padding(.horizontal, 20)
-            }.scrollBounceBehavior(.basedOnSize)
+                    .padding(.top, .constant(.large))
+                    .padding(.horizontal, .constant(.medium))
+            }
+            .scrollBounceBehavior(.basedOnSize)
             .navigationTitle(data.navigation.title)
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -29,21 +29,16 @@ struct ProjectsView: View {
     @State var selectedId: UUID? 
     
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: 20) {
+        LazyVStack(alignment: .leading, spacing: .constant(.medium)) {
             ForEach(projects) { project in
                 if selectedId == nil || selectedId == project.id {
                     ProjectCardView(project: project, selectedId: $selectedId)
                 }
             }
         }
-        .toolbar {
-            if selectedId != nil {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Back") { selectedId = nil }
-                }
-            }
-        }
-        .toolbar(selectedId == nil ? .automatic : .hidden, for: .tabBar)
+        .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
+        .toolbarBackground(selectedId == nil ? .visible : .hidden, for: .tabBar)
+        .toolbarBackground(selectedId == nil ? .visible : .automatic, for: .navigationBar)
         .animation(.default, value: selectedId)
     }
 }

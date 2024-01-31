@@ -12,13 +12,15 @@ struct ProjectCardView: View {
     @Binding var selectedId: UUID?
     
     var body: some View {
-        let layout = selectedId == project.id ? AnyLayout(VStackLayout(spacing: 20)) : AnyLayout(HStackLayout(alignment: .bottom, spacing: 10))
+        let layout = selectedId == project.id
+        ? AnyLayout(
+            VStackLayout(spacing: .constant(.small))
+        )
+        : AnyLayout(
+            HStackLayout(alignment: .bottom, spacing: .constant(.small))
+        )
         
-        VStack(alignment: .leading, spacing: selectedId == project.id ? 40 : 20) {
-            if selectedId == project.id {
-               
-            }
-            
+        VStack(alignment: .leading, spacing: selectedId == project.id ? .constant(.large) : .constant(.medium)) {
             HStack {
                 if selectedId == project.id {
                     Spacer()
@@ -30,27 +32,55 @@ struct ProjectCardView: View {
                         .scaledToFit()
                         .frame(width: selectedId == project.id ? 100 : 50)
                     VStack(alignment: selectedId == project.id ? .center : .leading) {
-                        Text(project.name).font(.headline)
-                        Text(project.category.rawValue.capitalized).font(.subheadline)
+                        Text(project.name).font(selectedId == project.id ? .title : .headline)
+                        HStack(spacing: 5) {
+                            if selectedId == project.id {
+                                Text("Category:")
+                            }
+                            Text(project.category.rawValue.capitalized)
+                        }
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
                     }
                 }
                 
                 Spacer()
                 
                 if selectedId != project.id {
-                    Button { selectedId = project.id } label: {
-                        Image(systemName: "chevron.right")
-                    }
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.blue)
+                        .padding(.horizontal)
                 }
             }
             SectionView(
-                data: .init(title: "Description", text: project.description),
+                header: "Description",
                 isHeaderShown: selectedId == project.id
-            )
+            ) {
+                Text(project.description).lineLimit(selectedId == project.id ? nil : 2)
+            }
             
             if selectedId == project.id {
-                if let appStoreURL = URL(string: project.appStoreURL) {
-                    Link("App Store", destination: appStoreURL)
+                
+                SectionView(
+                    header: "Tech Stack",
+                    isHeaderShown: selectedId == project.id
+                ) {
+                    HStack {
+                        VStack {
+                            Image(.gemJewel)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50)
+                            Text("Swift").font(.callout)
+                        }
+                        VStack {
+                            Image(.gemJewel)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50)
+                            Text("Swift").font(.callout)
+                        }
+                    }
                 }
                 
                 VideoView(urlString: project.videoURL)
@@ -60,6 +90,20 @@ struct ProjectCardView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .onTapGesture { selectedId = project.id }
+        .toolbar {
+            if selectedId == project.id {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Back") { selectedId = nil }
+                }
+                
+                if let appStoreURL = URL(string: project.appStoreURL) {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Link("App Store", destination: appStoreURL)
+                    }
+                }
+            }
+        }
     }
 }
 

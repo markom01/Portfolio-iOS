@@ -7,33 +7,26 @@
 
 import SwiftUI
 
-struct SectionView: View {
-    let data: Data
+struct SectionView<T: View>: View {
+    let header: String
     let isHeaderShown: Bool
+    @ViewBuilder let content: T
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: .constant(.medium)) {
             if isHeaderShown {
-                Text(data.title).font(.title2)
+                Text(header).font(.title2)
             }
-            Text(data.text).lineLimit(isHeaderShown ? nil : 2)
+            content
         }
-    }
-}
-
-extension SectionView {
-    struct Data {
-        let title: String
-        let text: String
     }
 }
 
 #Preview {
     SectionView(
-        data: .init(
-            title: "Title",
-            text: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales"
-        ), 
+        header: "Title",
         isHeaderShown: true
-    )
+    ) {
+        Text("Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales")
+    }
 }
