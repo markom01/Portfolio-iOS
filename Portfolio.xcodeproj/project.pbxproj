@@ -12,6 +12,7 @@
 		B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602892B6958F50029A32D /* ProjectCardView.swift */; };
 		B516028C2B6959740029A32D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028B2B6959740029A32D /* ProjectsView.swift */; };
 		B516028F2B69A2680029A32D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028E2B69A2680029A32D /* VideoView.swift */; };
+		B52E26052B6ACDBF00C399C7 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E26042B6ACDBF00C399C7 /* SectionView.swift */; };
 		B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */; };
 		B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */; };
 		B5DC7E1E2B6918CF001C7EB2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1D2B6918CF001C7EB2 /* Item.swift */; };
@@ -44,6 +45,7 @@
 		B51602892B6958F50029A32D /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
 		B516028B2B6959740029A32D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		B516028E2B69A2680029A32D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		B52E26042B6ACDBF00C399C7 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		B5DC7E162B6918CF001C7EB2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				B516028E2B69A2680029A32D /* VideoView.swift */,
+				B52E26042B6ACDBF00C399C7 /* SectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				B516028F2B69A2680029A32D /* VideoView.swift in Sources */,
 				B51602872B69567F0029A32D /* TabScreenView.swift in Sources */,
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,
+				B52E26052B6ACDBF00C399C7 /* SectionView.swift in Sources */,
 				B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */,
 				B5DC7E1E2B6918CF001C7EB2 /* Item.swift in Sources */,
 				B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */,

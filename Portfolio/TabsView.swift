@@ -18,10 +18,17 @@ struct TabsView: View {
         ),
         .init(
             navigation: .init(
+                title: "Skills", tabIcon: "star"
+            ),
+            content: .init(Text("B"))
+        ),
+        .init(
+            navigation: .init(
                 title: "About", tabIcon: "person"
             ), 
             content: .init(Text("B"))
         ),
+
     ]
     
     var body: some View {

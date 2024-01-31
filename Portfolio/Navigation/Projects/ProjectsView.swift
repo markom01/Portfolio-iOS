@@ -36,6 +36,13 @@ struct ProjectsView: View {
                 }
             }
         }
+        .toolbar {
+            if selectedId != nil {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Back") { selectedId = nil }
+                }
+            }
+        }
         .toolbar(selectedId == nil ? .automatic : .hidden, for: .tabBar)
         .animation(.default, value: selectedId)
     }
