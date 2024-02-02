@@ -12,80 +12,13 @@ struct ProjectCardView: View {
     @Binding var selectedId: UUID?
     
     var body: some View {
-        let layout = selectedId == project.id
-        ? AnyLayout(
-            VStackLayout(spacing: .constant(.small))
-        )
-        : AnyLayout(
-            HStackLayout(alignment: .bottom, spacing: .constant(.small))
-        )
-        
-        VStack(alignment: .leading, spacing: selectedId == project.id ? .constant(.large) : .constant(.medium)) {
-            HStack {
-                if selectedId == project.id {
-                    Spacer()
-                }
-                
-                layout {
-                    Image(project.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: selectedId == project.id ? 100 : 50)
-                    VStack(alignment: selectedId == project.id ? .center : .leading) {
-                        Text(project.name).font(selectedId == project.id ? .title : .headline)
-                        HStack(spacing: 5) {
-                            if selectedId == project.id {
-                                Text("Category:")
-                            }
-                            Text(project.category.rawValue.capitalized)
-                        }
-                        .font(.subheadline)
-                        .foregroundStyle(.gray)
-                    }
-                }
-                
-                Spacer()
-                
-                if selectedId != project.id {
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.blue)
-                        .padding(.horizontal)
-                }
-            }
-            SectionView(
-                header: "Description",
-                isHeaderShown: selectedId == project.id
-            ) {
-                Text(project.description).lineLimit(selectedId == project.id ? nil : 2)
-            }
-            
+        VStack(alignment: .leading, spacing: selectedId == project.id ? .large : .medium) {
+            header
+            descriptiom
             if selectedId == project.id {
-                
-                SectionView(
-                    header: "Tech Stack",
-                    isHeaderShown: selectedId == project.id
-                ) {
-                    HStack {
-                        VStack {
-                            Image(.gemJewel)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50)
-                            Text("Swift").font(.callout)
-                        }
-                        VStack {
-                            Image(.gemJewel)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50)
-                            Text("Swift").font(.callout)
-                        }
-                    }
-                }
-                
-                VideoView(urlString: project.videoURL)
-            }
-            if selectedId != project.id {
+                techStack
+                preview
+            } else {
                 Divider()
             }
         }
@@ -105,6 +38,85 @@ struct ProjectCardView: View {
             }
         }
     }
+    
+    var header: some View {
+        let layout = selectedId == project.id
+        ? AnyLayout(VStackLayout(spacing: .small))
+        : AnyLayout(HStackLayout(alignment: .bottom, spacing: .small))
+        
+        return HStack {
+            if selectedId == project.id {
+                Spacer()
+            }
+            
+            layout {
+                Image(project.image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: selectedId == project.id ? 100 : 50)
+                VStack(alignment: selectedId == project.id ? .center : .leading) {
+                    Text(project.name).font(selectedId == project.id ? .title : .headline)
+                    HStack(spacing: 5) {
+                        if selectedId == project.id {
+                            Text("Category:")
+                        }
+                        Text(project.category.rawValue.capitalized)
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
+                }
+            }
+            
+            Spacer()
+            
+            if selectedId != project.id {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.blue)
+                    .padding(.horizontal)
+            }
+        }
+    }
+}
+
+extension ProjectCardView {
+    // MARK: Sections
+
+    var descriptiom: SectionView<some View> {
+        SectionView(
+            header: "Description",
+            isHeaderShown: selectedId == project.id
+        ) {
+            Text(project.description).lineLimit(selectedId == project.id ? nil : 2)
+        }
+    }
+    
+    var techStack: SectionView<some View> {
+        SectionView(
+            header: "Tech Stack",
+            isHeaderShown: selectedId == project.id
+        ) {
+            HStack(spacing: .medium) {
+                ForEach(project.technologies) { tech in
+                    VStack {
+                        Image(tech.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50)
+                        Text(tech.rawValue).font(.callout)
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var preview: SectionView<VideoView>? {
+        if let videoURL = URL(string: project.videoURL) {
+            SectionView(header: "Preview", isHeaderShown: selectedId == project.id) {
+                VideoView(url: videoURL)
+            }
+        }
+    }
 }
 
 extension ProjectCardView {
@@ -113,12 +125,27 @@ extension ProjectCardView {
         let category: Category
         let image: ImageResource
         let description: String
+        let technologies: [Tech]
         let appStoreURL: String
         let videoURL: String
         let id = UUID()
         
         enum Category: String {
             case shopping
+        }
+        
+        enum Tech: String, Identifiable {
+            case swiftui = "SwiftUI"
+            case uikit = "UIKit"
+            
+            var image: ImageResource {
+                switch self {
+                case .swiftui: return .gemJewel
+                case .uikit: return .gemJewel
+                }
+            }
+            
+            var id: UUID { UUID() }
         }
     }
 }
@@ -129,7 +156,8 @@ extension ProjectCardView {
             name: "Project Name",
             category: .shopping,
             image: .gemJewel,
-            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales", 
+            technologies: [.swiftui, .uikit],
             appStoreURL: "",
             videoURL: ""
         ),

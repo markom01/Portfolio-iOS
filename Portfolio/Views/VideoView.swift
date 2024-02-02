@@ -9,23 +9,25 @@ import SwiftUI
 import _AVKit_SwiftUI
 
 struct VideoView: View {
-    let urlString: String
-    let videoPlayer = AVPlayer()
+    let url: URL
+    let player = AVPlayer()
     
     var body: some View {
-        if let url = URL(string: urlString) {
-            VideoPlayer(player: videoPlayer)
-                .frame(height: 300)
-                .onAppear {
-                    videoPlayer.replaceCurrentItem(with: .init(url: url))
-                    videoPlayer.isMuted = true
-                }
-        }
+        VideoPlayer(player: player)
+            .frame(height: 300)
+            .onAppear {
+                player.replaceCurrentItem(with: .init(url: url))
+                player.isMuted = true
+                player.play()
+            }
     }
 }
 
+
 #Preview {
     VideoView(
-        urlString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+        url: URL(
+            string: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+        )!
     )
 }

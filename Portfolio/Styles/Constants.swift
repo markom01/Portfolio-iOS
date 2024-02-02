@@ -8,11 +8,7 @@
 import Foundation
 
 extension CGFloat {
-    enum Padding: CGFloat {
-        case small = 10
-        case medium = 20
-        case large = 40
-    }
-    
-    static func constant(_ padding: Padding) -> CGFloat { padding.rawValue }
+    static let small: Self = 10
+    static let medium: Self = 20
+    static let large: Self = 40
 }

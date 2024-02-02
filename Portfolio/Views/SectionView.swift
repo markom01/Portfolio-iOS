@@ -13,7 +13,7 @@ struct SectionView<T: View>: View {
     @ViewBuilder let content: T
 
     var body: some View {
-        VStack(alignment: .leading, spacing: .constant(.medium)) {
+        VStack(alignment: .leading, spacing: .medium) {
             if isHeaderShown {
                 Text(header).font(.title2)
             }
