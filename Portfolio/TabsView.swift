@@ -9,6 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct TabsView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.modelContext) var context
+    @Query var preferences: [Preference]
+    
     let tabs: [TabScreenView.Data] = [
         .init(
             navigation: .init(
@@ -32,12 +36,41 @@ struct TabsView: View {
     ]
     
     var body: some View {
-        TabView {
-            ForEach(tabs) { TabScreenView(data: $0) }
+        NavigationStack {
+             TabView {
+                 ForEach(tabs) { TabScreenView(data: $0).tag($0.id) }
+            }
+             .navigationBarTitleDisplayMode(.inline)
+             .toolbarBackground(.visible, for: .navigationBar)
+             .toolbar {
+                 ToolbarItem(placement: .principal) {
+                     Image(.gemJewel)
+                         .resizable()
+                         .frame(width: 30, height: 30)
+                 }
+                 
+                 ToolbarItem(placement: .topBarTrailing) {
+                     SwitchView(
+                        isOn: Binding(
+                            get: { preferences.first?.isDarkMode ?? (colorScheme == .dark) },
+                            set: { preferences.first?.isDarkMode = $0 }
+                        )
+                     )
+                 }
+             }
         }
+        .onAppear {
+            if preferences.isEmpty {
+                context.insert(Preference(isDarkMode: colorScheme == .dark || SunEvents().sunset < Date.now))
+            }
+        }
+        .onChange(of: colorScheme) { preferences.first?.isDarkMode = colorScheme == .dark }
+        .environment(\.colorScheme, (preferences.first?.isDarkMode ?? true) ? .dark : .light)
+        .animation(.linear(duration: 0.3), value: preferences.first?.isDarkMode)
     }
 }
 
 #Preview {
     TabsView()
+        .modelContainer(for: Preference.self)
 }

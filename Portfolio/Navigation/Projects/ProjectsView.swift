@@ -40,7 +40,6 @@ struct ProjectsView: View {
         }
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
         .toolbarBackground(selectedId == nil ? .visible : .hidden, for: .tabBar)
-        .toolbarBackground(selectedId == nil ? .visible : .automatic, for: .navigationBar)
         .animation(.default, value: selectedId)
     }
 }

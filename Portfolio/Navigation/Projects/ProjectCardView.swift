@@ -27,7 +27,7 @@ struct ProjectCardView: View {
         .toolbar {
             if selectedId == project.id {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Back") { selectedId = nil }
+                    Button("", systemImage: "chevron.left") { selectedId = nil }
                 }
                 
                 if let appStoreURL = URL(string: project.appStoreURL) {

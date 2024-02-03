@@ -14,5 +14,6 @@ struct PortfolioApp: App {
         WindowGroup {
             TabsView()
         }
+        .modelContainer(for: Preference.self)
     }
 }
