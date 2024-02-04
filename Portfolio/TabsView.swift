@@ -44,9 +44,7 @@ struct TabsView: View {
              .toolbarBackground(.visible, for: .navigationBar)
              .toolbar {
                  ToolbarItem(placement: .principal) {
-                     Image(.gemJewel)
-                         .resizable()
-                         .frame(width: 30, height: 30)
+                     ImageView(name: .gemJewel, size: 30)
                  }
                  
                  ToolbarItem(placement: .topBarTrailing) {
@@ -64,8 +62,11 @@ struct TabsView: View {
                 context.insert(Preference(isDarkMode: colorScheme == .dark))
             }
         }
-        .onChange(of: colorScheme) { preferences.first?.isDarkMode = colorScheme == .dark }
-        .environment(\.colorScheme, (preferences.first?.isDarkMode ?? true) ? .dark : .light)
+        .environment(\.colorScheme, preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .dark : .light)
+        .overlay {
+            LaunchView(
+                backgroundColor: preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .black : .white)
+        }
         .animation(.linear(duration: 0.3), value: preferences.first?.isDarkMode)
     }
 }

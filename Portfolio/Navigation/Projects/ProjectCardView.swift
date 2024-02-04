@@ -35,10 +35,7 @@ struct ProjectCardView: View {
             }
             
             layout {
-                Image(project.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: selectedId == project.id ? 100 : 50)
+                ImageView(name: project.image, size: selectedId == project.id ? 100 : 50)
                 VStack(alignment: selectedId == project.id ? .center : .leading) {
                     Text(project.name).font(selectedId == project.id ? .title : .headline)
                     HStack(spacing: 5) {
@@ -85,10 +82,7 @@ extension ProjectCardView {
             HStack(spacing: .medium) {
                 ForEach(project.technologies) { tech in
                     VStack {
-                        Image(tech.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
+                        ImageView(name: tech.image, size: 50)
                         Text(tech.rawValue).font(.callout)
                     }
                 }
