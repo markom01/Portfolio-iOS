@@ -11,14 +11,9 @@ struct TabScreenView: View {
     let data: Data
 
     var body: some View {
-            ScrollView {
-                data.content
-                    .padding(.top, .large)
-                    .padding(.horizontal, .medium)
-            }
-            .scrollBounceBehavior(.basedOnSize)
-        .tabItem { Label(data.navigation.title, systemImage: data.navigation.tabIcon) }
-        .toolbarBackground(.visible, for: .tabBar)               
+        data.content
+            .tabItem { Label(data.navigation.title, systemImage: data.navigation.tabIcon) }
+            .toolbarBackground(.visible, for: .tabBar)
     }
 }
 

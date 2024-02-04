@@ -31,13 +31,19 @@ struct ProjectsView: View {
     @State var selectedId: UUID? 
     
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: .medium) {
-            ForEach(projects) { project in
-                if selectedId == nil || selectedId == project.id {
-                    ProjectCardView(project: project, selectedId: $selectedId)
+        List(projects) { project in
+            if selectedId == nil || selectedId == project.id {
+                ProjectCardView(project: project, selectedId: $selectedId)
+            }
+        }
+        .toolbar {
+            if selectedId != nil {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("", systemImage: "chevron.left") { selectedId = nil }
                 }
             }
         }
+        .scrollBounceBehavior(.basedOnSize)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
         .toolbarBackground(selectedId == nil ? .visible : .hidden, for: .tabBar)
         .animation(.default, value: selectedId)

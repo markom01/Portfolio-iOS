@@ -18,25 +18,10 @@ struct ProjectCardView: View {
             if selectedId == project.id {
                 techStack
                 preview
-            } else {
-                Divider()
             }
         }
-        .frame(maxWidth: .infinity)
+        .padding(.vertical)
         .onTapGesture { selectedId = project.id }
-        .toolbar {
-            if selectedId == project.id {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("", systemImage: "chevron.left") { selectedId = nil }
-                }
-                
-                if let appStoreURL = URL(string: project.appStoreURL) {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Link("App Store", destination: appStoreURL)
-                    }
-                }
-            }
-        }
     }
     
     var header: some View {
@@ -63,7 +48,7 @@ struct ProjectCardView: View {
                         Text(project.category.rawValue.capitalized)
                     }
                     .font(.subheadline)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
                 }
             }
             
@@ -71,7 +56,7 @@ struct ProjectCardView: View {
             
             if selectedId != project.id {
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.link)
                     .padding(.horizontal)
             }
         }
@@ -86,7 +71,9 @@ extension ProjectCardView {
             header: "Description",
             isHeaderShown: selectedId == project.id
         ) {
-            Text(project.description).lineLimit(selectedId == project.id ? nil : 2)
+            Text(project.description)
+                .lineLimit(selectedId == project.id ? nil : 2)
+                .foregroundStyle(.secondary)
         }
     }
     

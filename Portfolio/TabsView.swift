@@ -61,7 +61,7 @@ struct TabsView: View {
         }
         .onAppear {
             if preferences.isEmpty {
-                context.insert(Preference(isDarkMode: colorScheme == .dark || SunEvents().sunset < Date.now))
+                context.insert(Preference(isDarkMode: colorScheme == .dark))
             }
         }
         .onChange(of: colorScheme) { preferences.first?.isDarkMode = colorScheme == .dark }
