@@ -44,14 +44,19 @@ struct TabsView: View {
              .toolbarBackground(.visible, for: .navigationBar)
              .toolbar {
                  ToolbarItem(placement: .principal) {
-                     ImageView(name: .gemJewel, size: 30)
+                     ImageView(name: .launchLogo, size: .launchImage)
                  }
                  
                  ToolbarItem(placement: .topBarTrailing) {
                      SwitchView(
                         isOn: Binding(
                             get: { preferences.first?.isDarkMode ?? (colorScheme == .dark) },
-                            set: { preferences.first?.isDarkMode = $0 }
+                            set: { 
+                                preferences.first?.isDarkMode = $0
+                                UIApplication.shared.setAlternateIconName(
+                                    preferences.first?.isDarkMode == true ? nil : "AppIconLight"
+                                )
+                            }
                         )
                      )
                  }

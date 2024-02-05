@@ -11,4 +11,5 @@ extension CGFloat {
     static let small: Self = 10
     static let medium: Self = 20
     static let large: Self = 40
+    static let launchImage: Self = 40
 }

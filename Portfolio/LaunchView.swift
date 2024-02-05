@@ -17,15 +17,15 @@ struct LaunchView: View {
             if !shouldAnimate {
                 Spacer()
             }
-            ImageView(name: .gemJewel, size: shouldAnimate ? 30 : 100)
-                .padding(.top, shouldAnimate ? 7.5 : 0)
+            ImageView(name: .launchLogo, size: shouldAnimate ? .launchImage : 100)
+                .padding(.top, shouldAnimate ? -5 : 0)
             Spacer()
         }
         .frame(maxWidth: .infinity)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 shouldAnimate = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     isVisible = false
                 }
             }
