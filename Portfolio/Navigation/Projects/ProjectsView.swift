@@ -15,8 +15,8 @@ struct ProjectsView: View {
             image: .gemJewel,
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales", 
             technologies: [.swiftui, .uikit],
-            appStoreURL: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
-            videoURL: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ),
         .init(
             name: "Second",
@@ -24,8 +24,8 @@ struct ProjectsView: View {
             image: .gemJewel, 
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales", 
             technologies: [.swiftui],
-            appStoreURL: "",
-            videoURL: ""
+            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: ""
         )
     ]
     @State var selectedId: UUID? 

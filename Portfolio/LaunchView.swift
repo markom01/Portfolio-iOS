@@ -17,7 +17,7 @@ struct LaunchView: View {
             if !shouldAnimate {
                 Spacer()
             }
-            ImageView(name: .launchLogo, size: shouldAnimate ? .launchImage : 100)
+            ImageView(source: .named(.launchLogo), size: shouldAnimate ? .launchImage : 100)
                 .padding(.top, shouldAnimate ? -5 : 0)
             Spacer()
         }

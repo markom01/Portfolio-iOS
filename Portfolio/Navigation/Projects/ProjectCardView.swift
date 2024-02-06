@@ -20,8 +20,26 @@ struct ProjectCardView: View {
                 preview
             }
         }
-        .padding(.vertical)
+        .padding(.vertical, selectedId == project.id ? 10 : 5)
+        .contentShape(Rectangle())
         .onTapGesture { selectedId = project.id }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                VStack(alignment: .leading) {
+                    HStack(spacing: 5) {
+                        ImageView(source: .systemImage("person"), size: 10)
+                        Text("Role")
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    Text("Developer").font(.footnote)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                ShareView(urlString: project.appStoreURLString, title: "App Store")
+            }
+        }
+        .toolbar(selectedId == project.id ? .visible : .hidden, for: .bottomBar)
     }
     
     var header: some View {
@@ -35,14 +53,22 @@ struct ProjectCardView: View {
             }
             
             layout {
-                ImageView(name: project.image, size: selectedId == project.id ? 100 : 50)
-                VStack(alignment: selectedId == project.id ? .center : .leading) {
-                    Text(project.name).font(selectedId == project.id ? .title : .headline)
+                ImageView(
+                    source: .named(project.image),
+                    size: selectedId == project.id ? 100 : 50
+                )
+                VStack(alignment: selectedId == project.id ? .center : .leading, spacing: 5) {
+                    Text(project.name)
+                        .font(selectedId == project.id ? .title : .headline)
+                        .fontWeight(.semibold)
                     HStack(spacing: 5) {
-                        if selectedId == project.id {
-                            Text("Category:")
+                        if selectedId != project.id {
+                            Image(systemName: project.category.icon)
                         }
                         Text(project.category.rawValue.capitalized)
+                        if selectedId == project.id {
+                            Text("App")
+                        }
                     }
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -53,7 +79,7 @@ struct ProjectCardView: View {
             
             if selectedId != project.id {
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(.link)
+                    .foregroundStyle(.accent)
                     .padding(.horizontal)
             }
         }
@@ -70,7 +96,6 @@ extension ProjectCardView {
         ) {
             Text(project.description)
                 .lineLimit(selectedId == project.id ? nil : 2)
-                .foregroundStyle(.secondary)
         }
     }
     
@@ -82,7 +107,7 @@ extension ProjectCardView {
             HStack(spacing: .medium) {
                 ForEach(project.technologies) { tech in
                     VStack {
-                        ImageView(name: tech.image, size: 50)
+                        ImageView(source: .named(tech.image), size: 50)
                         Text(tech.rawValue).font(.callout)
                     }
                 }
@@ -92,7 +117,7 @@ extension ProjectCardView {
     
     @ViewBuilder
     var preview: SectionView<VideoView>? {
-        if let videoURL = URL(string: project.videoURL) {
+        if let videoURL = URL(string: project.videoURLString) {
             SectionView(header: "Preview", isHeaderShown: selectedId == project.id) {
                 VideoView(url: videoURL)
             }
@@ -107,12 +132,18 @@ extension ProjectCardView {
         let image: ImageResource
         let description: String
         let technologies: [Tech]
-        let appStoreURL: String
-        let videoURL: String
+        let appStoreURLString: String
+        let videoURLString: String
         let id = UUID()
         
         enum Category: String {
             case shopping
+            
+            var icon: String {
+                switch self {
+                case .shopping: "bag"
+                }
+            }
         }
         
         enum Tech: String, Identifiable {
@@ -139,8 +170,8 @@ extension ProjectCardView {
             image: .gemJewel,
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales", 
             technologies: [.swiftui, .uikit],
-            appStoreURL: "",
-            videoURL: ""
+            appStoreURLString: "",
+            videoURLString: ""
         ),
         selectedId: .constant(nil)
     )

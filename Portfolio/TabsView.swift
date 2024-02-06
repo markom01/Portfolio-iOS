@@ -44,7 +44,7 @@ struct TabsView: View {
              .toolbarBackground(.visible, for: .navigationBar)
              .toolbar {
                  ToolbarItem(placement: .principal) {
-                     ImageView(name: .launchLogo, size: .launchImage)
+                     ImageView(source: .named(.launchLogo), size: .launchImage)
                  }
                  
                  ToolbarItem(placement: .topBarTrailing) {

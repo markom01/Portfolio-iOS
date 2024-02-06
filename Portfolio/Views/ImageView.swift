@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct ImageView: View {
-    let name: ImageResource
+    let source: Source
     let size: CGFloat
     
     var body: some View {
-        Image(name)
+        source.image
             .resizable()
             .scaledToFit()
             .frame(width: size)
     }
+    
+    enum Source {
+        case systemImage(String)
+        case named(ImageResource)
+        
+        var image: Image {
+            switch self {
+            case .systemImage(let string): Image(systemName: string)
+            case .named(let imageResource): Image(imageResource)
+            }
+        }
+    }
 }
 
 #Preview {
-    ImageView(name: .gemJewel, size: 30)
+    ImageView(source: .named(.gemJewel), size: 30)
 }

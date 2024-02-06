@@ -15,9 +15,11 @@ struct SectionView<T: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: .medium) {
             if isHeaderShown {
-                Text(header).font(.title2)
+                Text(header)
+                    .font(.title2)
+                    .fontWeight(.medium)
             }
-            content
+            content.foregroundStyle(.secondary)
         }
     }
 }
