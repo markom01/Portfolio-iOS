@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import SwiftUIIntrospect
+import SafariServices
 
 struct TabsView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -72,6 +74,16 @@ struct TabsView: View {
             LaunchView(
                 backgroundColor: preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .black : .white)
         }
+        .environment(\.openURL, OpenURLAction { url in
+            if UIApplication.shared.canOpenURL(url) {
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.modalPresentationStyle = .pageSheet
+                safariVC.preferredBarTintColor = preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .black : .white
+                safariVC.preferredControlTintColor = .accent
+                UIApplication.shared.keyWindow?.rootViewController?.present(safariVC, animated: true)
+            }
+            return .handled
+        })
         .animation(.linear(duration: 0.3), value: preferences.first?.isDarkMode)
     }
 }

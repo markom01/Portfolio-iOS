@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import _AVKit_SwiftUI
 
 struct ProjectCardView: View {
     let project: Project
     @Binding var selectedId: UUID?
+    let player: AVPlayer
     
     var body: some View {
         VStack(alignment: .leading, spacing: selectedId == project.id ? .large : .medium) {
@@ -23,23 +25,6 @@ struct ProjectCardView: View {
         .padding(.vertical, selectedId == project.id ? 10 : 5)
         .contentShape(Rectangle())
         .onTapGesture { selectedId = project.id }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                VStack(alignment: .leading) {
-                    HStack(spacing: 5) {
-                        ImageView(source: .systemImage("person"), size: 10)
-                        Text("Role")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    Text("Developer").font(.footnote)
-                }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                ShareView(urlString: project.appStoreURLString, title: "App Store")
-            }
-        }
-        .toolbar(selectedId == project.id ? .visible : .hidden, for: .bottomBar)
     }
     
     var header: some View {
@@ -117,9 +102,9 @@ extension ProjectCardView {
     
     @ViewBuilder
     var preview: SectionView<VideoView>? {
-        if let videoURL = URL(string: project.videoURLString) {
+        if let _ = URL(string: project.videoURLString) {
             SectionView(header: "Preview", isHeaderShown: selectedId == project.id) {
-                VideoView(url: videoURL)
+                VideoView(player: player)
             }
         }
     }
@@ -173,6 +158,7 @@ extension ProjectCardView {
             appStoreURLString: "",
             videoURLString: ""
         ),
-        selectedId: .constant(nil)
+        selectedId: .constant(nil), 
+        player: AVPlayer()
     )
 }
