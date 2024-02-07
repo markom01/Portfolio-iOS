@@ -26,7 +26,10 @@ struct ProjectCardView: View {
         .contentShape(Rectangle())
         .onTapGesture { selectedId = project.id }
     }
-    
+}
+
+// MARK: Views
+extension ProjectCardView {
     var header: some View {
         let layout = selectedId == project.id
         ? AnyLayout(VStackLayout(spacing: .small))
@@ -69,11 +72,8 @@ struct ProjectCardView: View {
             }
         }
     }
-}
 
-extension ProjectCardView {
     // MARK: Sections
-
     var descriptiom: SectionView<some View> {
         SectionView(
             header: "Description",

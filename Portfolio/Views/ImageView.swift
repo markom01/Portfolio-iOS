@@ -17,7 +17,9 @@ struct ImageView: View {
             .scaledToFit()
             .frame(width: size)
     }
-    
+}
+
+extension ImageView {
     enum Source {
         case systemImage(String)
         case named(ImageResource)

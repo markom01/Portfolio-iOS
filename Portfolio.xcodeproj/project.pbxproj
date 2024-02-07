@@ -54,7 +54,7 @@
 		B52E26072B6AEF9200C399C7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B578CEC72B7047DA00DA3246 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		B578CEC92B70481B00DA3246 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		B578CECB2B704B7900DA3246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B578CECB2B704B7900DA3246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B58F43272B6E2EC100EC64AF /* SwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
 		B58FBAF32B72981900B12C36 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		B5DC7E162B6918CF001C7EB2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				B51602882B6958A90029A32D /* Projects */,
-				B51602862B69567F0029A32D /* TabScreenView.swift */,
+				B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -125,6 +125,7 @@
 		B516028D2B69A2580029A32D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B51602862B69567F0029A32D /* TabScreenView.swift */,
 				B516028E2B69A2680029A32D /* VideoView.swift */,
 				B52E26042B6ACDBF00C399C7 /* SectionView.swift */,
 				B58F43272B6E2EC100EC64AF /* SwitchView.swift */,
@@ -165,26 +166,25 @@
 		B5DC7E182B6918CF001C7EB2 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				B578CECB2B704B7900DA3246 /* Info.plist */,
 				B52E26062B6AEF7400C399C7 /* Styles */,
 				B516028D2B69A2580029A32D /* Views */,
 				B51602852B6956470029A32D /* Navigation */,
 				B51602842B69562A0029A32D /* Models */,
-				B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */,
-				B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */,
-				B5DC7E1F2B6918D1001C7EB2 /* Assets.xcassets */,
-				B5DC7E212B6918D1001C7EB2 /* Preview Content */,
 				B578CEC72B7047DA00DA3246 /* LaunchView.swift */,
+				B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */,
+				B5DC7E212B6918D1001C7EB2 /* Assets */,
+				B578CECB2B704B7900DA3246 /* Info.plist */,
 			);
 			path = Portfolio;
 			sourceTree = "<group>";
 		};
-		B5DC7E212B6918D1001C7EB2 /* Preview Content */ = {
+		B5DC7E212B6918D1001C7EB2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B5DC7E1F2B6918D1001C7EB2 /* Assets.xcassets */,
 				B5DC7E222B6918D1001C7EB2 /* Preview Assets.xcassets */,
 			);
-			path = "Preview Content";
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		B5DC7E2B2B6918D1001C7EB2 /* PortfolioTests */ = {
