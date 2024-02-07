@@ -16,7 +16,7 @@ struct ProjectCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: selectedId == project.id ? .large : .medium) {
             header
-            descriptiom
+            description
             if selectedId == project.id {
                 techStack
                 preview
@@ -74,7 +74,7 @@ extension ProjectCardView {
     }
 
     // MARK: Sections
-    var descriptiom: SectionView<some View> {
+    var description: SectionView<some View> {
         SectionView(
             header: "Description",
             isHeaderShown: selectedId == project.id

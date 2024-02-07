@@ -9,8 +9,29 @@ import SwiftUI
 import _AVKit_SwiftUI
 
 struct ProjectsView: View {
-    @State var selectedId: UUID? 
+    @State var selectedId: UUID?
     @State var player = AVPlayer()
+    
+    let projects: [ProjectCardView.Project] = [
+        .init(
+            name: "Gem + Jewel",
+            category: .shopping,
+            image: .gemJewel,
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            technologies: [.swiftui, .uikit],
+            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+        ),
+        .init(
+            name: "Gem + Jewel",
+            category: .shopping,
+            image: .gemJewel,
+            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            technologies: [.swiftui, .uikit],
+            appStoreURLString: "",
+            videoURLString: ""
+        )
+    ]
     
     var body: some View {
         List(projects) { project in
@@ -20,15 +41,19 @@ struct ProjectsView: View {
         }
         .toolbar {
             if selectedId != nil {
+                #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
                     Button("", systemImage: "chevron.left") { selectedId = nil }
                 }
+                #endif
             }
         }
+        #if os(iOS)
         .toolbar { ToolbarItem(placement: .bottomBar) { bottomBar } }
-        .scrollBounceBehavior(.basedOnSize)
         .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
+        #endif
+        .scrollBounceBehavior(.basedOnSize)
         .onChange(of: selectedId, loadProjectVideo)
         .animation(.default, value: selectedId)
     }
@@ -69,33 +94,6 @@ extension ProjectsView {
                 player.replaceCurrentItem(with: .init(url: videoURL))
             }
         }
-    }
-}
-
-
-// MARK: Data
-extension ProjectsView {
-    var projects: [ProjectCardView.Project] {
-        [
-            .init(
-                name: "Gem + Jewel",
-                category: .shopping,
-                image: .gemJewel,
-                description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
-                technologies: [.swiftui, .uikit],
-                appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
-                videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
-            ),
-            .init(
-                name: "Gem + Jewel",
-                category: .shopping,
-                image: .gemJewel,
-                description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
-                technologies: [.swiftui, .uikit],
-                appStoreURLString: "",
-                videoURLString: ""
-            )
-        ]
     }
 }
 
