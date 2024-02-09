@@ -13,6 +13,9 @@ struct TabsView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @Query var preferences: [Preference]
+#if os(macOS)
+    @State var isLogoVisible = false
+#endif
     
     let tabs: [TabScreenView.Data] = [
         .init(
@@ -38,63 +41,91 @@ struct TabsView: View {
     var body: some View {
         NavigationStack {
              TabView {
-                 ForEach(tabs) { TabScreenView(data: $0).tag($0.id) }
+                 ForEach(tabs) {
+                     TabScreenView(data: $0).tag($0.id)
+                 }
             }
-            #if os(iOS)
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
+#elseif os(macOS)
+            .padding()
+#endif
             .toolbar {
-                ToolbarItem(placement: .principal) { navigationBarTitleView }
+                ToolbarItem(placement: logoPlacement) { navigationBarTitleView }
+#if os(iOS)
                 ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
+#endif
             }
-            #endif
         }
+        .background(.ultraThinMaterial)
         .onAppear {
             if preferences.isEmpty {
                 context.insert(Preference(isDarkMode: colorScheme == .dark))
             }
+#if os(macOS)
+            setupWindow()
+#endif
         }
-        .environment(\.colorScheme, preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .dark : .light)
         .overlay {
             LaunchView(
                 backgroundColor: preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .black : .white)
         }
-        #if os(iOS)
+#if os(iOS)
+        .environment(\.colorScheme, preferences.first?.isDarkMode ?? (colorScheme == .dark) ? .dark : .light)
         .environment(\.openURL, OpenURLAction { url in
             openWebSheet(url)
             return .handled
         })
-        #endif
+#endif
         .animation(.linear(duration: 0.3), value: preferences.first?.isDarkMode)
     }
 }
 
 // MARK: Views
 extension TabsView {
+    @ViewBuilder
     var navigationBarTitleView: some View {
-        ImageView(source: .named(.launchLogo), size: .launchImage)
+#if os(macOS)
+        if isLogoVisible {
+            ImageView(source: .named(.launchLogo), size: .topBarLogo)
+        } else { Spacer() }
+#elseif os(iOS)
+        ImageView(source: .named(.launchLogo), size: .topBarLogo)
+#endif
     }
     
+#if os(iOS)
     var navigationBarRightItem: some View {
         SwitchView(
             isOn: Binding(
                 get: { preferences.first?.isDarkMode ?? (colorScheme == .dark) },
                 set: {
                     preferences.first?.isDarkMode = $0
-                    #if os(iOS)
                     UIApplication.shared.setAlternateIconName(
                         preferences.first?.isDarkMode == true ? nil : "AppIconLight"
                     )
-                    #endif
                 }
             )
         )
+    }
+#endif
+}
+
+// MARK: Data
+extension TabsView {
+    var logoPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .principal
+#elseif os(macOS)
+        .status
+#endif
     }
 }
 
 // MARK: Logic
 extension TabsView {
-    #if os(iOS)
+#if os(iOS)
     func openWebSheet(_ url: URL) {
         if UIApplication.shared.canOpenURL(url) {
             let safariVC = SFSafariViewController(url: url)
@@ -104,7 +135,17 @@ extension TabsView {
             UIApplication.shared.keyWindow?.rootViewController?.present(safariVC, animated: true)
         }
     }
-    #endif
+#endif
+ 
+#if os(macOS)
+    func setupWindow() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { isLogoVisible = true }
+        guard let window = NSApplication.shared.windows.first else { return }
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.titlebarAppearsTransparent = true
+    }
+#endif
 }
 
 #Preview {

@@ -15,5 +15,8 @@ struct PortfolioApp: App {
             TabsView()
         }
         .modelContainer(for: Preference.self)
+#if os(macOS)
+        .windowResizability(.contentSize)
+#endif
     }
 }

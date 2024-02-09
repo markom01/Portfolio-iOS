@@ -13,27 +13,35 @@ struct LaunchView: View {
     @State var isVisible = true
     
     var body: some View {
-        VStack {
-            if !shouldAnimate {
-                Spacer()
+        VStack {}
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(alignment: shouldAnimate ? .top : .center) {
+                ImageView(
+                    source: .named(.launchLogo),
+                    size: shouldAnimate ? .topBarLogo : 100
+                )
+#if os(iOS)
+                .padding(.top, UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > 0 ? -5 : 0)
+#elseif os(macOS)
+                .padding(.top, shouldAnimate ? -42.5 : 0)
+#endif
             }
-            ImageView(source: .named(.launchLogo), size: shouldAnimate ? .launchImage : 100)
-                .padding(.top, shouldAnimate ? -5 : 0)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                shouldAnimate = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    isVisible = false
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    shouldAnimate = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        isVisible = false
+                    }
                 }
             }
-        }
-        .background(backgroundColor)
-        .opacity(isVisible ? 1 : 0)
-        .animation(.default, value: shouldAnimate)
-        .animation(.default, value: isVisible)
+#if os(iOS)
+            .background(backgroundColor)
+#elseif os(macOS)
+            .background(.ultraThinMaterial)
+#endif
+            .opacity(isVisible ? 1 : 0)
+            .animation(.default, value: shouldAnimate)
+            .animation(.default, value: isVisible)
     }
 }
 

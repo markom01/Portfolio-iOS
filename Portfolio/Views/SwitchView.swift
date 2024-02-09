@@ -13,12 +13,12 @@ struct SwitchView: View {
     
     var body: some View {
         Toggle("", isOn: $isOn)
-        .tint(.black.opacity(0.2))
         .toggleStyle(.switch)
         .labelsHidden()
-        #if os(iOS)
+#if os(iOS)
+        .tint(.black.opacity(0.2))
         .introspect(.toggle, on: .iOS(.v17), customize: setBackgroundImage)
-        #endif
+#endif
     }
     
     #if os(iOS)

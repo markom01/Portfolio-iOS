@@ -12,10 +12,12 @@ struct TabScreenView: View {
 
     var body: some View {
         data.content
-            .tabItem { Label(data.navigation.title, systemImage: data.navigation.tabIcon) }
-            #if os(iOS)
+            .tabItem {
+                Label(data.navigation.title, systemImage: data.navigation.tabIcon)
+            }
+#if os(iOS)
             .toolbarBackground(.visible, for: .tabBar)
-            #endif
+#endif
     }
 }
 

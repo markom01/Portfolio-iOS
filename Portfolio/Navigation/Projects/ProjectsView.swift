@@ -39,17 +39,24 @@ struct ProjectsView: View {
                 ProjectCardView(project: project, selectedId: $selectedId, player: player)
             }
         }
+#if os(macOS)
+        .scrollContentBackground(.hidden)
+        .listStyle(.sidebar)
+#endif
         .toolbar {
             if selectedId != nil {
-                #if os(iOS)
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: backPlacement) {
                     Button("", systemImage: "chevron.left") { selectedId = nil }
                 }
-                #endif
+            }
+        }
+        .toolbar {
+            if selectedId != nil {
+                ToolbarItem { Spacer() }
+                ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
         #if os(iOS)
-        .toolbar { ToolbarItem(placement: .bottomBar) { bottomBar } }
         .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
         #endif
@@ -61,9 +68,9 @@ struct ProjectsView: View {
 
 // MARK: Views
 extension ProjectsView {
-    var bottomBar: some View {
+    var projectBar: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2.5) {
                 HStack(spacing: 5) {
                     ImageView(source: .systemImage("person"), size: 10)
                     Text("Role")
@@ -78,8 +85,25 @@ extension ProjectsView {
             if let appStoreURLString = projects.first(where: { $0.id == selectedId })?.appStoreURLString,
             let appStoreURL = URL(string: appStoreURLString) {
                 Link("App Store", destination: appStoreURL)
+                    .buttonStyle(.borderedProminent)
             }
         }
+    }
+    
+    var projectBarPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .bottomBar
+#elseif os(macOS)
+        .automatic
+#endif
+    }
+    
+    var backPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .topBarLeading
+#elseif os(macOS)
+        .navigation
+#endif
     }
 }
 
