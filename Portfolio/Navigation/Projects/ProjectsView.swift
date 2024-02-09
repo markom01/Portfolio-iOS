@@ -10,6 +10,9 @@ import _AVKit_SwiftUI
 
 struct ProjectsView: View {
     @State var selectedId: UUID?
+#if os(macOS)
+    @State var hoveredId: UUID?
+#endif
     @State var player = AVPlayer()
     
     let projects: [ProjectCardView.Project] = [
@@ -25,7 +28,7 @@ struct ProjectsView: View {
         .init(
             name: "Gem + Jewel",
             category: .shopping,
-            image: .gemJewel,
+            image: .launchLogo,
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
             technologies: [.swiftui, .uikit],
             appStoreURLString: "",
@@ -37,11 +40,22 @@ struct ProjectsView: View {
         List(projects) { project in
             if selectedId == nil || selectedId == project.id {
                 ProjectCardView(project: project, selectedId: $selectedId, player: player)
+#if os(macOS)
+                    .onHover { hoveredId = $0 ? project.id : nil }
+#endif
             }
         }
 #if os(macOS)
         .scrollContentBackground(.hidden)
         .listStyle(.sidebar)
+        .background(.ultraThickMaterial)
+        .background {
+            if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
+                Image(hoveredImage)
+                    .resizable()
+                    .opacity(0.75)
+            }
+        }
 #endif
         .toolbar {
             if selectedId != nil {
@@ -56,13 +70,16 @@ struct ProjectsView: View {
                 ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
-        #if os(iOS)
+#if os(iOS)
         .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
-        #endif
+#endif
         .scrollBounceBehavior(.basedOnSize)
         .onChange(of: selectedId, loadProjectVideo)
         .animation(.default, value: selectedId)
+#if os(macOS)
+        .animation(.linear(duration: 0.75), value: hoveredId)
+#endif
     }
 }
 

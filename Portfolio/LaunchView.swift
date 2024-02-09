@@ -37,7 +37,14 @@ struct LaunchView: View {
 #if os(iOS)
             .background(backgroundColor)
 #elseif os(macOS)
-            .background(.ultraThinMaterial)
+            .background(.ultraThickMaterial)
+            .background {
+                if !shouldAnimate {
+                    Image(.launchLogo)
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
 #endif
             .opacity(isVisible ? 1 : 0)
             .animation(.default, value: shouldAnimate)
