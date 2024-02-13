@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 import _AVKit_SwiftUI
 
 struct ProjectsView: View {
@@ -13,6 +14,7 @@ struct ProjectsView: View {
 #if os(macOS)
     @State var hoveredId: UUID?
 #endif
+    @State var searchTerm = ""
     @State var player = AVPlayer()
     
     let projects: [ProjectCardView.Project] = [
@@ -26,7 +28,7 @@ struct ProjectsView: View {
             videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ),
         .init(
-            name: "Gem + Jewel",
+            name: "Second App",
             category: .shopping,
             image: .launchLogo,
             description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
@@ -36,27 +38,31 @@ struct ProjectsView: View {
         )
     ]
     
+    var filteredProjects: [ProjectCardView.Project] {
+           if searchTerm.isEmpty {
+               return projects
+           } else {
+               return projects.filter { $0.name.contains(searchTerm) }
+           }
+       }
+    
     var body: some View {
-        List(projects) { project in
+        List(filteredProjects) { project in
             if selectedId == nil || selectedId == project.id {
                 ProjectCardView(project: project, selectedId: $selectedId, player: player)
 #if os(macOS)
-                    .onHover { hoveredId = $0 ? project.id : nil }
+                    .padding(10)
+                    .onHover {
+                        hoveredId = $0 ? project.id : nil
+                    }
+                    .background {
+                        Color.white
+                            .opacity(hoveredId == project.id && selectedId != project.id ? 0.05 : 0)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
 #endif
             }
         }
-#if os(macOS)
-        .scrollContentBackground(.hidden)
-        .listStyle(.sidebar)
-        .background(.ultraThickMaterial)
-        .background {
-            if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
-                Image(hoveredImage)
-                    .resizable()
-                    .opacity(0.75)
-            }
-        }
-#endif
         .toolbar {
             if selectedId != nil {
                 ToolbarItem(placement: backPlacement) {
@@ -70,16 +76,33 @@ struct ProjectsView: View {
                 ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
+        .onChange(of: selectedId, loadProjectVideo)
+        .searchable(text: $searchTerm, prompt: "Search Projects")
 #if os(iOS)
+        .introspect(.list, on: .iOS(.v17)) {
+            $0.contentInset.top = 20
+        }
         .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
-#endif
-        .scrollBounceBehavior(.basedOnSize)
-        .onChange(of: selectedId, loadProjectVideo)
-        .animation(.default, value: selectedId)
-#if os(macOS)
+#elseif os(macOS)
+        .scrollContentBackground(.hidden)
+        .listStyle(.sidebar)
+        .background(.ultraThickMaterial)
+        .background {
+            if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
+                Image(hoveredImage)
+                    .resizable()
+                    .opacity(0.75)
+            } else if let image = projects.first(where: { $0.id == selectedId})?.image {
+                Image(image)
+                    .resizable()
+                    .opacity(0.75)
+            }
+        }
         .animation(.linear(duration: 0.75), value: hoveredId)
 #endif
+        .animation(.default, value: selectedId)
+
     }
 }
 
