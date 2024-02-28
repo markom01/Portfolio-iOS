@@ -65,36 +65,22 @@ struct ProjectsView: View {
         }
         .toolbar {
             if selectedId != nil {
-                ToolbarItem(placement: backPlacement) {
-                    Button("", systemImage: "chevron.left") { selectedId = nil }
-                }
-            }
-        }
-        .toolbar {
-            if selectedId != nil {
                 ToolbarItem { Spacer() }
-                ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
         .onChange(of: selectedId, loadProjectVideo)
-        .searchable(text: $searchTerm, prompt: "Search Projects")
 #if os(iOS)
         .introspect(.list, on: .iOS(.v17)) {
             $0.contentInset.top = 20
         }
-        .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
 #elseif os(macOS)
         .scrollContentBackground(.hidden)
         .listStyle(.sidebar)
         .background(.ultraThickMaterial)
         .background {
-            if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
+            if let hoveredImage = projects.first(where: { $0.id == hoveredId || $0.id == selectedId })?.image {
                 Image(hoveredImage)
-                    .resizable()
-                    .opacity(0.75)
-            } else if let image = projects.first(where: { $0.id == selectedId})?.image {
-                Image(image)
                     .resizable()
                     .opacity(0.75)
             }
@@ -102,48 +88,6 @@ struct ProjectsView: View {
         .animation(.linear(duration: 0.75), value: hoveredId)
 #endif
         .animation(.default, value: selectedId)
-
-    }
-}
-
-// MARK: Views
-extension ProjectsView {
-    var projectBar: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2.5) {
-                HStack(spacing: 5) {
-                    ImageView(source: .systemImage("person"), size: 10)
-                    Text("Role")
-                }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                Text("Developer").font(.footnote)
-            }
-            
-            Spacer()
-            
-            if let appStoreURLString = projects.first(where: { $0.id == selectedId })?.appStoreURLString,
-            let appStoreURL = URL(string: appStoreURLString) {
-                Link("App Store", destination: appStoreURL)
-                    .buttonStyle(.borderedProminent)
-            }
-        }
-    }
-    
-    var projectBarPlacement: ToolbarItemPlacement {
-#if os(iOS)
-        .bottomBar
-#elseif os(macOS)
-        .automatic
-#endif
-    }
-    
-    var backPlacement: ToolbarItemPlacement {
-#if os(iOS)
-        .topBarLeading
-#elseif os(macOS)
-        .navigation
-#endif
     }
 }
 
