@@ -22,18 +22,6 @@ struct ProjectCardView: View {
                 preview
             }
         }
-        .onChange(of: selectedId) {
-            if selectedId == project.id {
-                ToolbarManager.shared.back.view = .init(
-                    Button("", systemImage: "chevron.left") { selectedId = nil }
-                )
-                ToolbarManager.shared.projectBar.view = .init(projectBar)
-            } else {
-                ToolbarManager.shared.back.view = nil
-                ToolbarManager.shared.projectBar.view = nil
-            }
-            ToolbarManager.shared.projectBar.visibility = selectedId == project.id ? .visible : .hidden
-        }
         .padding(.vertical, selectedId == project.id ? 10 : 5)
         .contentShape(Rectangle())
         .onTapGesture { selectedId = project.id }
@@ -117,27 +105,6 @@ extension ProjectCardView {
         if let _ = URL(string: project.videoURLString) {
             SectionView(header: "Preview", isHeaderShown: selectedId == project.id) {
                 VideoView(player: player)
-            }
-        }
-    }
-    
-    var projectBar: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2.5) {
-                HStack(spacing: 5) {
-                    ImageView(source: .systemImage("person"), size: 10)
-                    Text("Role")
-                }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                Text("Developer").font(.footnote)
-            }
-            
-            Spacer()
-            
-            if let appStoreURL = URL(string: project.appStoreURLString) {
-                Link("App Store", destination: appStoreURL)
-                    .buttonStyle(.borderedProminent)
             }
         }
     }

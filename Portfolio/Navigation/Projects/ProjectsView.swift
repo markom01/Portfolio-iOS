@@ -14,7 +14,6 @@ struct ProjectsView: View {
 #if os(macOS)
     @State var hoveredId: UUID?
 #endif
-    @State var searchTerm = ""
     @State var player = AVPlayer()
     
     let projects: [ProjectCardView.Project] = [
@@ -38,16 +37,8 @@ struct ProjectsView: View {
         )
     ]
     
-    var filteredProjects: [ProjectCardView.Project] {
-           if searchTerm.isEmpty {
-               return projects
-           } else {
-               return projects.filter { $0.name.contains(searchTerm) }
-           }
-       }
-    
     var body: some View {
-        List(filteredProjects) { project in
+        List(projects) { project in
             if selectedId == nil || selectedId == project.id {
                 ProjectCardView(project: project, selectedId: $selectedId, player: player)
 #if os(macOS)
@@ -63,16 +54,18 @@ struct ProjectsView: View {
 #endif
             }
         }
+        .onChange(of: selectedId, loadProjectVideo)
         .toolbar {
             if selectedId != nil {
                 ToolbarItem { Spacer() }
+                ToolbarItem(placement: backPlacement) {
+                    Button("", systemImage: "chevron.left") { selectedId = nil }
+                }
+                ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
-        .onChange(of: selectedId, loadProjectVideo)
 #if os(iOS)
-        .introspect(.list, on: .iOS(.v17)) {
-            $0.contentInset.top = 20
-        }
+        .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
 #elseif os(macOS)
         .scrollContentBackground(.hidden)
@@ -91,6 +84,47 @@ struct ProjectsView: View {
     }
 }
 
+// MARK: Toolbar
+extension ProjectsView {
+    var backPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        return .topBarLeading
+#elseif os(macOS)
+        return .navigation
+#endif
+    }
+    
+    var projectBarPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .bottomBar
+#elseif os(macOS)
+        .automatic
+#endif
+    }
+    
+    var projectBar: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2.5) {
+                HStack(spacing: 5) {
+                    ImageView(source: .systemImage("person"), size: 10)
+                    Text("Role")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                Text("Developer").font(.footnote)
+            }
+            
+            Spacer()
+            
+            if let selectedProject = projects.first(where: { $0.id == selectedId }),
+                let appStoreURL = URL(string: selectedProject.appStoreURLString) {
+                Link("App Store", destination: appStoreURL)
+                    .buttonStyle(.borderedProminent)
+            }
+        }
+    }
+}
+
 // MARK: Logic
 extension ProjectsView {
     func loadProjectVideo() {
@@ -98,8 +132,10 @@ extension ProjectsView {
             let selectedVideoUrlString = projects.first { $0.id == selectedId }?.videoURLString
             if let selectedVideoUrlString,
                 let videoURL = URL(string: selectedVideoUrlString) {
-                player.isMuted = true
-                player.replaceCurrentItem(with: .init(url: videoURL))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    player.isMuted = true
+                    player.replaceCurrentItem(with: .init(url: videoURL))
+                }
             }
         }
     }
