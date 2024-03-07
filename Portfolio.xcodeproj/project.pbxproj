@@ -20,7 +20,6 @@
 		B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58FBAF32B72981900B12C36 /* ShareView.swift */; };
 		B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */; };
 		B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */; };
-		B5DC7E1E2B6918CF001C7EB2 /* SwiftDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1D2B6918CF001C7EB2 /* SwiftDataModels.swift */; };
 		B5DC7E202B6918D1001C7EB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC7E1F2B6918D1001C7EB2 /* Assets.xcassets */; };
 		B5DC7E232B6918D1001C7EB2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC7E222B6918D1001C7EB2 /* Preview Assets.xcassets */; };
 		B5DC7E2D2B6918D1001C7EB2 /* PortfolioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E2C2B6918D1001C7EB2 /* PortfolioTests.swift */; };
@@ -60,7 +59,6 @@
 		B5DC7E162B6918CF001C7EB2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
-		B5DC7E1D2B6918CF001C7EB2 /* SwiftDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataModels.swift; sourceTree = "<group>"; };
 		B5DC7E1F2B6918D1001C7EB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5DC7E222B6918D1001C7EB2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B5DC7E282B6918D1001C7EB2 /* PortfolioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortfolioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +97,6 @@
 		B51602842B69562A0029A32D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B5DC7E1D2B6918CF001C7EB2 /* SwiftDataModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -356,7 +353,6 @@
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,
 				B52E26052B6ACDBF00C399C7 /* SectionView.swift in Sources */,
 				B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */,
-				B5DC7E1E2B6918CF001C7EB2 /* SwiftDataModels.swift in Sources */,
 				B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */,
 				B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */,
 				B58F43282B6E2EC100EC64AF /* SwitchView.swift in Sources */,

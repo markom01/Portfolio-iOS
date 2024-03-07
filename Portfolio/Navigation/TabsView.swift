@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct TabsView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Query var preferences: [Preference]
+    @Binding var appearance: ColorScheme
     
     let tabs: [TabScreenView.Data] = [
         .init(
@@ -44,7 +43,6 @@ struct TabsView: View {
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
-        .toolbarBackground(.visible, for: .bottomBar)
 #elseif os(macOS)
         .padding()
 #endif
@@ -63,13 +61,8 @@ extension TabsView {
     var navigationBarRightItem: some View {
         SwitchView(
             isOn: Binding(
-                get: { preferences.first?.isDarkMode ?? (colorScheme == .dark) },
-                set: {
-                    preferences.first?.isDarkMode = $0
-                    UIApplication.shared.setAlternateIconName(
-                        preferences.first?.isDarkMode == true ? nil : "AppIconLight"
-                    )
-                }
+                get: { appearance == .dark },
+                set: { appearance = $0 ? .dark : .light }
             )
         )
     }
@@ -77,5 +70,5 @@ extension TabsView {
 }
 
 #Preview {
-    TabsView()
+    TabsView(appearance: .constant(.dark))
 }
