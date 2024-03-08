@@ -61,6 +61,12 @@ extension ProjectCardView {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 }
+                
+                if let appStoreURL = URL(string: project.appStoreURLString), selectedId == project.id {
+                    Link("App Store", destination: appStoreURL)
+                        .buttonStyle(.borderedProminent)
+                        .padding(.top, 10)
+                }
             }
             
             Spacer()

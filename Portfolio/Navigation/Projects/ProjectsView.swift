@@ -61,11 +61,9 @@ struct ProjectsView: View {
                 ToolbarItem(placement: backPlacement) {
                     Button("", systemImage: "chevron.left") { selectedId = nil }
                 }
-                ToolbarItem(placement: projectBarPlacement) { projectBar }
             }
         }
 #if os(iOS)
-        .toolbar(selectedId != nil ? .visible : .hidden, for: .bottomBar)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
 #elseif os(macOS)
         .scrollContentBackground(.hidden)
@@ -92,36 +90,6 @@ extension ProjectsView {
 #elseif os(macOS)
         return .navigation
 #endif
-    }
-    
-    var projectBarPlacement: ToolbarItemPlacement {
-#if os(iOS)
-        .bottomBar
-#elseif os(macOS)
-        .automatic
-#endif
-    }
-    
-    var projectBar: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2.5) {
-                HStack(spacing: 5) {
-                    ImageView(source: .systemImage("person"), size: 10)
-                    Text("Role")
-                }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                Text("Developer").font(.footnote)
-            }
-            
-            Spacer()
-            
-            if let selectedProject = projects.first(where: { $0.id == selectedId }),
-                let appStoreURL = URL(string: selectedProject.appStoreURLString) {
-                Link("App Store", destination: appStoreURL)
-                    .buttonStyle(.borderedProminent)
-            }
-        }
     }
 }
 
