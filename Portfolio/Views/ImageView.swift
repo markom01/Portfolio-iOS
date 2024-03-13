@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageView: View {
     let source: Source
     let size: CGFloat
-    
+
     var body: some View {
         source.image
             .resizable()
@@ -23,7 +23,7 @@ extension ImageView {
     enum Source {
         case systemImage(String)
         case named(ImageResource)
-        
+
         var image: Image {
             switch self {
             case .systemImage(let string): Image(systemName: string)

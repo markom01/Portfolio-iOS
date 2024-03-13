@@ -10,12 +10,11 @@ import _AVKit_SwiftUI
 
 struct VideoView: View {
     let player: AVPlayer
-    
+
     var body: some View {
         VideoPlayer(player: player).frame(height: 300)
     }
 }
-
 
 #Preview {
     VideoView(

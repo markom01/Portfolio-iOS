@@ -11,7 +11,7 @@ struct LaunchView: View {
     let backgroundColor: Color
     @State var shouldAnimate = false
     @State var isVisible = true
-    
+
     var body: some View {
         VStack {}
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -20,9 +20,7 @@ struct LaunchView: View {
                     source: .named(.launchLogo),
                     size: shouldAnimate ? .topBarLogo : 100
                 )
-#if os(iOS)
-                .padding(.top, UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > 0 ? -5 : 0)
-#elseif os(macOS)
+#if os(macOS)
                 .padding(.top, shouldAnimate ? -42.5 : 0)
 #endif
             }

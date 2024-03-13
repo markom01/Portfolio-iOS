@@ -10,7 +10,7 @@ import SwiftUI
 struct ShareView: View {
     let urlString: String
     let title: String
-    
+
     var body: some View {
         if let appStoreURL = URL(string: urlString) {
             ShareLink(item: appStoreURL) {

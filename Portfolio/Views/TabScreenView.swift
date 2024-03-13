@@ -26,7 +26,7 @@ extension TabScreenView {
         let navigation: Navigation
         let content: AnyView
         let id = UUID()
-        
+
         struct Navigation {
             let title: String
             let tabIcon: String

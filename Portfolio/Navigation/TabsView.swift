@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct TabsView: View {
-    @Environment(\.colorScheme) var colorScheme
     @Binding var appearance: ColorScheme
-    
+
     let tabs: [TabScreenView.Data] = [
         .init(
             navigation: .init(
@@ -30,10 +29,10 @@ struct TabsView: View {
             navigation: .init(
                 title: "About", tabIcon: "person"
             ),
-            content: .init(Text("B"))
+            content: .init(AboutView())
         )
     ]
-    
+
     var body: some View {
         TabView {
             ForEach(tabs) {

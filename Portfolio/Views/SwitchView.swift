@@ -10,7 +10,7 @@ import SwiftUIIntrospect
 
 struct SwitchView: View {
     @Binding var isOn: Bool
-    
+
     var body: some View {
         Toggle("", isOn: $isOn)
         .toggleStyle(.switch)
@@ -20,7 +20,7 @@ struct SwitchView: View {
         .introspect(.toggle, on: .iOS(.v17), customize: setBackgroundImage)
 #endif
     }
-    
+
     #if os(iOS)
     func setBackgroundImage(_ uiSwitch: UISwitch) {
         let backgroundLayer = uiSwitch.layer.sublayers?[0].sublayers?[0]

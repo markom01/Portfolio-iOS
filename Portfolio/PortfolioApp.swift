@@ -21,7 +21,7 @@ struct PortfolioApp: App {
 struct AppView: View {
     @State var appearance: ColorScheme = .dark
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body: some View {
         NavigationStack { TabsView(appearance: $appearance) }
             .overlay {
@@ -51,7 +51,7 @@ extension AppView {
         window.titlebarAppearsTransparent = true
     }
 #endif
-    
+
 #if os(iOS)
     func openWebSheet(_ url: URL) {
         if UIApplication.shared.canOpenURL(url) {
@@ -59,8 +59,12 @@ extension AppView {
             safariVC.modalPresentationStyle = .pageSheet
             safariVC.preferredBarTintColor = appearance == .dark ? .black : .white
             safariVC.preferredControlTintColor = .accent
-            UIApplication.shared.keyWindow?.rootViewController?.present(safariVC, animated: true)
+            UIApplication.window?.rootViewController?.present(safariVC, animated: true)
         }
     }
 #endif
+}
+
+#Preview {
+    AppView()
 }

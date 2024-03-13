@@ -9,12 +9,12 @@ import SwiftUI
 
 struct SectionView<T: View>: View {
     let header: String
-    let isHeaderShown: Bool
+    var isHeaderShown: Bool? = true
     @ViewBuilder let content: T
 
     var body: some View {
         VStack(alignment: .leading, spacing: .medium) {
-            if isHeaderShown {
+            if isHeaderShown ?? true {
                 Text(header)
                     .font(.title2)
                     .fontWeight(.medium)
@@ -29,6 +29,6 @@ struct SectionView<T: View>: View {
         header: "Title",
         isHeaderShown: true
     ) {
-        Text("Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales")
+        Text(Constants.placholderParagraph)
     }
 }

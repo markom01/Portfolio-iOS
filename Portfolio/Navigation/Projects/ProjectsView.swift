@@ -15,13 +15,13 @@ struct ProjectsView: View {
     @State var hoveredId: UUID?
 #endif
     @State var player = AVPlayer()
-    
+
     let projects: [ProjectCardView.Project] = [
         .init(
             name: "Gem + Jewel",
             category: .shopping,
             image: .gemJewel,
-            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            description: Constants.placholderParagraph,
             technologies: [.swiftui, .uikit],
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
             videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
@@ -30,17 +30,18 @@ struct ProjectsView: View {
             name: "Second App",
             category: .shopping,
             image: .launchLogo,
-            description: "Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales",
+            description: Constants.placholderParagraph,
             technologies: [.swiftui, .uikit],
             appStoreURLString: "",
             videoURLString: ""
         )
     ]
-    
+
     var body: some View {
         List(projects) { project in
             if selectedId == nil || selectedId == project.id {
-                ProjectCardView(project: project, selectedId: $selectedId, player: player)
+                ProjectCardView(project: project, selectedId: selectedId, player: player)
+                    .onTapGesture { selectedId = project.id }
 #if os(macOS)
                     .padding(10)
                     .onHover {
