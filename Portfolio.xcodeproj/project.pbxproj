@@ -24,6 +24,7 @@
 		B5903EC92B9DDBEB00B24BFC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903EC82B9DDBEB00B24BFC /* AboutView.swift */; };
 		B5903ECB2B9DDD9E00B24BFC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */; };
 		B5903ECD2B9E1B4700B24BFC /* ScrollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903ECC2B9E1B4700B24BFC /* ScrollManager.swift */; };
+		B5975FA12BA2097200F3B2F4 /* TechSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */; };
 		B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */; };
 		B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */; };
 		B5DC7E202B6918D1001C7EB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC7E1F2B6918D1001C7EB2 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		B5903EC82B9DDBEB00B24BFC /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B5903ECC2B9E1B4700B24BFC /* ScrollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollManager.swift; sourceTree = "<group>"; };
+		B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechSectionView.swift; sourceTree = "<group>"; };
 		B5DC7E162B6918CF001C7EB2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
 		B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
@@ -136,14 +138,8 @@
 		B516028D2B69A2580029A32D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B51602862B69567F0029A32D /* TabScreenView.swift */,
-				B516028E2B69A2680029A32D /* VideoView.swift */,
-				B52E26042B6ACDBF00C399C7 /* SectionView.swift */,
-				B58F43272B6E2EC100EC64AF /* SwitchView.swift */,
-				B578CEC92B70481B00DA3246 /* ImageView.swift */,
-				B58FBAF32B72981900B12C36 /* ShareView.swift */,
-				B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */,
-				B52F53F52BA1D95100050378 /* ScrollStackView.swift */,
+				B5975F9F2BA2087E00F3B2F4 /* Components */,
+				B5975F9E2BA2083900F3B2F4 /* Containers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +167,29 @@
 				B5903EC82B9DDBEB00B24BFC /* AboutView.swift */,
 			);
 			path = About;
+			sourceTree = "<group>";
+		};
+		B5975F9E2BA2083900F3B2F4 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				B51602862B69567F0029A32D /* TabScreenView.swift */,
+				B52F53F52BA1D95100050378 /* ScrollStackView.swift */,
+				B52E26042B6ACDBF00C399C7 /* SectionView.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		B5975F9F2BA2087E00F3B2F4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B516028E2B69A2680029A32D /* VideoView.swift */,
+				B58F43272B6E2EC100EC64AF /* SwitchView.swift */,
+				B578CEC92B70481B00DA3246 /* ImageView.swift */,
+				B58FBAF32B72981900B12C36 /* ShareView.swift */,
+				B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */,
+				B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B5DC7E0D2B6918CF001C7EB2 = {
@@ -401,6 +420,7 @@
 				B52F53F42BA0BE7E00050378 /* UIApplication+Extensions.swift in Sources */,
 				B5903EC92B9DDBEB00B24BFC /* AboutView.swift in Sources */,
 				B5903ECD2B9E1B4700B24BFC /* ScrollManager.swift in Sources */,
+				B5975FA12BA2097200F3B2F4 /* TechSectionView.swift in Sources */,
 				B51602872B69567F0029A32D /* TabScreenView.swift in Sources */,
 				B56E872F2BA0B85800A87147 /* Constants.swift in Sources */,
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,

@@ -21,11 +21,10 @@ struct AboutView: View {
                 alignment: .center
             )
             ScrollStackView(delegate: directionDetector) {
-                ForEach(1...7, id: \.self) { _ in
-                    SectionView(header: "About") {
-                        Text(Constants.placholderParagraph)
-                    }
+                SectionView(header: "About") {
+                    Text(Constants.placholderParagraph)
                 }
+                TechSectionView(technologies: [.swiftui, .uikit])
             }
         }
         .padding()

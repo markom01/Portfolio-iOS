@@ -13,7 +13,6 @@ struct ProjectCardView: View {
     let project: Project
     let selectedId: UUID?
     let player: AVPlayer
-    let scrollPagerManager = ScrollManager.Pager()
 
     var body: some View {
         VStack(alignment: .leading, spacing: selectedId == project.id ? .large : .medium) {
@@ -27,7 +26,7 @@ struct ProjectCardView: View {
             projectButton
             description
             if selectedId == project.id {
-                techStack
+                TechSectionView(technologies: project.technologies, isHeaderShown: selectedId == project.id)
                 preview
             }
         }
@@ -72,22 +71,6 @@ extension ProjectCardView {
         }
     }
 
-    var techStack: SectionView<some View> {
-        SectionView(
-            header: "Tech Stack",
-            isHeaderShown: selectedId == project.id
-        ) {
-            ScrollStackView(axis: .horizontal, delegate: scrollPagerManager) {
-                ForEach(project.technologies) { tech in
-                    VStack {
-                        ImageView(source: .named(tech.image), size: 50)
-                        Text(tech.rawValue).font(.callout)
-                    }
-                }
-            }
-        }
-    }
-
     @ViewBuilder
     var preview: SectionView<VideoView>? {
         if let _ = URL(string: project.videoURLString) {
@@ -117,20 +100,6 @@ extension ProjectCardView {
                 case .shopping: "bag"
                 }
             }
-        }
-
-        enum Tech: String, Identifiable {
-            case swiftui = "SwiftUI"
-            case uikit = "UIKit"
-
-            var image: ImageResource {
-                switch self {
-                case .swiftui: return .gemJewel
-                case .uikit: return .gemJewel
-                }
-            }
-
-            var id: UUID { UUID() }
         }
     }
 }

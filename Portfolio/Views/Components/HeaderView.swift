@@ -30,7 +30,7 @@ struct HeaderView: View {
                     source: .named(image),
                     size: isExpanded ? 100 : 50
                 )
-                VStack(alignment: isExpanded ? .center : .leading, spacing: 5) {
+                VStack(alignment: isExpanded ? .center : .leading, spacing: 0) {
                     headingView
                         .font(isExpanded ? .title : .headline)
                         .fontWeight(.semibold)
@@ -55,7 +55,7 @@ struct HeaderView: View {
 
 #Preview {
     HeaderView(
-        isExpanded: false,
+        isExpanded: true,
         headingView: .init(Text("Heading")),
         subHeadingView: .init(Text("Subheading")),
         image: .gemJewel
