@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TabsView: View {
     @Binding var appearance: ColorScheme
+    @State var selectedTab = 0
 
     let tabs: [TabScreenView.Data] = [
         .init(
@@ -34,9 +35,9 @@ struct TabsView: View {
     ]
 
     var body: some View {
-        TabView {
-            ForEach(tabs) {
-                TabScreenView(data: $0)
+        TabView(selection: $selectedTab) {
+            ForEach(Array(tabs.enumerated()), id: \.element.id) {
+                TabScreenView(data: $1).tag($0)
             }
         }
 #if os(iOS)
@@ -46,7 +47,11 @@ struct TabsView: View {
         .padding()
 #endif
         .toolbar {
-            ToolbarItem(placement: .principal) { ImageView(source: .named(.launchLogo), size: .topBarLogo) }
+            ToolbarItem(placement: .principal) {
+                if selectedTab != 2 {
+                    ImageView(source: .named(.launchLogo), size: .topBarLogo)
+                }
+            }
 #if os(iOS)
          ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
 #endif

@@ -77,19 +77,14 @@ extension ProjectCardView {
             header: "Tech Stack",
             isHeaderShown: selectedId == project.id
         ) {
-            ScrollView(.horizontal) {
-                HStack(spacing: .medium) {
-                    ForEach(project.technologies) { tech in
-                        VStack {
-                            ImageView(source: .named(tech.image), size: 50)
-                            Text(tech.rawValue).font(.callout)
-                        }
+            ScrollStackView(axis: .horizontal, delegate: scrollPagerManager) {
+                ForEach(project.technologies) { tech in
+                    VStack {
+                        ImageView(source: .named(tech.image), size: 50)
+                        Text(tech.rawValue).font(.callout)
                     }
                 }
             }
-            .introspect(.scrollView, on: .iOS(.v17)) { $0.delegate = scrollPagerManager }
-            .scrollIndicators(.hidden)
-            .scrollBounceBehavior(.basedOnSize)
         }
     }
 

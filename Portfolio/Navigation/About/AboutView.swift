@@ -17,20 +17,16 @@ struct AboutView: View {
                 isExpanded: directionDetector.isScrolledUp,
                 headingView: .init(Text("Marko Meseldžija")),
                 subHeadingView: .init(Text("iOS Developer")),
-                image: .launchLogo
+                image: .launchLogo,
+                alignment: .center
             )
-            ScrollView {
+            ScrollStackView(delegate: directionDetector) {
                 ForEach(1...7, id: \.self) { _ in
                     SectionView(header: "About") {
                         Text(Constants.placholderParagraph)
                     }
                 }
             }
-            .introspect(.scrollView, on: .iOS(.v17)) {
-                $0.delegate = directionDetector
-                $0.bounces = false
-            }
-            .scrollIndicators(.hidden)
         }
         .padding()
     }

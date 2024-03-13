@@ -9,7 +9,7 @@ import SwiftUI
 
 class ScrollManager {
     class DirectionDetector: NSObject, ObservableObject, UIScrollViewDelegate {
-        @Published var isScrolledUp: Bool = false
+        @Published var isScrolledUp: Bool = true
 
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             DispatchQueue.main.async { [self] in

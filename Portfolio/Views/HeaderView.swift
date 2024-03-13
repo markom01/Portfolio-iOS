@@ -12,6 +12,7 @@ struct HeaderView: View {
     let headingView: AnyView
     let subHeadingView: AnyView
     let image: ImageResource
+    var alignment: HorizontalAlignment? = .leading
     var rightImage: String?
 
     var body: some View {
@@ -20,7 +21,7 @@ struct HeaderView: View {
         : AnyLayout(HStackLayout(alignment: .bottom, spacing: .small))
 
         return HStack {
-            if isExpanded {
+            if isExpanded || alignment == .center {
                 Spacer()
             }
 
@@ -54,7 +55,7 @@ struct HeaderView: View {
 
 #Preview {
     HeaderView(
-        isExpanded: true,
+        isExpanded: false,
         headingView: .init(Text("Heading")),
         subHeadingView: .init(Text("Subheading")),
         image: .gemJewel
