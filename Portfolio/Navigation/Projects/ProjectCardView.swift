@@ -81,29 +81,6 @@ extension ProjectCardView {
     }
 }
 
-extension ProjectCardView {
-    struct Project: Identifiable {
-        let name: String
-        let category: Category
-        let image: ImageResource
-        let description: String
-        let technologies: [Tech]
-        let appStoreURLString: String
-        let videoURLString: String
-        let id = UUID()
-
-        enum Category: String {
-            case shopping
-
-            var icon: String {
-                switch self {
-                case .shopping: "bag"
-                }
-            }
-        }
-    }
-}
-
 #Preview {
     ProjectCardView(
         project: .init(

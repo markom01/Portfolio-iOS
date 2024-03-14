@@ -16,7 +16,7 @@ struct ProjectsView: View {
 #endif
     @State var player = AVPlayer()
 
-    let projects: [ProjectCardView.Project] = [
+    let projects: [Project] = [
         .init(
             name: "Gem + Jewel",
             category: .shopping,

@@ -18,14 +18,22 @@ struct TabsView: View {
             ),
             content: .init(ProjectsView())
         ),
-        .init(
-            navigation: .init(
-                title: "Skills", tabIcon: "star"
-            ),
-            content: .init(
-                List { Text("Skills") }
-            )
-        ),
+//        .init(
+//            navigation: .init(
+//                title: "Skills", tabIcon: "star"
+//            ),
+//            content: .init(
+//                Text("Skills")
+//            )
+//        ),
+//        .init(
+//            navigation: .init(
+//                title: "Experience", tabIcon: "suitcase"
+//            ),
+//            content: .init(
+//               Text("Experience")
+//            )
+//        ),
         .init(
             navigation: .init(
                 title: "About", tabIcon: "person"
@@ -48,7 +56,7 @@ struct TabsView: View {
 #endif
         .toolbar {
             ToolbarItem(placement: .principal) {
-                if selectedTab != 2 {
+                if selectedTab != tabs.count - 1 {
                     ImageView(source: .named(.launchLogo), size: .topBarLogo)
                 }
             }

@@ -26,3 +26,34 @@ enum Tech: String, Identifiable {
 
     var id: UUID { UUID() }
 }
+
+struct Project: Identifiable {
+    let name: String
+    let category: Category
+    let image: ImageResource
+    let description: String
+    let technologies: [Tech]
+    let appStoreURLString: String
+    let videoURLString: String
+    let id = UUID()
+
+    enum Category: String {
+        case shopping
+
+        var icon: String {
+            switch self {
+            case .shopping: "bag"
+            }
+        }
+    }
+}
+
+enum Company: String {
+    case hyperEther = "HyperEther"
+
+    var imageURLString: String {
+        switch self {
+        case .hyperEther: "https://markom.netlify.app/static/8aa696cf7b52831460283d61d54c0c1f/logo.png"
+        }
+    }
+}
