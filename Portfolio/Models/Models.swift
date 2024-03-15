@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  Models.swift
 //  Portfolio
 //
 //  Created by Marko Meseldzija on 12.3.24..
@@ -11,6 +11,11 @@ struct Constants {
     static let placholderParagraph = """
     Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales.
     """
+    static let experience: Experience = .init(
+        company: .hyperEther,
+        start: .init(string: "2.2023"),
+        end: Date()
+    )
 }
 
 enum Tech: String, Identifiable {
@@ -53,7 +58,16 @@ enum Company: String {
 
     var imageURLString: String {
         switch self {
-        case .hyperEther: "https://markom.netlify.app/static/8aa696cf7b52831460283d61d54c0c1f/logo.png"
+        case .hyperEther: "https://www.hyperether.com/assets/public/assets/images/logo.png"
         }
     }
+}
+
+struct Experience {
+    let title: String = "iOS Developer"
+    let company: Company
+    let start: Date
+    let end: Date
+//        let projects: [Project]
+//        let tech: [Tech]
 }

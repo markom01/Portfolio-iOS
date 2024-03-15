@@ -10,7 +10,6 @@ import SwiftUIIntrospect
 
 struct AboutView: View {
     @ObservedObject var directionDetector = ScrollManager.DirectionDetector()
-    let experience: Experience = .init(company: .hyperEther)
 
     var body: some View {
         VStack(spacing: .medium) {
@@ -27,20 +26,11 @@ struct AboutView: View {
                 }
                 TechSectionView(technologies: [.swiftui, .uikit])
                 SectionView(header: "Experience") {
-                    AsyncImageView(urlString: experience.company.imageURLString)
+                    ExperienceView(experience: Constants.experience)
                 }
             }
         }
         .padding()
-    }
-
-    struct Experience {
-        let title: String = "iOS Developer"
-        let company: Company
-//        let start: Date
-//        let end: Date
-//        let projects: [Project]
-//        let tech: [Tech]
     }
 }
 

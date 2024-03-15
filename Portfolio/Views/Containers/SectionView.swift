@@ -19,7 +19,9 @@ struct SectionView<T: View>: View {
                     .font(.title2)
                     .fontWeight(.medium)
             }
-            content.foregroundStyle(.secondary)
+            content
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
