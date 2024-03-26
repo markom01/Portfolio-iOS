@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 class ScrollManager {
     class DirectionDetector: NSObject, ObservableObject, UIScrollViewDelegate {
         @Published var isScrolledUp: Bool = true
@@ -21,9 +22,16 @@ class ScrollManager {
     }
 
     class Pager: NSObject, UIScrollViewDelegate {
+        let pageWidth: CGFloat
+
+        init(pageWidth: CGFloat) {
+            self.pageWidth = pageWidth
+        }
+
         func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-            let page = round(targetContentOffset.pointee.x / 70)
-            targetContentOffset.pointee.x = page * 70
+            let page = round(targetContentOffset.pointee.x / 100)
+            targetContentOffset.pointee.x = page * 100
         }
     }
 }
+#endif

@@ -10,23 +10,27 @@ import SwiftUI
 struct ScrollStackView<T: View>: View {
     var axis: Axis.Set = .vertical
     var spacing: CGFloat = .medium
+#if os(iOS)
     var delegate: UIScrollViewDelegate?
+#endif
     @ViewBuilder let content: T
 
     var body: some View {
         let layout: AnyLayout = axis == .horizontal
-        ? .init(HStackLayout(spacing: .medium))
-        : .init(VStackLayout(spacing: .medium))
+        ? .init(HStackLayout(spacing: spacing))
+        : .init(VStackLayout(spacing: spacing))
 
         ScrollView(axis) {
             layout {
                 content
             }
         }
+#if os(iOS)
         .introspect(.scrollView, on: .iOS(.v17)) {
             $0.delegate = delegate
             $0.bounces = false
         }
+#endif
         .scrollIndicators(.hidden)
     }
 }

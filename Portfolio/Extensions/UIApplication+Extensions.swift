@@ -5,6 +5,7 @@
 //  Created by Marko Meseldzija on 12.3.24..
 //
 
+#if os(iOS)
 import UIKit
 
 extension UIApplication {
@@ -16,3 +17,4 @@ extension UIApplication {
         .last
     }
 }
+#endif

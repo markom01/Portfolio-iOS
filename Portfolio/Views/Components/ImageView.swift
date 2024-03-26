@@ -32,13 +32,13 @@ struct ImageView: View {
 
 extension ImageView {
     enum Source {
-        case systemImage(String)
+        case system(String)
         case named(ImageResource)
         case url(String)
 
         var image: Image? {
             switch self {
-            case .systemImage(let string): Image(systemName: string)
+            case .system(let string): Image(systemName: string)
             case .named(let imageResource): Image(imageResource)
             case .url: nil
             }

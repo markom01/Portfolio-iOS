@@ -20,7 +20,7 @@ struct ProjectCardView: View {
                 isExpanded: selectedId == project.id,
                 headingView: .init(Text(project.name)),
                 subHeadingView: .init(subheadingView),
-                image: project.image,
+                imageSource: .named(project.image),
                 rightImage: "chevron.right"
             )
             projectButton
@@ -37,14 +37,15 @@ struct ProjectCardView: View {
 
 // MARK: Views
 extension ProjectCardView {
-    @ViewBuilder
     var subheadingView: some View {
-        if selectedId != project.id {
-            Image(systemName: project.category.icon)
-        }
-        Text(project.category.rawValue.capitalized)
-        if selectedId == project.id {
-            Text("App")
+        HStack(spacing: .xSmall) {
+            if selectedId != project.id {
+                Image(systemName: project.category.icon)
+            }
+            Text(project.category.rawValue.capitalized)
+            if selectedId == project.id {
+                Text("App")
+            }
         }
     }
 

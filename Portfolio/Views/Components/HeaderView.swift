@@ -11,7 +11,7 @@ struct HeaderView: View {
     let isExpanded: Bool
     let headingView: AnyView
     let subHeadingView: AnyView
-    let image: ImageResource
+    let imageSource: ImageView.Source
     var alignment: HorizontalAlignment? = .leading
     var rightImage: String?
 
@@ -27,18 +27,17 @@ struct HeaderView: View {
 
             layout {
                 ImageView(
-                    source: .named(image),
+                    source: imageSource,
                     size: isExpanded ? 100 : 50
                 )
-                VStack(alignment: isExpanded ? .center : .leading, spacing: 0) {
+                VStack(alignment: isExpanded ? .center : .leading) {
                     headingView
                         .font(isExpanded ? .title : .headline)
                         .fontWeight(.semibold)
-                    HStack(spacing: 5) {
-                        subHeadingView
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
+                        .foregroundStyle(.primary)
+                    subHeadingView
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             }
 
@@ -55,9 +54,9 @@ struct HeaderView: View {
 
 #Preview {
     HeaderView(
-        isExpanded: true,
+        isExpanded: false,
         headingView: .init(Text("Heading")),
         subHeadingView: .init(Text("Subheading")),
-        image: .gemJewel
+        imageSource: .named(.gemJewel)
     )
 }

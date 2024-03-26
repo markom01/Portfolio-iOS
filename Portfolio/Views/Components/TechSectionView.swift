@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct TechSectionView: View {
-    let scrollPagerManager = ScrollManager.Pager()
     let technologies: [Tech]
     var isHeaderShown: Bool = true
 
-    var body: SectionView<ScrollStackView<some View>> {
+    var body: SectionView<some View> {
         SectionView(
             header: "Tech Stack",
             isHeaderShown: isHeaderShown
         ) {
-            ScrollStackView(axis: .horizontal, delegate: scrollPagerManager) {
+            ScrollStackView(axis: .horizontal) {
                 ForEach(technologies) { tech in
                     VStack {
-                        ImageView(source: .named(tech.image), size: 50)
-                        Text(tech.rawValue).font(.callout)
+                        Button {} label: {
+                            Text(tech.rawValue)
+                                .font(.callout)
+                                .lineLimit(1)
+                        }
+                            .buttonStyle(.bordered)
+                            .allowsHitTesting(false)
                     }
                 }
             }
@@ -30,5 +34,5 @@ struct TechSectionView: View {
 }
 
 #Preview {
-    TechSectionView(technologies: [.swiftui, .uikit])
+    TechSectionView(technologies: Constants.technologies)
 }
