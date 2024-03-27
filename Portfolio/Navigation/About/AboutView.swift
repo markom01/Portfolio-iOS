@@ -12,6 +12,7 @@ struct AboutView: View {
 #if os(iOS)
     @ObservedObject var directionDetector = ScrollManager.DirectionDetector()
 #endif
+    @State var selectedExperienceId: UUID?
 
     var body: some View {
         VStack(spacing: .large) {
@@ -26,26 +27,36 @@ struct AboutView: View {
 #endif
         }
         .padding()
+        .animation(.smooth, value: selectedExperienceId)
+        .backButton($selectedExperienceId)
     }
 
-    var header: HeaderView {
-        HeaderView(
-            isExpanded: isExpanded,
-            headingView: .init(Text("Marko Meseldžija")),
-            subHeadingView: .init(Text("iOS Developer")),
-            imageSource: .named(.launchLogo),
-            alignment: .center
-        )
+    @ViewBuilder
+    var header: HeaderView? {
+        if selectedExperienceId == nil {
+            HeaderView(
+                isExpanded: isExpanded,
+                headingView: .init(Text("Marko Meseldžija")),
+                subHeadingView: .init(Text("iOS Developer")),
+                imageSource: .named(.launchLogo),
+                alignment: .center
+            )
+        }
     }
 
     @ViewBuilder
     var aboutSection: some View {
-        SectionView(header: "About") {
-            Text(Constants.placholderParagraph)
+        if selectedExperienceId == nil {
+            SectionView(header: "About") {
+                Text(Constants.placholderParagraph)
+            }
+            TechSectionView(technologies: Constants.technologies)
         }
-        TechSectionView(technologies: Constants.technologies)
-        SectionView(header: "Experience") {
-            ExperiencesView(experiences: Constants.experiences)
+        SectionView(header: "Experience", isHeaderShown: selectedExperienceId == nil) {
+            ExperiencesView(
+                experiences: Constants.experiences,
+                selectedExperienceId: $selectedExperienceId
+            )
         }
     }
 }

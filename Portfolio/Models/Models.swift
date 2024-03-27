@@ -27,6 +27,14 @@ struct Constants {
     ]
 
     static let technologies: [Tech] = [.swiftui, .uikit, .swiftui, .uikit, .uikit, .swiftui, .swiftui, .swiftui]
+
+    static var backPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        return .topBarLeading
+#elseif os(macOS)
+        return .navigation
+#endif
+    }
 }
 
 enum Tech: String, Identifiable {
@@ -60,10 +68,24 @@ enum Company: String {
     case hyperEther = "HyperEther"
     case freelance
 
-    var imageURLString: String {
+    var logo: ImageView.Source {
         switch self {
-        case .hyperEther: "https://www.hyperether.com/assets/public/assets/images/logo.png"
-        case .freelance: "https://markom.netlify.app/static/855302e40d961b41803ea6e11e7d25da/Logo.svg"
+        case .hyperEther: .url("https://www.hyperether.com/assets/public/assets/images/logo.png")
+        case .freelance: .named(.freelance)
+        }
+    }
+
+    var technologies: [Tech] {
+        switch self {
+        case .hyperEther: Constants.technologies
+        case .freelance: Constants.technologies
+        }
+    }
+
+    var about: String {
+        switch self {
+        case .hyperEther: Constants.placholderParagraph
+        case .freelance: Constants.placholderParagraph
         }
     }
 }

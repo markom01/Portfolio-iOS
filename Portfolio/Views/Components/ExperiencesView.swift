@@ -9,19 +9,27 @@ import SwiftUI
 
 struct ExperiencesView: View {
     let experiences: [Experience]
-    @State var isExpanded = false
+    @Binding var selectedExperienceId: UUID?
 
     var body: some View {
-        ForEach(experiences) {
-            HeaderView(
-                isExpanded: isExpanded,
-                headingView: .init(Text($0.company.rawValue.capitalized)),
-                subHeadingView: .init(subHeading($0)),
-                imageSource: .url($0.company.imageURLString)
-            )
-            .onTapGesture { isExpanded.toggle() }
+        ForEach(experiences) { experience in
+            if selectedExperienceId == nil || selectedExperienceId == experience.id {
+                VStack(spacing: .large) {
+                    HeaderView(
+                        isExpanded: selectedExperienceId == experience.id,
+                        headingView: .init(Text(experience.company.rawValue.capitalized)),
+                        subHeadingView: .init(subHeading(experience)),
+                        imageSource: experience.company.logo
+                    )
+                    .onTapGesture { selectedExperienceId = experience.id }
+                    if selectedExperienceId == experience.id {
+                        SectionView(header: "About") { Text(experience.company.about) }
+                        TechSectionView(technologies: experience.company.technologies)
+//                        SectionView(header: "Projects") {}
+                    }
+                }
+            }
         }
-        .animation(.smooth, value: isExpanded)
     }
 
     @ViewBuilder
@@ -35,5 +43,5 @@ struct ExperiencesView: View {
 }
 
 #Preview {
-    ExperiencesView(experiences: Constants.experiences)
+    ExperiencesView(experiences: Constants.experiences, selectedExperienceId: .constant(nil))
 }

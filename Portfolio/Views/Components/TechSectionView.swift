@@ -16,7 +16,7 @@ struct TechSectionView: View {
             header: "Tech Stack",
             isHeaderShown: isHeaderShown
         ) {
-            ScrollStackView(axis: .horizontal) {
+            ScrollStackView(axis: .horizontal, spacing: .small) {
                 ForEach(technologies) { tech in
                     VStack {
                         Button {} label: {

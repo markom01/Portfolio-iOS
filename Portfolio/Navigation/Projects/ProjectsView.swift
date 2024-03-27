@@ -56,15 +56,8 @@ struct ProjectsView: View {
             }
         }
         .onChange(of: selectedId, loadProjectVideo)
-        .toolbar {
-            if selectedId != nil {
-                ToolbarItem { Spacer() }
-                ToolbarItem(placement: backPlacement) {
-                    Button("", systemImage: "chevron.left") { selectedId = nil }
-                }
-            }
-        }
-#if os(iOS)
+        .backButton($selectedId)
+        #if os(iOS)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
 #elseif os(macOS)
         .scrollContentBackground(.hidden)
@@ -80,17 +73,6 @@ struct ProjectsView: View {
         .animation(.linear(duration: 0.75), value: hoveredId)
 #endif
         .animation(.default, value: selectedId)
-    }
-}
-
-// MARK: Toolbar
-extension ProjectsView {
-    var backPlacement: ToolbarItemPlacement {
-#if os(iOS)
-        return .topBarLeading
-#elseif os(macOS)
-        return .navigation
-#endif
     }
 }
 
