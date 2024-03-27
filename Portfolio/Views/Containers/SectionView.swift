@@ -18,7 +18,7 @@ struct SectionView<T: View>: View {
                 Text(header)
                     .font(.title2)
                     .fontWeight(.medium)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
             }
             content
                 .foregroundStyle(.secondary)

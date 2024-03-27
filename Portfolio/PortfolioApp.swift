@@ -32,17 +32,24 @@ struct AppView: View {
             .background(.ultraThinMaterial)
             .onAppear(perform: setupWindow)
 #elseif os(iOS)
+            .onAppear(perform: setupTheme)
             .environment(\.colorScheme, appearance == .dark ? .dark : .light)
             .environment(\.openURL, OpenURLAction { url in
                 openWebSheet(url)
                 return .handled
             })
+            .onChange(of: appearance, setupTheme)
             .animation(.linear(duration: 0.3), value: appearance)
 #endif
     }
 }
 
 extension AppView {
+    func setupTheme() {
+        UIApplication.window?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
+        UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
+    }
+
 #if os(macOS)
     func setupWindow() {
         guard let window = NSApplication.shared.windows.first else { return }

@@ -15,10 +15,12 @@ struct ShareView: View {
         if let appStoreURL = URL(string: urlString) {
             ShareLink(item: appStoreURL) {
                 HStack {
-                    Image(systemName: "square.and.arrow.up").foregroundStyle(.white)
+                    Image(systemName: "square.and.arrow.up")
                     Text(title)
                 }
-            }.buttonStyle(.borderedProminent)
+            }
+            .buttonStyle(.borderedProminent)
+            .foregroundStyle(.primary)
         }
     }
 }

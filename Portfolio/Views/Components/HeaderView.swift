@@ -18,7 +18,7 @@ struct HeaderView: View {
     var body: some View {
         let layout = isExpanded
         ? AnyLayout(VStackLayout(spacing: .small))
-        : AnyLayout(HStackLayout(alignment: .bottom, spacing: .small))
+        : AnyLayout(HStackLayout(spacing: .small))
 
         return HStack {
             if isExpanded || alignment == .center {
@@ -28,7 +28,7 @@ struct HeaderView: View {
             layout {
                 ImageView(
                     source: imageSource,
-                    size: isExpanded ? 100 : 50
+                    size: isExpanded ? 100 : 35
                 )
                 VStack(alignment: isExpanded ? .center : .leading) {
                     headingView

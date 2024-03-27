@@ -41,6 +41,13 @@ enum Tech: String, Identifiable {
     case swiftui = "SwiftUI"
     case uikit = "UIKit"
     var id: UUID { UUID() }
+
+    var url: String {
+        switch self {
+        case .swiftui: "https://developer.apple.com/xcode/swiftui"
+        case .uikit: "https://developer.apple.com/documentation/uikit#overview"
+        }
+    }
 }
 
 struct Project: Identifiable {

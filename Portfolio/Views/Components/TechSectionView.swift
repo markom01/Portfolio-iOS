@@ -19,13 +19,14 @@ struct TechSectionView: View {
             ScrollStackView(axis: .horizontal, spacing: .small) {
                 ForEach(technologies) { tech in
                     VStack {
-                        Button {} label: {
-                            Text(tech.rawValue)
-                                .font(.callout)
-                                .lineLimit(1)
-                        }
+                        if let url = URL(string: tech.url) {
+                            Link(destination: url) {
+                                Text(tech.rawValue)
+                                    .font(.callout)
+                                    .lineLimit(1)
+                            }
                             .buttonStyle(.bordered)
-                            .allowsHitTesting(false)
+                        }
                     }
                 }
             }
