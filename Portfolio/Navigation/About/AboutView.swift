@@ -50,7 +50,8 @@ struct AboutView: View {
             SectionView(header: "About") {
                 Text(Constants.placholderParagraph)
             }
-            TechSectionView(technologies: Constants.technologies)
+            TechSectionView(title: "Tech Stack", technologies: Constants.technologies)
+            TechSectionView(title: "Architechtures", technologies: Constants.architechtures)
         }
         SectionView(header: "Experience", isHeaderShown: selectedExperienceId == nil) {
             ExperiencesView(

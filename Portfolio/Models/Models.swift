@@ -16,17 +16,20 @@ struct Constants {
             company: .hyperEther,
             start: .init(string: "2.2023"),
             end: Date(),
-            tech: technologies
+            tech: technologies,
+            architechtures: [.mvvm]
         ),
         .init(
             company: .freelance,
             start: .init(string: "5.2023"),
             end: Date(),
-            tech: technologies
+            tech: technologies,
+            architechtures: [.mvvm]
         )
     ]
 
     static let technologies: [Tech] = [.swiftui, .uikit, .swiftui, .uikit, .uikit, .swiftui, .swiftui, .swiftui]
+    static let architechtures: [Tech] = [.mvvm]
 
     static var backPlacement: ToolbarItemPlacement {
 #if os(iOS)
@@ -40,12 +43,14 @@ struct Constants {
 enum Tech: String, Identifiable {
     case swiftui = "SwiftUI"
     case uikit = "UIKit"
+    case mvvm = "MVVM"
     var id: UUID { UUID() }
 
-    var url: String {
+    var url: String? {
         switch self {
         case .swiftui: "https://developer.apple.com/xcode/swiftui"
         case .uikit: "https://developer.apple.com/documentation/uikit#overview"
+        case .mvvm: nil
         }
     }
 }
@@ -89,6 +94,13 @@ enum Company: String {
         }
     }
 
+    var architechtures: [Tech] {
+        switch self {
+        case .hyperEther: Constants.architechtures
+        case .freelance: Constants.architechtures
+        }
+    }
+
     var about: String {
         switch self {
         case .hyperEther: Constants.placholderParagraph
@@ -104,6 +116,7 @@ struct Experience: Identifiable {
     let end: Date
 //        let projects: [Project]
     let tech: [Tech]
+    let architechtures: [Tech]
     let id = UUID()
 }
 

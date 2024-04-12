@@ -26,7 +26,7 @@ struct ProjectCardView: View {
             projectButton
             description
             if selectedId == project.id {
-                TechSectionView(technologies: project.technologies, isHeaderShown: selectedId == project.id)
+                TechSectionView(title: "Tech Stack", technologies: project.technologies, isHeaderShown: selectedId == project.id)
                 preview
             }
         }

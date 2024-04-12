@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct TechSectionView: View {
+    let title: String
     let technologies: [Tech]
     var isHeaderShown: Bool = true
 
     var body: SectionView<some View> {
         SectionView(
-            header: "Tech Stack",
+            header: title,
             isHeaderShown: isHeaderShown
         ) {
             ScrollStackView(axis: .horizontal, spacing: .small) {
                 ForEach(technologies) { tech in
                     VStack {
-                        if let url = URL(string: tech.url) {
+                        if let urlString = tech.url, let url = URL(string: urlString) {
                             Link(destination: url) {
                                 Text(tech.rawValue)
-                                    .font(.callout)
-                                    .lineLimit(1)
                             }
-                            .buttonStyle(.bordered)
+                        } else {
+                            Button {} label: {
+                                Text(tech.rawValue)
+                            }
+                            .allowsHitTesting(false)
                         }
                     }
+                    .font(.callout)
+                    .lineLimit(1)
+                    .buttonStyle(.bordered)
                 }
             }
         }
@@ -35,5 +41,5 @@ struct TechSectionView: View {
 }
 
 #Preview {
-    TechSectionView(technologies: Constants.technologies)
+    TechSectionView(title: "Tech stack", technologies: Constants.technologies)
 }
