@@ -28,6 +28,7 @@ struct ExperiencesView: View {
 //                        SectionView(header: "Projects") {}
                     }
                 }
+                .id(experience.id)
             }
         }
     }

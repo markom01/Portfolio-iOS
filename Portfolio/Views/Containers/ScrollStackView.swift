@@ -10,6 +10,7 @@ import SwiftUI
 struct ScrollStackView<T: View>: View {
     var axis: Axis.Set = .vertical
     var spacing: CGFloat = .medium
+    var selectedId: UUID?
 #if os(iOS)
     var delegate: UIScrollViewDelegate?
 #endif
@@ -20,32 +21,45 @@ struct ScrollStackView<T: View>: View {
         ? .init(HStackLayout(spacing: spacing))
         : .init(VStackLayout(spacing: spacing))
 
-        ScrollView(axis) {
-            layout {
-                content
+        ScrollViewReader { proxy in
+            ScrollView(axis) {
+                layout {
+                    content
+                }
+            }
+#if os(iOS)
+            .introspect(.scrollView, on: .iOS(.v17)) {
+                $0.delegate = delegate
+                $0.bounces = false
+            }
+#endif
+            .scrollIndicators(.hidden)
+            .onChange(of: selectedId) {
+                withAnimation {
+                    proxy.scrollTo(selectedId, anchor: .top)
+                }
             }
         }
-#if os(iOS)
-        .introspect(.scrollView, on: .iOS(.v17)) {
-            $0.delegate = delegate
-            $0.bounces = false
-        }
-#endif
-        .scrollIndicators(.hidden)
     }
 }
 
-extension ScrollStackView {
-    struct IdentifiableData: Identifiable {
-        let entry: Any
-        let id = UUID()
+struct ScrollStackDemo: View {
+    @State var selectedId: UUID?
+    let data: [IdentifiableData] = Array(1...30).map { .init(entry: "\($0)") }
+
+    var body: some View {
+        ScrollStackView(axis: .vertical, selectedId: selectedId) {
+            ForEach(data) { dataEntry in
+                Text(dataEntry.entry)
+                    .id(dataEntry.id)
+                    .onTapGesture {
+                        selectedId = dataEntry.id
+                    }
+            }
+        }
     }
 }
 
 #Preview {
-    ScrollStackView(axis: .horizontal) {
-        ForEach(1...10, id: \.self) {
-            Text("\($0)")
-        }
-    }
+    ScrollStackDemo()
 }

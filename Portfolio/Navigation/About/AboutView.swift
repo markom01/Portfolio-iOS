@@ -18,9 +18,9 @@ struct AboutView: View {
         VStack(spacing: .large) {
 #if os(iOS)
             header
-            ScrollStackView(spacing: .large, delegate: directionDetector) { aboutSection }
+            ScrollStackView(spacing: .large, selectedId: selectedExperienceId, delegate: directionDetector) { aboutSection }
 #elseif os(macOS)
-            ScrollStackView(spacing: .large) {
+            ScrollStackView(spacing: .large, selectedId: selectedExperienceId) {
                 header
                 aboutSection
             }

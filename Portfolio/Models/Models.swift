@@ -106,3 +106,8 @@ struct Experience: Identifiable {
     let tech: [Tech]
     let id = UUID()
 }
+
+struct IdentifiableData: Identifiable {
+    let entry: String
+    let id = UUID()
+}
