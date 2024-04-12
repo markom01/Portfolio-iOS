@@ -45,40 +45,14 @@ struct TabsView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             ForEach(Array(tabs.enumerated()), id: \.element.id) {
-                TabScreenView(data: $1).tag($0)
+                TabScreenView(data: $1, appearance: $appearance).tag($0)
             }
         }
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(.visible, for: .navigationBar)
-#elseif os(macOS)
+        .onChange(of: selectedTab) { print(selectedTab) }
+#if os(macOS)
         .padding()
 #endif
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                if selectedTab != tabs.count - 1 {
-                    ImageView(source: .named(.launchLogo), size: .topBarLogo)
-                }
-            }
-#if os(iOS)
-         ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
-#endif
-        }
     }
-}
-
-// MARK: Views
-extension TabsView {
-#if os(iOS)
-    var navigationBarRightItem: some View {
-        SwitchView(
-            isOn: Binding(
-                get: { appearance == .dark },
-                set: { appearance = $0 ? .dark : .light }
-            )
-        )
-    }
-#endif
 }
 
 #Preview {

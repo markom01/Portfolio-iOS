@@ -9,16 +9,38 @@ import SwiftUI
 
 struct TabScreenView: View {
     let data: Data
+    @Binding var appearance: ColorScheme
 
     var body: some View {
-        data.content
-            .tabItem {
-                Label(data.navigation.title, systemImage: data.navigation.tabIcon)
-            }
+        NavigationStack {
+            data.content
 #if os(iOS)
-            .toolbarBackground(.visible, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
+                }
 #endif
+        }
+        .tabItem {
+            Label(data.navigation.title, systemImage: data.navigation.tabIcon)
+        }
     }
+}
+
+// MARK: Views
+extension TabScreenView {
+#if os(iOS)
+    var navigationBarRightItem: some View {
+        SwitchView(
+            isOn: Binding(
+                get: { appearance == .dark },
+                set: { appearance = $0 ? .dark : .light }
+            )
+        )
+    }
+#endif
 }
 
 extension TabScreenView {
@@ -41,6 +63,7 @@ extension TabScreenView {
                 title: "Title", tabIcon: "placeholdertext.fill"
             ),
             content: .init(Text("Content"))
-        )
+        ),
+        appearance: .constant(.dark)
     )
 }

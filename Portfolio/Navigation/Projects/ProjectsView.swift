@@ -57,8 +57,14 @@ struct ProjectsView: View {
         }
         .onChange(of: selectedId, loadProjectVideo)
         .backButton($selectedId)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                ImageView(source: .named(.launchLogo), size: .topBarLogo)
+            }
+        }
         #if os(iOS)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
+
 #elseif os(macOS)
         .scrollContentBackground(.hidden)
         .listStyle(.sidebar)

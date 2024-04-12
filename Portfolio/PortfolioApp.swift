@@ -23,7 +23,7 @@ struct AppView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        NavigationStack { TabsView(appearance: $appearance) }
+        TabsView(appearance: $appearance)
             .overlay {
                 LaunchView(
                     backgroundColor: appearance == .dark ? .black : .white)
@@ -45,11 +45,6 @@ struct AppView: View {
 }
 
 extension AppView {
-    func setupTheme() {
-        UIApplication.window?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
-        UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
-    }
-
 #if os(macOS)
     func setupWindow() {
         guard let window = NSApplication.shared.windows.first else { return }
@@ -57,9 +52,12 @@ extension AppView {
         window.backgroundColor = .clear
         window.titlebarAppearsTransparent = true
     }
-#endif
+#elseif os(iOS)
+    func setupTheme() {
+        UIApplication.window?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
+        UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = appearance == .dark ? .dark : .light
+    }
 
-#if os(iOS)
     func openWebSheet(_ url: URL) {
         if UIApplication.shared.canOpenURL(url) {
             let safariVC = SFSafariViewController(url: url)
