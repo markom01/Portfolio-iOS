@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct TabsView: View {
-    @Binding var appearance: ColorScheme
-    @State var selectedTab = 0
-
     let tabs: [TabScreenView.Data] = [
         .init(
             navigation: .init(
@@ -43,12 +40,11 @@ struct TabsView: View {
     ]
 
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView {
             ForEach(Array(tabs.enumerated()), id: \.element.id) {
-                TabScreenView(data: $1, appearance: $appearance).tag($0)
+                TabScreenView(data: $1).tag($0)
             }
         }
-        .onChange(of: selectedTab) { print(selectedTab) }
 #if os(macOS)
         .padding()
 #endif
@@ -56,5 +52,5 @@ struct TabsView: View {
 }
 
 #Preview {
-    TabsView(appearance: .constant(.dark))
+    TabsView()
 }

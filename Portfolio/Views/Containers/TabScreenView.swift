@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabScreenView: View {
     let data: Data
-    @Binding var appearance: ColorScheme
+    @AppStorage("isDarkMode") var isDarkMode = true
 
     var body: some View {
         NavigationStack {
@@ -33,12 +33,7 @@ struct TabScreenView: View {
 extension TabScreenView {
 #if os(iOS)
     var navigationBarRightItem: some View {
-        SwitchView(
-            isOn: Binding(
-                get: { appearance == .dark },
-                set: { appearance = $0 ? .dark : .light }
-            )
-        )
+        SwitchView(isOn: $isDarkMode)
     }
 #endif
 }
@@ -63,7 +58,6 @@ extension TabScreenView {
                 title: "Title", tabIcon: "placeholdertext.fill"
             ),
             content: .init(Text("Content"))
-        ),
-        appearance: .constant(.dark)
+        )
     )
 }
