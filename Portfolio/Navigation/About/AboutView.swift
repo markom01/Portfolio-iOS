@@ -59,6 +59,27 @@ struct AboutView: View {
                 selectedExperienceId: $selectedExperienceId
             )
         }
+        if selectedExperienceId == nil {
+            HStack(alignment: .top) {
+                SectionView(header: "Location") {
+                    if let url = URL(string: "https://maps.apple.com/?address=Novi%20Sad,%20Serbia&auid=2172886330968018720&ll=45.260663,19.832161&lsp=6489&q=Novi%20Sad") {
+                        Link(destination: url) {
+                            Label("Novi Sad", systemImage: "mappin")
+                        }
+                    }
+                }
+                SectionView(header: "Languages") {
+                    Label(
+                        title: { Text("English | C1" )},
+                        icon: { ImageView(source: .named(.uk), size: 30) }
+                    )
+                    Label(
+                        title: { Text("Serbian | Native" )},
+                        icon: { ImageView(source: .named(.srb), size: 30) }
+                    )
+                }
+            }
+        }
     }
 }
 

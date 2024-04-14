@@ -25,6 +25,9 @@ struct ScrollStackView<T: View>: View {
             ScrollView(axis) {
                 layout {
                     content
+                    if axis == .vertical {
+                        Spacer().frame(height: .small)
+                    }
                 }
             }
 #if os(iOS)
