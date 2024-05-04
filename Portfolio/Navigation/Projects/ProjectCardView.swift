@@ -26,11 +26,11 @@ struct ProjectCardView: View {
             projectButton
             description
             if selectedId == project.id {
-                TechSectionView(title: "Tech Stack", technologies: project.technologies, isHeaderShown: selectedId == project.id)
+                TechSectionView(title: "Technologies", technologies: project.technologies, isHeaderShown: selectedId == project.id)
                 preview
             }
         }
-        .padding(.vertical, selectedId == project.id ? 10 : 5)
+        .padding(.vertical, selectedId == project.id ? .small : .xSmall)
         .contentShape(Rectangle())
     }
 }
@@ -89,7 +89,7 @@ extension ProjectCardView {
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
-            technologies: [.swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit, .swiftui, .uikit],
+            technologies: [.SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit],
             appStoreURLString: "",
             videoURLString: ""
         ),

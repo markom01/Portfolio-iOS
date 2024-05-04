@@ -22,7 +22,7 @@ struct ProjectsView: View {
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
-            technologies: [.swiftui, .uikit],
+            technologies: [.SwiftUI, .UIKit],
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
             videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ),
@@ -31,7 +31,7 @@ struct ProjectsView: View {
             category: .shopping,
             image: .launchLogo,
             description: Constants.placholderParagraph,
-            technologies: [.swiftui, .uikit],
+            technologies: [.SwiftUI, .UIKit],
             appStoreURLString: "",
             videoURLString: ""
         )
@@ -43,18 +43,19 @@ struct ProjectsView: View {
                 ProjectCardView(project: project, selectedId: selectedId, player: player)
                     .onTapGesture { selectedId = project.id }
 #if os(macOS)
-                    .padding(10)
+                    .padding(.small)
                     .onHover {
                         hoveredId = $0 ? project.id : nil
                     }
                     .background {
                         Color.white
                             .opacity(hoveredId == project.id && selectedId != project.id ? 0.05 : 0)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .clipShape(RoundedRectangle(cornerRadius: .small))
                     }
 #endif
             }
         }
+        .scrollBounceBehavior(.basedOnSize)
         .onChange(of: selectedId, loadProjectVideo)
         .backButton($selectedId)
         .toolbar {

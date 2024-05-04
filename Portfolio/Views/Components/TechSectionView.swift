@@ -41,5 +41,5 @@ struct TechSectionView: View {
 }
 
 #Preview {
-    TechSectionView(title: "Tech stack", technologies: Constants.technologies)
+    TechSectionView(title: "Technologies", technologies: Constants.technologies)
 }
