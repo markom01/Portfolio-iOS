@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TechSectionView: View {
     let title: String
-    let technologies: [Tech]
+    let technologies: [Skill]
     var isHeaderShown: Bool = true
 
     var body: SectionView<some View> {
@@ -18,7 +18,7 @@ struct TechSectionView: View {
             isHeaderShown: isHeaderShown
         ) {
             ScrollStackView(axis: .horizontal, spacing: .small) {
-                ForEach(technologies) { tech in
+                ForEach(technologies, id: \.rawValue) { tech in
                     VStack {
                         if let urlString = tech.url, let url = URL(string: urlString) {
                             Link(destination: url) {

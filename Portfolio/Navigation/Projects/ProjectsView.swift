@@ -22,7 +22,7 @@ struct ProjectsView: View {
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
-            technologies: [.SwiftUI, .UIKit],
+            technologies: Constants.technologies,
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
             videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ),
@@ -31,7 +31,7 @@ struct ProjectsView: View {
             category: .shopping,
             image: .launchLogo,
             description: Constants.placholderParagraph,
-            technologies: [.SwiftUI, .UIKit],
+            technologies: Constants.technologies,
             appStoreURLString: "",
             videoURLString: ""
         )

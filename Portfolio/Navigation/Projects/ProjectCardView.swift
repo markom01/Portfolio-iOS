@@ -89,7 +89,7 @@ extension ProjectCardView {
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
-            technologies: [.SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit, .SwiftUI, .UIKit],
+            technologies: Constants.technologies,
             appStoreURLString: "",
             videoURLString: ""
         ),

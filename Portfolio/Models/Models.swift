@@ -26,7 +26,7 @@ struct Constants {
         )
     ]
 
-    static let technologies: [Tech] = Tech.allCases
+    static let technologies: [Skill] = Tech.allCases
 
     static var backPlacement: ToolbarItemPlacement {
 #if os(iOS)
@@ -37,51 +37,91 @@ struct Constants {
     }
 }
 
-enum Tech: String, Identifiable, CaseIterable {
-    case SwiftUI = "SwiftUI (iOS & macOS)"
-    case UIKit
-    case MVVM
+protocol Skill {
+    var url: String? { get }
+    var rawValue: String { get }
+}
+
+enum Libraries: String, CaseIterable, Skill {
     case swiftUIIntrospect = "SwiftUI Introspect"
-    case AppKit
-    case Animations
     case Lottie
-    case UserDefaults
-    case sdkDev = "SDK Development"
-    case unitTest = "Unit Testing"
-    case Localization
-    case WebKit
-    case VisionKit
-    case WebSocket
-    case ODR = "On-Demand Resources"
     case DGCharts
     case AlamoFire
     case SwiftyJSON
     case AppAuth
     case heresdk = "Here Maps SDK"
     case TUSKit
+    case SwiftLint
+    case SDWebImage
+    case Starscream
+    case TinyConstraints
+    case MixPanel
+
+    var url: String? {
+        switch self {
+        case .swiftUIIntrospect: "https://github.com/siteline/swiftui-introspect"
+        case .AlamoFire: "https://github.com/Alamofire/Alamofire"
+        case .SwiftyJSON: "https://github.com/SwiftyJSON/SwiftyJSON"
+        case .DGCharts: "https://github.com/ChartsOrg/Charts"
+        case .Lottie: "https://github.com/airbnb/lottie-ios"
+        case .AppAuth: "https://github.com/openid/AppAuth-iOS"
+        case .TUSKit: "https://github.com/tus/TUSKit"
+        case .heresdk: "https://www.here.com/platform/here-sdk"
+        case .SwiftLint: "https://github.com/realm/SwiftLint"
+        case .SDWebImage: "https://github.com/SDWebImage/SDWebImage"
+        case .Starscream: "https://github.com/daltoniam/Starscream"
+        case .MixPanel: "https://github.com/mixpanel/mixpanel-swift"
+        case .TinyConstraints: "https://github.com/roberthein/TinyConstraints"
+        }
+    }
+}
+
+enum AppleFrameworks: String, CaseIterable, Skill {
+    case Swift
+    case SwiftUI
+    case UIKit
+    case AppKit
+    case WebKit
+    case VisionKit
+    case Combine
+    case Cocoa = "Cocoa (Touch)"
+
+    var url: String? {
+        switch self {
+        case .SwiftUI: "https://developer.apple.com/xcode/swiftui"
+        case .UIKit: "https://developer.apple.com/documentation/uikit#overview"
+        case .AppKit: "https://developer.apple.com/documentation/appkit"
+        case .WebKit: "https://developer.apple.com/documentation/webkit"
+        case .VisionKit: "https://developer.apple.com/documentation/visionkit"
+        case .Combine: "https://developer.apple.com/documentation/combine"
+        case .Swift, .Cocoa: nil
+        }
+    }
+}
+
+enum Tech: String, Identifiable, CaseIterable, Skill {
+    case MVVM
+    case MVC
+    case Animations
+    case hig = "Human Interface Guidelines"
+    case sdkDev = "SDK Development"
+    case unitTest = "Unit Testing"
+    case Localization
+    case WebSocket
+    case ODR = "On-Demand Resources"
+    case UserDefaults
     case Scrum
+    case spm = "Swift Package Manager"
+    case pods = "CocoaPods"
     case GithubDesktop = "Github Desktop"
     var id: UUID { UUID() }
 
     var url: String? {
         switch self {
-        case .SwiftUI: "https://developer.apple.com/xcode/swiftui"
-        case .swiftUIIntrospect: "https://github.com/siteline/swiftui-introspect"
-        case .UIKit: "https://developer.apple.com/documentation/uikit#overview"
-        case .AppKit: "https://developer.apple.com/documentation/appkit"
         case .UserDefaults: "https://developer.apple.com/documentation/foundation/userdefaults"
-        case .WebKit: "https://developer.apple.com/documentation/webkit"
-        case .VisionKit: "https://developer.apple.com/documentation/visionkit"
-        case .AlamoFire: "https://github.com/Alamofire/Alamofire"
-        case .SwiftyJSON: "https://github.com/SwiftyJSON/SwiftyJSON"
         case .GithubDesktop: "https://desktop.github.com/"
-        case .heresdk: "https://www.here.com/platform/here-sdk"
         case .ODR: "https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/"
-        case .DGCharts: "https://github.com/ChartsOrg/Charts"
-        case .Lottie: "https://github.com/airbnb/lottie-ios"
-        case .AppAuth: "https://github.com/openid/AppAuth-iOS"
-        case .TUSKit: "https://github.com/tus/TUSKit"
-        case .MVVM, .sdkDev, .unitTest, .Scrum, .WebSocket, .Animations, .Localization: nil
+        case .MVVM, .MVC, .sdkDev, .unitTest, .Scrum, .WebSocket, .Animations, .Localization, .spm, .pods, .hig: nil
         }
     }
 }
@@ -91,7 +131,7 @@ struct Project: Identifiable {
     let category: Category
     let image: ImageResource
     let description: String
-    let technologies: [Tech]
+    let technologies: [Skill]
     let appStoreURLString: String
     let videoURLString: String
     let id = UUID()
@@ -118,7 +158,7 @@ enum Company: String {
         }
     }
 
-    var technologies: [Tech] {
+    var technologies: [Skill] {
         switch self {
         case .hyperEther: Constants.technologies
         case .freelance: Constants.technologies
@@ -139,7 +179,7 @@ struct Experience: Identifiable {
     let start: Date
     let end: Date
 //        let projects: [Project]
-    let tech: [Tech]
+    let tech: [Skill]
     let id = UUID()
 }
 
