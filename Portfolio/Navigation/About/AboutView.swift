@@ -50,7 +50,9 @@ struct AboutView: View {
             SectionView(header: "About") {
                 Text(Constants.placholderParagraph)
             }
-            TechSectionView(title: "Technologies", technologies: Constants.technologies)
+            TechSectionView(title: "Apple Frameworks", technologies: AppleFrameworks.allCases)
+            TechSectionView(title: "Technologies", technologies: Tech.allCases)
+            TechSectionView(title: "Libraries", technologies: Libraries.allCases)
         }
         SectionView(header: "Experience", isHeaderShown: selectedExperienceId == nil) {
             ExperiencesView(

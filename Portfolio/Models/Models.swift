@@ -26,7 +26,7 @@ struct Constants {
         )
     ]
 
-    static let technologies: [Skill] = Tech.allCases
+    static let technologies: [Tech] = Tech.allCases
 
     static var backPlacement: ToolbarItemPlacement {
 #if os(iOS)
