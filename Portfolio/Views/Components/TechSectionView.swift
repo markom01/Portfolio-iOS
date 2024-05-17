@@ -21,13 +21,10 @@ struct TechSectionView: View {
                 ForEach(technologies, id: \.rawValue) { tech in
                     VStack {
                         if let urlString = tech.url, let url = URL(string: urlString) {
-                            Link(destination: url) {
-                                Text(tech.rawValue)
-                            }
+                            Link(destination: url) { label(tech, isLink: true) }
                         } else {
-                            Button {} label: {
-                                Text(tech.rawValue)
-                            }
+                            Button {}
+                        label: { label(tech, isLink: false) }
                             .allowsHitTesting(false)
                         }
                     }
@@ -36,6 +33,22 @@ struct TechSectionView: View {
                     .buttonStyle(.bordered)
                 }
             }
+        }
+    }
+
+    func label(_ tech: Skill, isLink: Bool) -> some View {
+        let imageSize: CGFloat = 20
+
+        return HStack {
+            Group {
+                if let imageURLString = tech.imageURL {
+                    ImageView(source: .url(imageURLString), size: imageSize)
+                } else if isLink {
+                    ImageView(source: .system("link"), size: imageSize)
+                }
+            }
+            .cornerRadius(5)
+            Text(tech.rawValue)
         }
     }
 }

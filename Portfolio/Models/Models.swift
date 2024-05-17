@@ -39,6 +39,7 @@ struct Constants {
 
 protocol Skill {
     var url: String? { get }
+    var imageURL: String? { get }
     var rawValue: String { get }
 }
 
@@ -74,6 +75,24 @@ enum Libraries: String, CaseIterable, Skill {
         case .TinyConstraints: "https://github.com/roberthein/TinyConstraints"
         }
     }
+
+    var imageURL: String? {
+        switch self {
+        case .swiftUIIntrospect: return "https://avatars.githubusercontent.com/u/55716259?s=48&v=4"
+        case .heresdk: return "https://www.here.com/themes/custom/here_com_theme/favicon.ico"
+        case .Lottie: return "https://airbnb.io/lottie/images/logo.webp"
+        case .DGCharts: return "https://avatars.githubusercontent.com/u/79675592?s=48&v=4"
+        case .AlamoFire: return "https://avatars.githubusercontent.com/u/7774181?s=48&v=4"
+        case .SwiftyJSON: return "https://avatars.githubusercontent.com/u/8858017?s=48&v=4"
+        case .TUSKit: return "https://avatars.githubusercontent.com/u/3581905?s=48&v=4"
+        case .SDWebImage: return "https://avatars.githubusercontent.com/u/33113626?s=48&v=4"
+        case .MixPanel: return "https://avatars.githubusercontent.com/u/63653?s=48&v=4"
+        default:
+            if url?.contains("github") == true {
+                return "https://github.githubassets.com/favicons/favicon-dark.png"
+            } else { return nil }
+        }
+    }
 }
 
 enum AppleFrameworks: String, CaseIterable, Skill {
@@ -97,6 +116,8 @@ enum AppleFrameworks: String, CaseIterable, Skill {
         case .Swift, .Cocoa: nil
         }
     }
+
+    var imageURL: String? { nil }
 }
 
 enum Tech: String, Identifiable, CaseIterable, Skill {
@@ -124,6 +145,8 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
         case .MVVM, .MVC, .sdkDev, .unitTest, .Scrum, .WebSocket, .Animations, .Localization, .spm, .pods, .hig: nil
         }
     }
+
+    var imageURL: String? { nil }
 }
 
 struct Project: Identifiable {
