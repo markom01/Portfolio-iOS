@@ -23,9 +23,10 @@ struct ExperiencesView: View {
                     )
                     .onTapGesture { selectedExperienceId = experience.id }
                     if selectedExperienceId == experience.id {
-                        SectionView(header: "About") { Text(experience.company.about) }
-                        TechSectionView(title: "Technologies", technologies: experience.company.technologies)
-//                        SectionView(header: "Projects") {}
+                        Section("About") { Text(experience.company.about) }
+                        Section("Technologies") {
+                            SkillsView(technologies: experience.company.technologies)
+                        }
                     }
                 }
                 .id(experience.id)

@@ -38,21 +38,25 @@ struct ProjectsView: View {
     ]
 
     var body: some View {
-        List(projects) { project in
-            if selectedId == nil || selectedId == project.id {
-                ProjectCardView(project: project, selectedId: selectedId, player: player)
-                    .onTapGesture { selectedId = project.id }
+        List {
+            Section("Projects") {
+                ForEach(projects) { project in
+                    if selectedId == nil || selectedId == project.id {
+                        ProjectCardView(project: project, selectedId: selectedId, player: player)
+                            .onTapGesture { selectedId = project.id }
 #if os(macOS)
-                    .padding(.small)
-                    .onHover {
-                        hoveredId = $0 ? project.id : nil
-                    }
-                    .background {
-                        Color.white
-                            .opacity(hoveredId == project.id && selectedId != project.id ? 0.05 : 0)
-                            .clipShape(RoundedRectangle(cornerRadius: .small))
-                    }
+                            .padding(.small)
+                            .onHover {
+                                hoveredId = $0 ? project.id : nil
+                            }
+                            .background {
+                                Color.white
+                                    .opacity(hoveredId == project.id && selectedId != project.id ? 0.05 : 0)
+                                    .clipShape(RoundedRectangle(cornerRadius: .small))
+                            }
 #endif
+                    }
+                }
             }
         }
         .scrollBounceBehavior(.basedOnSize)

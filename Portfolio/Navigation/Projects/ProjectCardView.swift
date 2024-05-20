@@ -26,7 +26,9 @@ struct ProjectCardView: View {
             projectButton
             description
             if selectedId == project.id {
-                TechSectionView(title: "Technologies", technologies: project.technologies, isHeaderShown: selectedId == project.id)
+                Section("Technologies") {
+                    SkillsView(technologies: project.technologies)
+                }
                 preview
             }
         }
@@ -62,20 +64,17 @@ extension ProjectCardView {
     }
 
     // MARK: Sections
-    var description: SectionView<some View> {
-        SectionView(
-            header: "Description",
-            isHeaderShown: selectedId == project.id
-        ) {
+    var description: some View {
+        Section("Description") {
             Text(project.description)
                 .lineLimit(selectedId == project.id ? nil : 2)
         }
     }
 
     @ViewBuilder
-    var preview: SectionView<VideoView>? {
+    var preview: some View {
         if let _ = URL(string: project.videoURLString) {
-            SectionView(header: "Preview", isHeaderShown: selectedId == project.id) {
+            Section("Preview") {
                 VideoView(player: player)
             }
         }

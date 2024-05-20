@@ -15,13 +15,17 @@ struct ImageView: View {
         switch source {
         case .url(let urlString):
             if let url = URL(string: urlString) {
-                AsyncImage(url: url) {
-                    $0.setup(size: size)
-                } placeholder: {
-                    Circle()
-                        .frame(height: size)
-                        .redacted(reason: .placeholder)
-                        .foregroundStyle(.secondary.opacity(0.3))
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        Circle()
+                            .frame(height: size)
+                            .redacted(reason: .placeholder)
+                            .foregroundStyle(.secondary.opacity(0.3))
+                    case .success(let image): image.setup(size: size)
+                    case .failure(let error): Text(error.localizedDescription)
+                    @unknown default: fatalError()
+                    }
                 }
             }
         default:
@@ -48,4 +52,8 @@ extension ImageView {
 
 #Preview {
     ImageView(source: .named(.gemJewel), size: 30)
+}
+
+#Preview {
+    ImageView(source: .url(""), size: 30)
 }

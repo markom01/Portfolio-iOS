@@ -12,7 +12,6 @@
 		B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602892B6958F50029A32D /* ProjectCardView.swift */; };
 		B516028C2B6959740029A32D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028B2B6959740029A32D /* ProjectsView.swift */; };
 		B516028F2B69A2680029A32D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028E2B69A2680029A32D /* VideoView.swift */; };
-		B52E26052B6ACDBF00C399C7 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E26042B6ACDBF00C399C7 /* SectionView.swift */; };
 		B52E26082B6AEF9200C399C7 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E26072B6AEF9200C399C7 /* CGFloat+Extensions.swift */; };
 		B52F53F42BA0BE7E00050378 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F53F32BA0BE7E00050378 /* UIApplication+Extensions.swift */; };
 		B52F53F62BA1D95100050378 /* ScrollStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F53F52BA1D95100050378 /* ScrollStackView.swift */; };
@@ -27,7 +26,7 @@
 		B5903EC92B9DDBEB00B24BFC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903EC82B9DDBEB00B24BFC /* AboutView.swift */; };
 		B5903ECB2B9DDD9E00B24BFC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */; };
 		B5903ECD2B9E1B4700B24BFC /* ScrollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903ECC2B9E1B4700B24BFC /* ScrollManager.swift */; };
-		B5975FA12BA2097200F3B2F4 /* TechSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */; };
+		B5975FA12BA2097200F3B2F4 /* SkillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5975FA02BA2097200F3B2F4 /* SkillsView.swift */; };
 		B5A11A5C2BB4452200873122 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A11A5B2BB4452200873122 /* View+Extensions.swift */; };
 		B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */; };
 		B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E1B2B6918CF001C7EB2 /* TabsView.swift */; };
@@ -60,7 +59,6 @@
 		B51602892B6958F50029A32D /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
 		B516028B2B6959740029A32D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		B516028E2B69A2680029A32D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
-		B52E26042B6ACDBF00C399C7 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		B52E26072B6AEF9200C399C7 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		B52F53F32BA0BE7E00050378 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		B52F53F52BA1D95100050378 /* ScrollStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollStackView.swift; sourceTree = "<group>"; };
@@ -76,7 +74,7 @@
 		B5903EC82B9DDBEB00B24BFC /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B5903ECC2B9E1B4700B24BFC /* ScrollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollManager.swift; sourceTree = "<group>"; };
-		B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechSectionView.swift; sourceTree = "<group>"; };
+		B5975FA02BA2097200F3B2F4 /* SkillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsView.swift; sourceTree = "<group>"; };
 		B5A11A5B2BB4452200873122 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B5DC7E162B6918CF001C7EB2 /* Portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DC7E192B6918CF001C7EB2 /* PortfolioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioApp.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 			children = (
 				B51602862B69567F0029A32D /* TabScreenView.swift */,
 				B52F53F52BA1D95100050378 /* ScrollStackView.swift */,
-				B52E26042B6ACDBF00C399C7 /* SectionView.swift */,
 			);
 			path = Containers;
 			sourceTree = "<group>";
@@ -198,7 +195,7 @@
 				B58F43272B6E2EC100EC64AF /* SwitchView.swift */,
 				B58FBAF32B72981900B12C36 /* ShareView.swift */,
 				B5903ECA2B9DDD9E00B24BFC /* HeaderView.swift */,
-				B5975FA02BA2097200F3B2F4 /* TechSectionView.swift */,
+				B5975FA02BA2097200F3B2F4 /* SkillsView.swift */,
 				B53BCF702BA4AB1C0083F9FE /* ExperiencesView.swift */,
 			);
 			path = Components;
@@ -436,11 +433,10 @@
 				B5A11A5C2BB4452200873122 /* View+Extensions.swift in Sources */,
 				B53BCF712BA4AB1C0083F9FE /* ExperiencesView.swift in Sources */,
 				B55A7AB12BA38735008A41F0 /* Image+Extensions.swift in Sources */,
-				B5975FA12BA2097200F3B2F4 /* TechSectionView.swift in Sources */,
+				B5975FA12BA2097200F3B2F4 /* SkillsView.swift in Sources */,
 				B51602872B69567F0029A32D /* TabScreenView.swift in Sources */,
 				B56E872F2BA0B85800A87147 /* Models.swift in Sources */,
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,
-				B52E26052B6ACDBF00C399C7 /* SectionView.swift in Sources */,
 				B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */,
 				B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */,
 				B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */,

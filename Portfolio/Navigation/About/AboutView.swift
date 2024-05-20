@@ -15,18 +15,16 @@ struct AboutView: View {
     @State var selectedExperienceId: UUID?
 
     var body: some View {
-        VStack(spacing: .large) {
+        VStack(spacing: spacing) {
+            header?.padding(.top)
+            List { aboutSection }
 #if os(iOS)
-            header
-            ScrollStackView(spacing: .large, selectedId: selectedExperienceId, delegate: directionDetector) { aboutSection }
-#elseif os(macOS)
-            ScrollStackView(spacing: .large, selectedId: selectedExperienceId) {
-                header
-                aboutSection
+            .introspect(.list, on: .iOS(.v17)) { list in
+                list.delegate = directionDetector
+                list.bounces = false
             }
 #endif
         }
-        .padding()
         .animation(.smooth, value: selectedExperienceId)
         .backButton($selectedExperienceId)
     }
@@ -47,37 +45,45 @@ struct AboutView: View {
     @ViewBuilder
     var aboutSection: some View {
         if selectedExperienceId == nil {
-            SectionView(header: "About") {
+            Section("About") {
                 Text(Constants.placholderParagraph)
             }
-            TechSectionView(title: "Apple Frameworks", technologies: AppleFrameworks.allCases)
-            TechSectionView(title: "Technologies", technologies: Tech.allCases)
-            TechSectionView(title: "Libraries", technologies: Libraries.allCases)
+            Section("Apple Frameworks") {
+                SkillsView(technologies: AppleFrameworks.allCases)
+            }
+            Section("Technologies") {
+                SkillsView(technologies: Tech.allCases)
+            }
+            Section("Libraries") {
+                SkillsView(technologies: Libraries.allCases)
+            }
         }
-        SectionView(header: "Experience", isHeaderShown: selectedExperienceId == nil) {
+        Section("Experience") {
             ExperiencesView(
                 experiences: Constants.experiences,
                 selectedExperienceId: $selectedExperienceId
             )
         }
         if selectedExperienceId == nil {
-            HStack(alignment: .top) {
-                SectionView(header: "Location") {
-                    if let url = URL(string: "https://maps.apple.com/?address=Novi%20Sad,%20Serbia&auid=2172886330968018720&ll=45.260663,19.832161&lsp=6489&q=Novi%20Sad") {
-                        Link(destination: url) {
-                            Label("Novi Sad", systemImage: "mappin")
-                        }
+            Section("Location") {
+                if let url = URL(string: "https://maps.apple.com/?address=Novi%20Sad,%20Serbia&auid=2172886330968018720&ll=45.260663,19.832161&lsp=6489&q=Novi%20Sad") {
+                    Link(destination: url) {
+                        Label("Novi Sad, Serbia", systemImage: "mappin")
                     }
                 }
-                SectionView(header: "Languages") {
-                    Label(
-                        title: { Text("English | C1" )},
-                        icon: { ImageView(source: .named(.uk), size: 30) }
-                    )
-                    Label(
-                        title: { Text("Serbian | Native" )},
-                        icon: { ImageView(source: .named(.srb), size: 30) }
-                    )
+            }
+            Section("Languages") {
+                LabeledContent { Text("C1") } label: {
+                    HStack {
+                        ImageView(source: .named(.uk), size: 30)
+                        Text("English")
+                    }
+                }
+                LabeledContent { Text("Native") } label: {
+                    HStack {
+                        ImageView(source: .named(.srb), size: 30)
+                        Text("Serbian")
+                    }
                 }
             }
         }
@@ -90,6 +96,14 @@ extension AboutView {
         directionDetector.isScrolledUp
 #elseif os(macOS)
         true
+#endif
+    }
+
+    var spacing: CGFloat {
+#if os(iOS)
+        directionDetector.isScrolledUp ? .large : .medium
+#elseif os(macOS)
+            .medium
 #endif
     }
 }
