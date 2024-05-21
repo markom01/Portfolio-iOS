@@ -68,11 +68,8 @@ struct ProjectsView: View {
         }
         #if os(iOS)
         .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
-
 #elseif os(macOS)
-        .scrollContentBackground(.hidden)
-        .listStyle(.sidebar)
-        .background(.ultraThickMaterial)
+        .removeListBg()
         .background {
             if let hoveredImage = projects.first(where: { $0.id == hoveredId || $0.id == selectedId })?.image {
                 Image(hoveredImage)

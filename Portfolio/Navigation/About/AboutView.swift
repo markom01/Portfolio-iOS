@@ -18,10 +18,12 @@ struct AboutView: View {
         VStack(spacing: spacing) {
             header?.padding(.top)
             List { aboutSection }
-#if os(iOS)
+                .scrollBounceBehavior(.basedOnSize)
+#if os(macOS)
+                .removeListBg()
+#elseif os(iOS)
             .introspect(.list, on: .iOS(.v17)) { list in
                 list.delegate = directionDetector
-                list.bounces = false
             }
 #endif
         }

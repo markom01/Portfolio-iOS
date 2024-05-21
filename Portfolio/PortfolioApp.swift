@@ -74,11 +74,13 @@ extension AppView {
 #endif
 }
 
+#if os(iOS)
 extension AVPlayerViewController {
     open override func viewDidLoad() {
         view.backgroundColor = .secondarySystemGroupedBackground
     }
 }
+#endif
 
 #Preview {
     AppView()
