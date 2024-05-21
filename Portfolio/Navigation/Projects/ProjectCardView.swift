@@ -15,7 +15,7 @@ struct ProjectCardView: View {
     let player: AVPlayer
 
     var body: some View {
-        VStack(alignment: .leading, spacing: selectedId == project.id ? .large : .medium) {
+        VStack {
             HeaderView(
                 isExpanded: selectedId == project.id,
                 headingView: .init(Text(project.name)),
@@ -24,16 +24,15 @@ struct ProjectCardView: View {
                 rightImage: "chevron.right"
             )
             projectButton
-            description
-            if selectedId == project.id {
-                Section("Technologies") {
-                    SkillsView(technologies: project.technologies)
-                }
-                preview
-            }
         }
-        .padding(.vertical, selectedId == project.id ? .small : .xSmall)
-        .contentShape(Rectangle())
+        .listRowBackground(selectedId != nil ? Color.clear : nil)
+        if selectedId == project.id {
+            description
+            Section("Technologies") {
+                SkillsView(technologies: project.technologies)
+            }
+            preview
+        }
     }
 }
 
@@ -76,6 +75,7 @@ extension ProjectCardView {
         if let _ = URL(string: project.videoURLString) {
             Section("Preview") {
                 VideoView(player: player)
+                    .listRowInsets(EdgeInsets())
             }
         }
     }

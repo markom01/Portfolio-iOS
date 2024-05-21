@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SafariServices
+import AVKit
 
 @main
 struct PortfolioApp: App {
@@ -58,6 +59,7 @@ extension AppView {
         UIApplication.window?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.shared.setAlternateIconName(isDarkMode ? nil : "AppIconLight")
+        UICollectionView.appearance().allowsSelection = false
     }
 
     func openWebSheet(_ url: URL) {
@@ -70,6 +72,12 @@ extension AppView {
         }
     }
 #endif
+}
+
+extension AVPlayerViewController {
+    open override func viewDidLoad() {
+        view.backgroundColor = .secondarySystemGroupedBackground
+    }
 }
 
 #Preview {
