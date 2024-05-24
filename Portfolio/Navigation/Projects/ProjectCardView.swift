@@ -25,7 +25,6 @@ struct ProjectCardView: View {
             )
             projectButton
         }
-        .listRowBackground(selectedId != nil ? Color.clear : nil)
         if selectedId == project.id {
             description
             Section("Technologies") {

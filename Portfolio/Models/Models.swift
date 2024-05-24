@@ -206,6 +206,16 @@ struct Experience: Identifiable {
     let id = UUID()
 }
 
+extension Experience: Hashable {
+    static func == (lhs: Experience, rhs: Experience) -> Bool {
+        lhs.company == rhs.company
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(company)
+    }
+}
+
 struct IdentifiableData: Identifiable {
     let entry: String
     let id = UUID()
