@@ -21,6 +21,9 @@ struct ExperienceView: View {
                 }
             }
             .scrollBounceBehavior(.basedOnSize)
+#if os(macOS)
+        .removeListBg()
+#endif
         } else { header }
     }
 

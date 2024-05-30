@@ -19,6 +19,17 @@ struct TabScreenView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        HeaderView(
+                            isExpanded: false,
+                            headingView: .init(Text("Marko Meseldžija")),
+                            subHeadingView: .init(Text("iOS Developer")),
+                            imageSource: .named(.launchLogo),
+                            alignment: .center
+                        )
+                        .scaleEffect(0.8)
+                        .frame(width: 200)
+                    }
                     ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
                 }
 #endif

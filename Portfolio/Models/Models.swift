@@ -170,6 +170,16 @@ struct Project: Identifiable {
     }
 }
 
+extension Project: Hashable {
+    static func == (lhs: Project, rhs: Project) -> Bool {
+        lhs.name == rhs.name
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}
+
 enum Company: String {
     case hyperEther = "HyperEther"
     case freelance

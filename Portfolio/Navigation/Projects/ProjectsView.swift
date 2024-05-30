@@ -10,11 +10,9 @@ import SwiftUIIntrospect
 import _AVKit_SwiftUI
 
 struct ProjectsView: View {
-    @State var selectedId: UUID?
 #if os(macOS)
     @State var hoveredId: UUID?
 #endif
-    @State var player = AVPlayer()
 
     let projects: [Project] = [
         .init(
@@ -40,62 +38,47 @@ struct ProjectsView: View {
     var body: some View {
         List {
             ForEach(projects) { project in
-                if selectedId == nil || selectedId == project.id {
-                    ProjectCardView(project: project, selectedId: selectedId, player: player)
+                NavigationLink(value: project) {
+                    ProjectCardView(project: project)
                         .contentShape(Rectangle())
-                        .onTapGesture { selectedId = project.id }
 #if os(macOS)
                         .padding(.small)
-                        .onHover {
-                            hoveredId = $0 ? project.id : nil
-                        }
+                        .onHover { hoveredId = $0 ? project.id : nil }
                         .background {
                             Color.white
-                                .opacity(hoveredId == project.id && selectedId != project.id ? 0.05 : 0)
+                                .opacity(hoveredId == project.id ? 0.05 : 0)
                                 .clipShape(RoundedRectangle(cornerRadius: .small))
                         }
 #endif
                 }
             }
         }
-        .scrollBounceBehavior(.basedOnSize)
-        .onChange(of: selectedId, loadProjectVideo)
-        .backButton($selectedId)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                ImageView(source: .named(.launchLogo), size: .topBarLogo)
-            }
+        .navigationDestination(for: Project.self) {
+            ProjectCardView(project: $0, isExpanded: true)
         }
-        #if os(iOS)
-        .toolbar(selectedId == nil ? .visible : .hidden, for: .tabBar)
-#elseif os(macOS)
+        .scrollBounceBehavior(.basedOnSize)
+#if os(macOS)
         .removeListBg()
         .background {
-            if let hoveredImage = projects.first(where: { $0.id == hoveredId || $0.id == selectedId })?.image {
+            if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
                 Image(hoveredImage)
                     .resizable()
                     .opacity(0.75)
             }
         }
-        .animation(.linear(duration: 0.75), value: hoveredId)
-#endif
-        .animation(.default, value: selectedId)
-    }
-}
-
-// MARK: Logic
-extension ProjectsView {
-    func loadProjectVideo() {
-        if selectedId != nil {
-            let selectedVideoUrlString = projects.first { $0.id == selectedId }?.videoURLString
-            if let selectedVideoUrlString,
-                let videoURL = URL(string: selectedVideoUrlString) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    player.isMuted = true
-                    player.replaceCurrentItem(with: .init(url: videoURL))
-                }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HeaderView(
+                    isExpanded: false,
+                    headingView: .init(Text("Marko Meseldžija")),
+                    subHeadingView: .init(Text("iOS Developer")),
+                    imageSource: .named(.launchLogo),
+                    alignment: .center
+                )
             }
         }
+        .animation(.linear(duration: 0.75), value: hoveredId)
+#endif
     }
 }
 

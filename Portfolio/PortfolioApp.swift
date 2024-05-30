@@ -12,9 +12,15 @@ import AVKit
 @main
 struct PortfolioApp: App {
     var body: some Scene {
-        WindowGroup { AppView() }
+        WindowGroup {
+            AppView()
 #if os(macOS)
-            .windowResizability(.contentSize)
+                .frame(minWidth: 400, maxWidth: 900, maxHeight: 700)
+#endif
+        }
+#if os(macOS)
+        .defaultSize(width: 800, height: 400)
+        .windowResizability(.contentSize)
 #endif
     }
 }
@@ -25,10 +31,6 @@ struct AppView: View {
 
     var body: some View {
         TabsView()
-            .overlay {
-                LaunchView(
-                    backgroundColor: isDarkMode ? .black : .white)
-            }
 #if os(macOS)
             .background(.ultraThinMaterial)
             .onAppear(perform: setupWindow)

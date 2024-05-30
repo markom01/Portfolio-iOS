@@ -15,14 +15,11 @@ struct LaunchView: View {
     var body: some View {
         VStack {}
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .overlay(alignment: shouldAnimate ? .top : .center) {
+            .overlay(alignment: .center) {
                 ImageView(
                     source: .named(.launchLogo),
-                    size: shouldAnimate ? .topBarLogo : 100
+                    size: 100
                 )
-#if os(macOS)
-                .padding(.top, shouldAnimate ? -42.5 : 0)
-#endif
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

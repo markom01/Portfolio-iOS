@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct AboutView: View {
+    @Environment (\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: .medium) {
             List { aboutSection }
@@ -20,23 +22,6 @@ struct AboutView: View {
                 .removeListBg()
 #endif
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) { header
-                .scaleEffect(0.8)
-                .frame(width: 200)
-            }
-        }
-    }
-
-    @ViewBuilder
-    var header: HeaderView? {
-        HeaderView(
-            isExpanded: false,
-            headingView: .init(Text("Marko Meseldžija")),
-            subHeadingView: .init(Text("iOS Developer")),
-            imageSource: .named(.launchLogo),
-            alignment: .center
-        )
     }
 
     @ViewBuilder
@@ -71,13 +56,35 @@ struct AboutView: View {
             LabeledContent { Text("C1") } label: {
                 HStack {
                     ImageView(source: .named(.uk), size: 30)
+                        .padding(.horizontal, .xSmall)
                     Text("English")
                 }
             }
             LabeledContent { Text("Native") } label: {
                 HStack {
                     ImageView(source: .named(.srb), size: 30)
+                        .padding(.horizontal, .xSmall)
                     Text("Serbian")
+                }
+            }
+        }
+
+        Section("Github") {
+            if let url = URL(string: "https://github.com/markom01/Portfolio-iOS") {
+                Link(destination: url) {
+                    Label {
+                        Text("Project Repository")
+                    } icon: {
+                        let image = ImageView(source: .url("https://github.githubassets.com/favicons/favicon-dark.png"), size: 24)
+                        Group {
+                            if colorScheme == .light {
+                                image
+                                    .colorInvert()
+                            } else {
+                                image
+                            }
+                        }.padding(.horizontal, .xSmall)
+                    }
                 }
             }
         }

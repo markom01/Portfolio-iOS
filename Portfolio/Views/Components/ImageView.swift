@@ -23,7 +23,7 @@ struct ImageView: View {
                             .redacted(reason: .placeholder)
                             .foregroundStyle(.secondary.opacity(0.3))
                     case .success(let image): image.setup(size: size)
-                    case .failure(let error): Text(error.localizedDescription)
+                    case .failure(let error): EmptyView()
                     @unknown default: fatalError()
                     }
                 }

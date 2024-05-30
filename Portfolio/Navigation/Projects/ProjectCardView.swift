@@ -11,27 +11,37 @@ import _AVKit_SwiftUI
 
 struct ProjectCardView: View {
     let project: Project
-    let selectedId: UUID?
-    let player: AVPlayer
+    var isExpanded = false
 
     var body: some View {
-        VStack {
-            HeaderView(
-                isExpanded: selectedId == project.id,
-                headingView: .init(Text(project.name)),
-                subHeadingView: .init(subheadingView),
-                imageSource: .named(project.image),
-                rightImage: "chevron.right"
-            )
-            projectButton
-        }
-        if selectedId == project.id {
-            description
-            Section("Technologies") {
-                SkillsView(technologies: project.technologies)
+        if isExpanded {
+            List {
+                VStack {
+                    header.padding(.bottom, .small)
+                    projectButton
+                }
+                .listRowBackground(Color.clear)
+                description
+                Section("Technologies") {
+                    SkillsView(technologies: project.technologies)
+                }
+                preview
             }
-            preview
+#if os(macOS)
+        .removeListBg()
+#endif
+        } else {
+            header
         }
+    }
+
+    var header: some View {
+        HeaderView(
+            isExpanded: isExpanded,
+            headingView: .init(Text(project.name)),
+            subHeadingView: .init(subheadingView),
+            imageSource: .named(project.image)
+        )
     }
 }
 
@@ -39,11 +49,11 @@ struct ProjectCardView: View {
 extension ProjectCardView {
     var subheadingView: some View {
         HStack(spacing: .xSmall) {
-            if selectedId != project.id {
+            if !isExpanded {
                 Image(systemName: project.category.icon)
             }
             Text(project.category.rawValue.capitalized)
-            if selectedId == project.id {
+            if isExpanded {
                 Text("App")
             }
         }
@@ -51,7 +61,7 @@ extension ProjectCardView {
 
     @ViewBuilder
     var projectButton: some View {
-        if let appStoreURL = URL(string: project.appStoreURLString), selectedId == project.id {
+        if let appStoreURL = URL(string: project.appStoreURLString) {
             HStack {
                 Spacer()
                 Link("App Store", destination: appStoreURL)
@@ -65,7 +75,6 @@ extension ProjectCardView {
     var description: some View {
         Section("Description") {
             Text(project.description)
-                .lineLimit(selectedId == project.id ? nil : 2)
         }
     }
 
@@ -73,7 +82,7 @@ extension ProjectCardView {
     var preview: some View {
         if let _ = URL(string: project.videoURLString) {
             Section("Preview") {
-                VideoView(player: player)
+                VideoView(urlString: project.videoURLString)
                     .listRowInsets(EdgeInsets())
             }
         }
@@ -90,8 +99,6 @@ extension ProjectCardView {
             technologies: Constants.technologies,
             appStoreURLString: "",
             videoURLString: ""
-        ),
-        selectedId: nil,
-        player: AVPlayer()
+        )
     )
 }
