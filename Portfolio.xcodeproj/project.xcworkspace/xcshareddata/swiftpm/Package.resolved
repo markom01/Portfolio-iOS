@@ -1,4 +1,5 @@
 {
+  "originHash" : "ae5e02cef01b592ed851f6644be40e9c175d0598fe2c4f38163c0473370d4414",
   "pins" : [
     {
       "identity" : "swiftui-introspect",
@@ -10,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

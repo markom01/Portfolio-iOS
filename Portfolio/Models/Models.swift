@@ -17,12 +17,6 @@ struct Constants {
             start: .init(string: "2.2023"),
             end: Date(),
             tech: technologies
-        ),
-        .init(
-            company: .freelance,
-            start: .init(string: "5.2023"),
-            end: Date(),
-            tech: technologies
         )
     ]
 
@@ -134,6 +128,7 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
     case Scrum
     case spm = "Swift Package Manager"
     case pods = "CocoaPods"
+    case postman
     case GithubDesktop = "Github Desktop"
     var id: UUID { UUID() }
 
@@ -142,7 +137,7 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
         case .UserDefaults: "https://developer.apple.com/documentation/foundation/userdefaults"
         case .GithubDesktop: "https://desktop.github.com/"
         case .ODR: "https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/"
-        case .MVVM, .MVC, .sdkDev, .unitTest, .Scrum, .WebSocket, .Animations, .Localization, .spm, .pods, .hig: nil
+        default: nil
         }
     }
 

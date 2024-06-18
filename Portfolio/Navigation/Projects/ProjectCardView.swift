@@ -74,7 +74,7 @@ extension ProjectCardView {
     // MARK: Sections
     var description: some View {
         Section("Description") {
-            Text(project.description)
+            Text(project.description).lineLimit(nil)
         }
     }
 

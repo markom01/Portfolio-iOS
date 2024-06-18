@@ -18,13 +18,16 @@ struct SkillsView: View {
                         Link(destination: url) { label(tech, isLink: true) }
                     } else {
                         Button {}
-                    label: { label(tech, isLink: false) }
+                        label: { label(tech, isLink: false) }
                             .allowsHitTesting(false)
                     }
                 }
                 .font(.callout)
                 .lineLimit(1)
                 .buttonStyle(.bordered)
+#if os(macOS)
+                .controlSize(technologies is [Libraries] ? .large : .regular)
+#endif
             }
         }
         .padding(.vertical, .xSmall)
@@ -38,7 +41,7 @@ struct SkillsView: View {
                 if let imageURLString = tech.imageURL {
                     ImageView(source: .url(imageURLString), size: imageSize)
                 } else if isLink {
-                    ImageView(source: .system("link"), size: imageSize)
+                    ImageView(source: .system("link"), size: 15)
                 }
             }
             .cornerRadius(5)

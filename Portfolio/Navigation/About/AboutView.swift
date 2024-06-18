@@ -9,13 +9,24 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct AboutView: View {
-    @Environment (\.colorScheme) var colorScheme
-    
+    @Environment(\.colorScheme) var colorScheme
+    @Namespace() var namespace
+
     var body: some View {
         VStack(spacing: .medium) {
             List { aboutSection }
                 .navigationDestination(for: Experience.self) {
-                    ExperienceView(experience: $0, isExpanded: true)
+                    if #available(iOS 18.0, *) {
+                        ExperienceView(experience: $0, isExpanded: true)
+                            .navigationTransition(
+                                .zoom(
+                                    sourceID: $0.id,
+                                    in: namespace
+                                )
+                            )
+                    } else {
+                        ExperienceView(experience: $0, isExpanded: true)
+                    }
                 }
                 .scrollBounceBehavior(.basedOnSize)
 #if os(macOS)
@@ -27,7 +38,7 @@ struct AboutView: View {
     @ViewBuilder
     var aboutSection: some View {
         Section("About") {
-            Text(Constants.placholderParagraph)
+            Text(Constants.placholderParagraph).lineLimit(nil)
         }
         Section("Apple Frameworks") {
             SkillsView(technologies: AppleFrameworks.allCases)
@@ -41,7 +52,12 @@ struct AboutView: View {
         Section("Experience") {
             ForEach(Constants.experiences) { experience in
                 NavigationLink(value: experience) {
-                    ExperienceView(experience: experience)
+                    if #available(iOS 18.0, *) {
+                        ExperienceView(experience: experience)
+                            .matchedTransitionSource(id: experience.id, in: namespace)
+                    } else {
+                        ExperienceView(experience: experience)
+                    }
                 }
             }
         }
@@ -49,6 +65,23 @@ struct AboutView: View {
             if let url = URL(string: "https://maps.apple.com/?address=Novi%20Sad,%20Serbia&auid=2172886330968018720&ll=45.260663,19.832161&lsp=6489&q=Novi%20Sad") {
                 Link(destination: url) {
                     Label("Novi Sad, Serbia", systemImage: "mappin")
+                }
+                .contextMenu {
+                    Button("Map") { print("click")}
+                } preview: {
+                    ImageView(source: .url("https://ychef.files.bbci.co.uk/1500x1000/p0btlr60.jpeg"), size: 300)
+                        .overlay(alignment: .top) {
+                            RoundedRectangle(cornerRadius: .xSmall)
+                                .foregroundStyle(.white.opacity(0.5))
+                                .padding(.small)
+                                .frame(width: 180, height: 60)
+                                .reverseMask {
+                                    Text("Novi Sad")
+                                        .font(.largeTitle)
+                                        .bold()
+                                        .padding(.small)
+                                }
+                        }
                 }
             }
         }
@@ -72,18 +105,12 @@ struct AboutView: View {
         Section("Github") {
             if let url = URL(string: "https://github.com/markom01/Portfolio-iOS") {
                 Link(destination: url) {
-                    Label {
-                        Text("Project Repository")
-                    } icon: {
+                    HStack {
                         let image = ImageView(source: .url("https://github.githubassets.com/favicons/favicon-dark.png"), size: 24)
                         Group {
-                            if colorScheme == .light {
-                                image
-                                    .colorInvert()
-                            } else {
-                                image
-                            }
+                            if colorScheme == .light { image.colorInvert() } else { image }
                         }.padding(.horizontal, .xSmall)
+                        Text("Project Repository")
                     }
                 }
             }
@@ -94,4 +121,20 @@ struct AboutView: View {
 
 #Preview {
     AboutView()
+}
+
+public extension View {
+    @inlinable
+    func reverseMask<Mask: View>(
+        alignment: Alignment = .center,
+        @ViewBuilder _ mask: () -> Mask
+    ) -> some View {
+        self.mask {
+            Rectangle()
+                .overlay(alignment: alignment) {
+                    mask()
+                        .blendMode(.destinationOut)
+                }
+        }
+    }
 }
