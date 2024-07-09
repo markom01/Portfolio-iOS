@@ -10,23 +10,12 @@ import SwiftUIIntrospect
 
 struct AboutView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Namespace() var namespace
 
     var body: some View {
         VStack(spacing: .medium) {
             List { aboutSection }
                 .navigationDestination(for: Experience.self) {
-                    if #available(iOS 18.0, *) {
-                        ExperienceView(experience: $0, isExpanded: true)
-                            .navigationTransition(
-                                .zoom(
-                                    sourceID: $0.id,
-                                    in: namespace
-                                )
-                            )
-                    } else {
-                        ExperienceView(experience: $0, isExpanded: true)
-                    }
+                    ExperienceView(experience: $0, isExpanded: true)
                 }
                 .scrollBounceBehavior(.basedOnSize)
 #if os(macOS)
@@ -38,7 +27,8 @@ struct AboutView: View {
     @ViewBuilder
     var aboutSection: some View {
         Section("About") {
-            Text(Constants.placholderParagraph).lineLimit(nil)
+            Text("Proven ability to develop user-friendly and visually appealing interfaces, since 2023.")
+                .lineLimit(nil)
         }
         Section("Apple Frameworks") {
             SkillsView(technologies: AppleFrameworks.allCases)
@@ -52,12 +42,7 @@ struct AboutView: View {
         Section("Experience") {
             ForEach(Constants.experiences) { experience in
                 NavigationLink(value: experience) {
-                    if #available(iOS 18.0, *) {
-                        ExperienceView(experience: experience)
-                            .matchedTransitionSource(id: experience.id, in: namespace)
-                    } else {
-                        ExperienceView(experience: experience)
-                    }
+                    ExperienceView(experience: experience)
                 }
             }
         }
@@ -67,12 +52,13 @@ struct AboutView: View {
                     Label("Novi Sad, Serbia", systemImage: "mappin")
                 }
                 .contextMenu {
-                    Button("Map") { print("click")}
+                    Link("See on Map", destination: url)
                 } preview: {
                     ImageView(source: .url("https://ychef.files.bbci.co.uk/1500x1000/p0btlr60.jpeg"), size: 300)
+                        .overlay { Color.primary.opacity(0.1) }
                         .overlay(alignment: .top) {
                             RoundedRectangle(cornerRadius: .xSmall)
-                                .foregroundStyle(.white.opacity(0.5))
+                                .foregroundStyle(.white.opacity(0.6))
                                 .padding(.small)
                                 .frame(width: 180, height: 60)
                                 .reverseMask {
@@ -121,20 +107,4 @@ struct AboutView: View {
 
 #Preview {
     AboutView()
-}
-
-public extension View {
-    @inlinable
-    func reverseMask<Mask: View>(
-        alignment: Alignment = .center,
-        @ViewBuilder _ mask: () -> Mask
-    ) -> some View {
-        self.mask {
-            Rectangle()
-                .overlay(alignment: alignment) {
-                    mask()
-                        .blendMode(.destinationOut)
-                }
-        }
-    }
 }

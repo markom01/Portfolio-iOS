@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+@_spi(Advanced) import SwiftUIIntrospect
 
 struct ScrollStackView<T: View>: View {
     var axis: Axis.Set = .vertical
@@ -31,7 +32,7 @@ struct ScrollStackView<T: View>: View {
                 }
             }
 #if os(iOS)
-            .introspect(.scrollView, on: .iOS(.v17)) {
+            .introspect(.scrollView, on: .iOS(.v17...)) {
                 $0.delegate = delegate
                 $0.bounces = false
             }

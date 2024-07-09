@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftUIIntrospect
+@_spi(Advanced) import SwiftUIIntrospect
 
 struct SwitchView: View {
     @Binding var isOn: Bool
@@ -17,7 +17,7 @@ struct SwitchView: View {
         .labelsHidden()
 #if os(iOS)
         .tint(.black.opacity(0.2))
-        .introspect(.toggle, on: .iOS(.v17), customize: setBackgroundImage)
+        .introspect(.toggle, on: .iOS(.v17...), customize: setBackgroundImage)
 #endif
     }
 

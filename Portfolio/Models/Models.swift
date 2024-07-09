@@ -11,14 +11,29 @@ struct Constants {
     static let placholderParagraph = """
     Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales.
     """
-    static let experiences: [Experience] = [
+
+    static let projects: [Project] = [
         .init(
-            company: .hyperEther,
-            start: .init(string: "2.2023"),
-            end: Date(),
-            tech: technologies
+            name: "Gem + Jewel",
+            category: .shopping,
+            image: .gemJewel,
+            description: Constants.placholderParagraph,
+            technologies: Constants.technologies,
+            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+        ),
+        .init(
+            name: "Second App",
+            category: .shopping,
+            image: .launchLogo,
+            description: Constants.placholderParagraph,
+            technologies: Constants.technologies,
+            appStoreURLString: "",
+            videoURLString: ""
         )
     ]
+
+    static let experiences: [Experience] = [.hyperEther]
 
     static let technologies: [Tech] = Tech.allCases
 
@@ -175,7 +190,7 @@ extension Project: Hashable {
     }
 }
 
-enum Company: String {
+enum Experience: String, Identifiable {
     case hyperEther = "HyperEther"
     case freelance
 
@@ -195,30 +210,25 @@ enum Company: String {
 
     var about: String {
         switch self {
-        case .hyperEther: Constants.placholderParagraph
+        case .hyperEther: "Creating iOS Apps with Swift."
         case .freelance: Constants.placholderParagraph
         }
     }
-}
 
-struct Experience: Identifiable {
-    let title: String = "iOS Developer"
-    let company: Company
-    let start: Date
-    let end: Date
-//        let projects: [Project]
-    let tech: [Skill]
-    let id = UUID()
-}
-
-extension Experience: Hashable {
-    static func == (lhs: Experience, rhs: Experience) -> Bool {
-        lhs.company == rhs.company
+    var urlString: String? {
+        switch self {
+        case .hyperEther: "https://hyperether.com"
+        case .freelance: nil
+        }
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(company)
-    }
+    var title: String { "iOS Developer" }
+
+    var start: Date { .init(string: "2.2023") }
+    var end: Date { .init() }
+    var id: Self { self }
+
+    var projects: [Project] { Constants.projects }
 }
 
 struct IdentifiableData: Identifiable {
