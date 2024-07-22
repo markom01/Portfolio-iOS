@@ -15,6 +15,7 @@ struct PortfolioApp: App {
         WindowGroup {
             AppView()
 #if os(macOS)
+                .navigationTitle("")
                 .frame(minWidth: 400, maxWidth: 900, maxHeight: 700)
 #endif
         }
@@ -61,6 +62,17 @@ extension AppView {
         UIApplication.window?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.shared.setAlternateIconName(isDarkMode ? nil : "AppIconLight")
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let appearance = UITabBarAppearance()
+        appearance.backgroundEffect = blurEffect
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().clipsToBounds = true
+        let navAppearance = UINavigationBarAppearance()
+        navAppearance.configureWithTransparentBackground()
+        navAppearance.backgroundEffect = blurEffect
+        UINavigationBar.appearance().standardAppearance = navAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
     }
 
     func openWebSheet(_ url: URL) {

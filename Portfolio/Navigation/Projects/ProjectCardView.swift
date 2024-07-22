@@ -6,30 +6,37 @@
 //
 
 import SwiftUI
-import SwiftUIIntrospect
+@_spi(Advanced) import SwiftUIIntrospect
 import _AVKit_SwiftUI
 
 struct ProjectCardView: View {
+    @Environment(\.colorScheme) var colorScheme
     let project: Project
     var isExpanded = false
 
     var body: some View {
         if isExpanded {
             List {
-                VStack {
-                    header.padding(.bottom, .small)
+                Group {
+                    description
+                    Section("Technologies") {
+                        SkillsView(technologies: project.technologies)
+                    }
+                    preview
+                }
+                .listRowBackground(Rectangle().fill(.thinMaterial))
+            }
+            .removeListBg(image: .init(project.image))
+            .toolbar {
+                ToolbarItem(placement: Constants.titlePlacement) {
+                    header
+                        .scaleEffect(0.8)
+                        .frame(width: 200)
+                }
+                ToolbarItem {
                     projectButton
                 }
-                .listRowBackground(Color.clear)
-                description
-                Section("Technologies") {
-                    SkillsView(technologies: project.technologies)
-                }
-                preview
             }
-#if os(macOS)
-        .removeListBg()
-#endif
         } else {
             header
         }
@@ -37,7 +44,7 @@ struct ProjectCardView: View {
 
     var header: some View {
         HeaderView(
-            isExpanded: isExpanded,
+            isExpanded: false,
             headingView: .init(Text(project.name)),
             subHeadingView: .init(subheadingView),
             imageSource: .named(project.image)
@@ -62,12 +69,7 @@ extension ProjectCardView {
     @ViewBuilder
     var projectButton: some View {
         if let appStoreURL = URL(string: project.appStoreURLString) {
-            HStack {
-                Spacer()
-                Link("App Store", destination: appStoreURL)
-                    .buttonStyle(.borderedProminent)
-                Spacer()
-            }
+            Link("App Store", destination: appStoreURL)
         }
     }
 
@@ -99,6 +101,6 @@ extension ProjectCardView {
             technologies: Constants.technologies,
             appStoreURLString: "",
             videoURLString: ""
-        )
+        ), isExpanded: true
     )
 }

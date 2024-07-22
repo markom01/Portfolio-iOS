@@ -13,14 +13,12 @@ struct AboutView: View {
 
     var body: some View {
         VStack(spacing: .medium) {
-            List { aboutSection }
+            List { aboutSection.listRowBackground(Rectangle().fill(.thinMaterial)) }
                 .navigationDestination(for: Experience.self) {
                     ExperienceView(experience: $0, isExpanded: true)
                 }
                 .scrollBounceBehavior(.basedOnSize)
-#if os(macOS)
                 .removeListBg()
-#endif
         }
     }
 

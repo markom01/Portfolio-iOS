@@ -14,6 +14,10 @@ struct HeaderView: View {
     let imageSource: ImageView.Source
     var alignment: HorizontalAlignment? = .leading
     var rightImage: String?
+    var customImageSize: CGFloat?
+    var imageSize: CGFloat {
+        if let customImageSize { return customImageSize } else { return isExpanded ? 100 : 35 }
+    }
 
     var body: some View {
         let layout = isExpanded
@@ -28,7 +32,7 @@ struct HeaderView: View {
             layout {
                 ImageView(
                     source: imageSource,
-                    size: isExpanded ? 100 : 35
+                    size: imageSize
                 )
                 VStack(alignment: isExpanded ? .center : .leading) {
                     headingView

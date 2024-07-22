@@ -20,7 +20,7 @@ struct ProjectsView: View {
 
     var body: some View {
         VStack {
-            LazyVGrid(columns: Array(repeating: .init(), count: 3)) {
+            LazyVGrid(columns: Array(repeating: .init(spacing: .medium), count: 4)) {
                 ForEach(projects) { project in
                     NavigationLink(value: project) {
                         if #available(iOS 18, *) {
@@ -37,6 +37,7 @@ struct ProjectsView: View {
 #endif
                         } else { row(project) }
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding()
@@ -49,17 +50,12 @@ struct ProjectsView: View {
                 } else { ProjectCardView(project: $0, isExpanded: true) }
             }
             .scrollBounceBehavior(.basedOnSize)
+            Spacer()
+        }
 #if os(macOS)
-            .removeListBg()
-            .background {
-                if let hoveredImage = projects.first(where: { $0.id == hoveredId })?.image {
-                    Image(hoveredImage)
-                        .resizable()
-                        .opacity(0.75)
-                }
-            }
+        .removeListBg(image: projects.first(where: { $0.id == hoveredId })?.image)
             .toolbar {
-                ToolbarItem(placement: .principal) {
+                ToolbarItem(placement: Constants.titlePlacement) {
                     HeaderView(
                         isExpanded: false,
                         headingView: .init(Text("Marko Meseldžija")),
@@ -71,30 +67,30 @@ struct ProjectsView: View {
             }
             .animation(.linear(duration: 0.75), value: hoveredId)
 #endif
-            Spacer()
-        }
     }
 
     func row(_ project: Project) -> some View {
-        HeaderView(
-            isExpanded: true,
-            headingView: .init(EmptyView()),
-            subHeadingView: .init(Text(project.name)),
-            imageSource: .named(project.image)
-        )
-            .contentShape(Rectangle())
+        VStack {
+            ImageView(source: .named(project.image), size: 60)
+                .padding(.xSmall)
+                .background(.background)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            Text(project.name).font(.caption).tint(.primary)
+        }
 #if os(macOS)
-            .padding(.small)
-            .onHover { hoveredId = $0 ? project.id : nil }
-            .background {
-                Color.white
-                    .opacity(hoveredId == project.id ? 0.05 : 0)
-                    .clipShape(RoundedRectangle(cornerRadius: .small))
-            }
+               .padding(.small)
+               .onHover { hoveredId = $0 ? project.id : nil }
+               .background {
+                   Color.white
+                       .opacity(hoveredId == project.id ? 0.05 : 0)
+                       .clipShape(RoundedRectangle(cornerRadius: .small))
+               }
 #endif
     }
 }
 
 #Preview {
-    ProjectsView()
+    NavigationStack {
+        ProjectsView()
+    }
 }

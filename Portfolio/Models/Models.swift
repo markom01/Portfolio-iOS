@@ -44,6 +44,14 @@ struct Constants {
         return .navigation
 #endif
     }
+
+    static var titlePlacement: ToolbarItemPlacement {
+#if os(iOS)
+        return .principal
+#elseif os(macOS)
+        return .navigation
+#endif
+    }
 }
 
 protocol Skill {

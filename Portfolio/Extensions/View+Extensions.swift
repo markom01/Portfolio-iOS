@@ -12,13 +12,32 @@ extension View {
         self.modifier(BackButtonModifier(selectedId: selectedId))
     }
 
-#if os(macOS)
-    func removeListBg() -> some View {
+    func removeListBg(image: ImageResource? = nil) -> some View {
         scrollContentBackground(.hidden)
+#if os(macOS)
         .listStyle(.sidebar)
-        .background(.ultraThickMaterial)
-    }
+        .background(.ultraThinMaterial)
 #endif
+        .background {
+            if let image {
+                Image(image)
+                    .resizable()
+                    .ignoresSafeArea(.all)
+                    .scaledToFill()
+#if os(iOS)
+                    .blurOverlay()
+#elseif os(macOS)
+                    .overlay(.thickMaterial)
+#endif
+            }
+        }
+    }
+
+    func blurOverlay() -> some View {
+        overlay(.thinMaterial)
+            .overlay(.thinMaterial)
+            .overlay(.black.opacity(0.1))
+    }
 
     func reverseMask<Mask: View>(
         alignment: Alignment = .center,

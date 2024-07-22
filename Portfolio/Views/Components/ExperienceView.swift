@@ -26,6 +26,7 @@ struct ExperienceView: View {
                     SkillsView(technologies: Libraries.allCases)
                 }
             }
+            .removeListBg()
             .scrollBounceBehavior(.basedOnSize)
             .toolbar {
                 if let urlString = experience.urlString, let url = URL(string: urlString) {
@@ -35,9 +36,6 @@ struct ExperienceView: View {
                     }
                 }
             }
-#if os(macOS)
-        .removeListBg()
-#endif
         } else { header }
     }
 

@@ -15,9 +15,14 @@ struct TabScreenView: View {
         NavigationStack {
             data.content
 #if os(iOS)
-                .toolbarBackground(.visible, for: .tabBar)
+                .background {
+                    if #available(iOS 18, *) {
+                        Mesh()
+                            .ignoresSafeArea(edges: .all)
+                            .overlay(.ultraThinMaterial)
+                    }
+                }
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbarBackground(.visible, for: .navigationBar)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HeaderView(
