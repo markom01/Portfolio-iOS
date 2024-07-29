@@ -12,6 +12,9 @@
 		B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602892B6958F50029A32D /* ProjectCardView.swift */; };
 		B516028C2B6959740029A32D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028B2B6959740029A32D /* ProjectsView.swift */; };
 		B516028F2B69A2680029A32D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028E2B69A2680029A32D /* VideoView.swift */; };
+		B526BA072C57B58B000C2897 /* JM-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B526BA062C57B58B000C2897 /* JM-2.png */; };
+		B526BA092C57C957000C2897 /* JM-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B526BA082C57C957000C2897 /* JM-1.png */; };
+		B526BA0C2C57D71A000C2897 /* ProjectImagesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526BA0B2C57D71A000C2897 /* ProjectImagesTabView.swift */; };
 		B52E26082B6AEF9200C399C7 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52E26072B6AEF9200C399C7 /* CGFloat+Extensions.swift */; };
 		B52F53F42BA0BE7E00050378 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F53F32BA0BE7E00050378 /* UIApplication+Extensions.swift */; };
 		B52F53F62BA1D95100050378 /* ScrollStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F53F52BA1D95100050378 /* ScrollStackView.swift */; };
@@ -59,6 +62,9 @@
 		B51602892B6958F50029A32D /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
 		B516028B2B6959740029A32D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		B516028E2B69A2680029A32D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		B526BA062C57B58B000C2897 /* JM-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JM-2.png"; sourceTree = "<group>"; };
+		B526BA082C57C957000C2897 /* JM-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JM-1.png"; sourceTree = "<group>"; };
+		B526BA0B2C57D71A000C2897 /* ProjectImagesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectImagesTabView.swift; sourceTree = "<group>"; };
 		B52E26072B6AEF9200C399C7 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		B52F53F32BA0BE7E00050378 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		B52F53F52BA1D95100050378 /* ScrollStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollStackView.swift; sourceTree = "<group>"; };
@@ -114,6 +120,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B50EF8E12C5100AD00A8FDA7 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				B50EF8E22C51010500A8FDA7 /* JM */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
+		B50EF8E22C51010500A8FDA7 /* JM */ = {
+			isa = PBXGroup;
+			children = (
+				B526BA082C57C957000C2897 /* JM-1.png */,
+				B526BA062C57B58B000C2897 /* JM-2.png */,
+			);
+			path = JM;
+			sourceTree = "<group>";
+		};
 		B51602842B69562A0029A32D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +160,7 @@
 			children = (
 				B51602892B6958F50029A32D /* ProjectCardView.swift */,
 				B516028B2B6959740029A32D /* ProjectsView.swift */,
+				B526BA0B2C57D71A000C2897 /* ProjectImagesTabView.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -217,6 +241,7 @@
 		B5DC7E182B6918CF001C7EB2 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				B50EF8E12C5100AD00A8FDA7 /* Screenshots */,
 				B52E26062B6AEF7400C399C7 /* Extensions */,
 				B516028D2B69A2580029A32D /* Views */,
 				B51602852B6956470029A32D /* Navigation */,
@@ -367,6 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5DC7E232B6918D1001C7EB2 /* Preview Assets.xcassets in Resources */,
+				B526BA072C57B58B000C2897 /* JM-2.png in Resources */,
+				B526BA092C57C957000C2897 /* JM-1.png in Resources */,
 				B5DC7E202B6918D1001C7EB2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +455,7 @@
 				B51602872B69567F0029A32D /* TabScreenView.swift in Sources */,
 				B5E919792C4E99940037FD78 /* Mesh.swift in Sources */,
 				B56E872F2BA0B85800A87147 /* Models.swift in Sources */,
+				B526BA0C2C57D71A000C2897 /* ProjectImagesTabView.swift in Sources */,
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,
 				B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */,
 				B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */,

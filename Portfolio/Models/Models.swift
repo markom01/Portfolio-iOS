@@ -14,7 +14,7 @@ struct Constants {
 
     static let projects: [Project] = [
         .init(
-            name: "Gem + Jewel",
+            name: "JM",
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,

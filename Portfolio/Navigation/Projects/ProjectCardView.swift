@@ -8,10 +8,18 @@
 import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 import _AVKit_SwiftUI
+import QuickLook
 
 struct ProjectCardView: View {
-    @Environment(\.colorScheme) var colorScheme
     let project: Project
+
+    @Environment(\.colorScheme) var colorScheme
+    @State var url: URL?
+    var images: [ProjectImagesTabView.Screenshot] {
+        Array(1...10)
+            .map { .init(image: "\(project.name)-\($0)") }
+            .filter { $0.url != nil }
+    }
     var isExpanded = false
 
     var body: some View {
@@ -22,6 +30,7 @@ struct ProjectCardView: View {
                     Section("Technologies") {
                         SkillsView(technologies: project.technologies)
                     }
+                    ProjectImagesTabView(images: images, url: $url)
                     preview
                 }
                 .listRowBackground(Rectangle().fill(.thinMaterial))
@@ -37,6 +46,7 @@ struct ProjectCardView: View {
                     projectButton
                 }
             }
+            .quickLookPreview($url, in: images.compactMap({ $0.url }))
         } else {
             header
         }
