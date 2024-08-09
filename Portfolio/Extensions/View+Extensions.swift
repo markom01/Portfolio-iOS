@@ -15,22 +15,22 @@ extension View {
     func removeListBg(image: ImageResource? = nil) -> some View {
         scrollContentBackground(.hidden)
 #if os(macOS)
-        .listStyle(.sidebar)
         .background(.ultraThinMaterial)
 #endif
         .background {
             if let image {
                 Image(image)
                     .resizable()
-                    .ignoresSafeArea(.all)
                     .scaledToFill()
 #if os(iOS)
+                    .ignoresSafeArea(.all)
                     .blurOverlay()
 #elseif os(macOS)
                     .overlay(.thickMaterial)
 #endif
             }
         }
+        .clipped()
     }
 
     func blurOverlay() -> some View {

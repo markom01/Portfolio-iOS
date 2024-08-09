@@ -24,23 +24,21 @@ struct ProjectCardView: View {
 
     var body: some View {
         if isExpanded {
-            List {
-                Group {
-                    description
-                    Section("Technologies") {
-                        SkillsView(technologies: project.technologies)
-                    }
-                    ProjectImagesTabView(images: images, url: $url)
-                    preview
+            ListScreen(bgImage: project.image) {
+                description
+                Section("Technologies") {
+                    SkillsView(technologies: project.technologies)
                 }
-                .listRowBackground(Rectangle().fill(.thinMaterial))
+                ProjectImagesTabView(images: images, url: $url)
+                preview
             }
-            .removeListBg(image: .init(project.image))
             .toolbar {
                 ToolbarItem(placement: Constants.titlePlacement) {
                     header
+#if os(iOS)
                         .scaleEffect(0.8)
                         .frame(width: 200)
+#endif
                 }
                 ToolbarItem {
                     projectButton

@@ -25,28 +25,13 @@ struct TabsView: View {
     @State private var selectedTab: TabScreenView.Data?
 
     var body: some View {
-#if os(iOS)
         TabView {
             ForEach(Array(tabs.enumerated()), id: \.element.id) {
                 TabScreenView(data: $1).tag($0)
             }
         }
-#elseif os(macOS)
-        NavigationSplitView {
-            List(tabs) { tab in
-                NavigationLink(destination: tab.content) {
-                    Label(tab.navigation.title, systemImage: tab.navigation.tabIcon)
-                }
-            }
-        } detail: {
-            if let selectedTab {
-                NavigationStack {
-                    selectedTab.content
-                }
-            } else { Text("Select a tab") }
-        }
+#if os(macOS)
         .padding()
-        .onAppear { selectedTab = tabs.first }
 #endif
     }
 }

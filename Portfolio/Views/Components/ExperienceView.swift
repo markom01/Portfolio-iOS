@@ -13,8 +13,7 @@ struct ExperienceView: View {
 
     var body: some View {
         if isExpanded {
-            List {
-                header.listRowBackground(Color.clear)
+            ListScreen {
                 Section("About") { Text(experience.about) }
                 Section("Apple Frameworks") {
                     SkillsView(technologies: AppleFrameworks.allCases)
@@ -26,13 +25,20 @@ struct ExperienceView: View {
                     SkillsView(technologies: Libraries.allCases)
                 }
             }
-            .removeListBg()
-            .scrollBounceBehavior(.basedOnSize)
             .toolbar {
-                if let urlString = experience.urlString, let url = URL(string: urlString) {
-                    Link(destination: url) {
-                        Label("Company Website", systemImage: "link")
-                            .labelStyle(.titleAndIcon)
+                ToolbarItem(placement: Constants.titlePlacement) {
+                    header
+#if os(iOS)
+                        .scaleEffect(0.8)
+                        .frame(width: 200)
+#endif
+                }
+                ToolbarItem {
+                    if let urlString = experience.urlString, let url = URL(string: urlString) {
+                        Link(destination: url) {
+                            Label("Company Website", systemImage: "link")
+                                .labelStyle(.titleAndIcon)
+                        }
                     }
                 }
             }
@@ -41,7 +47,7 @@ struct ExperienceView: View {
 
     var header: some View {
         HeaderView(
-            isExpanded: isExpanded,
+            isExpanded: false,
             headingView: .init(Text(experience.rawValue.capitalized)),
             subHeadingView: .init(subHeading(experience)),
             imageSource: experience.logo

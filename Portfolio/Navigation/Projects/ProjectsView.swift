@@ -49,7 +49,6 @@ struct ProjectsView: View {
 #endif
                 } else { ProjectCardView(project: $0, isExpanded: true) }
             }
-            .scrollBounceBehavior(.basedOnSize)
             Spacer()
         }
 #if os(macOS)
