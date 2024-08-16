@@ -22,60 +22,51 @@ struct ProjectsView: View {
         VStack {
             LazyVGrid(columns: Array(repeating: .init(spacing: .medium), count: 4)) {
                 ForEach(projects) { project in
-                    NavigationLink(value: project) {
-                        if #available(iOS 18, *) {
-                            row(project)
-                                .contextMenu {
-                                    NavigationLink(value: project) {
-                                        Text("See Project")
+                    VStack {
+                        NavigationLink(value: project) {
+                            if #available(iOS 18, *) {
+                                row(project)
+                                    .contextMenu {
+                                        NavigationLink(value: project) {
+                                            Text("See Project")
+                                        }
+                                    } preview: {
+                                        ProjectView(project: project, isExpanded: true)
                                     }
-                                } preview: {
-                                    ProjectCardView(project: project, isExpanded: true)
-                                }
 #if os(iOS)
-                                .matchedTransitionSource(id: project.id, in: namespace)
+                                    .matchedTransitionSource(id: project.id, in: namespace) { source in
+                                        source
+                                            .background(.clear)
+                                            .clipShape(RoundedRectangle(cornerRadius: .small))
+                                    }
 #endif
-                        } else { row(project) }
+                            } else { row(project) }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        Text(project.name).font(.caption).tint(.primary)
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding()
             .navigationDestination(for: Project.self) {
                 if #available(iOS 18, *) {
-                    ProjectCardView(project: $0, isExpanded: true)
+                    ProjectView(project: $0, isExpanded: true)
 #if os(iOS)
                         .navigationTransition(.zoom(sourceID: $0.id, in: namespace))
 #endif
-                } else { ProjectCardView(project: $0, isExpanded: true) }
+                } else { ProjectView(project: $0, isExpanded: true) }
             }
             Spacer()
         }
 #if os(macOS)
         .removeListBg(image: projects.first(where: { $0.id == hoveredId })?.image)
-            .toolbar {
-                ToolbarItem(placement: Constants.titlePlacement) {
-                    HeaderView(
-                        isExpanded: false,
-                        headingView: .init(Text("Marko Meseldžija")),
-                        subHeadingView: .init(Text("iOS Developer")),
-                        imageSource: .named(.launchLogo),
-                        alignment: .center
-                    )
-                }
-            }
-            .animation(.linear(duration: 0.75), value: hoveredId)
+        .animation(.linear(duration: 0.75), value: hoveredId)
 #endif
     }
 
     func row(_ project: Project) -> some View {
-        VStack {
             ImageView(source: .named(project.image), size: 60)
-                .padding(.xSmall)
-                .background(.background)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            Text(project.name).font(.caption).tint(.primary)
-        }
+                .clipShape(RoundedRectangle(cornerRadius: .small))
 #if os(macOS)
                .padding(.small)
                .onHover { hoveredId = $0 ? project.id : nil }

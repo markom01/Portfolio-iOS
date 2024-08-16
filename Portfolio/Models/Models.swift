@@ -18,17 +18,26 @@ struct Constants {
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
+            features: [
+                .init(name: "Downloads", icon: "square.and.arrow.down", description: "Enables downloading of remote files."),
+                .init(name: "Tabs", icon: "table.fill", description: "Makes available switching between pages smoothly.")
+            ],
             technologies: Constants.technologies,
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
-            videoURLString: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
+            videoURLString: ""
         ),
         .init(
-            name: "Second App",
-            category: .shopping,
-            image: .launchLogo,
-            description: Constants.placholderParagraph,
-            technologies: Constants.technologies,
-            appStoreURLString: "",
+            name: "InBrowser",
+            category: .browser,
+            image: .inBrowser,
+            description: """
+            iOS private browser. Each time app is closed, everything user is done will be erased, including history, cookies, and sessions.
+            """,
+            features: [
+                .init(name: "Downloads", icon: "square.and.arrow.down", description: "")
+            ],
+            technologies: [Libraries.Lottie, Libraries.MixPanel, Libraries.swiftUIIntrospect, AppleFrameworks.WebKit, Tech.Animations, Tech.UserDefaults],
+            appStoreURLString: "https://apps.apple.com/us/app/inbrowser-private-browsing/id598907571?platform=iphone",
             videoURLString: ""
         )
     ]
@@ -49,7 +58,7 @@ struct Constants {
 #if os(iOS)
         return .principal
 #elseif os(macOS)
-        return .navigation
+        return .principal
 #endif
     }
 }
@@ -172,6 +181,7 @@ struct Project: Identifiable {
     let category: Category
     let image: ImageResource
     let description: String
+    let features: [Feature]
     let technologies: [Skill]
     let appStoreURLString: String
     let videoURLString: String
@@ -179,12 +189,14 @@ struct Project: Identifiable {
 
     enum Category: String {
         case shopping
+        case browser
+    }
 
-        var icon: String {
-            switch self {
-            case .shopping: "bag"
-            }
-        }
+    struct Feature: Identifiable {
+        let name: String
+        let icon: String
+        let description: String
+        var id: String { name }
     }
 }
 

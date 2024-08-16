@@ -10,7 +10,7 @@ import SwiftUI
 import _AVKit_SwiftUI
 import QuickLook
 
-struct ProjectCardView: View {
+struct ProjectView: View {
     let project: Project
 
     @Environment(\.colorScheme) var colorScheme
@@ -21,13 +21,28 @@ struct ProjectCardView: View {
             .filter { $0.url != nil }
     }
     var isExpanded = false
+    var skills: [Skill] {
+        var skills = project.technologies
+        let commonSkills: [Skill] = [AppleFrameworks.Swift, AppleFrameworks.SwiftUI, AppleFrameworks.UIKit, Tech.MVC, Tech.MVVM, Tech.GithubDesktop]
+        skills.append(contentsOf: commonSkills)
+        return skills
+    }
 
     var body: some View {
         if isExpanded {
             ListScreen(bgImage: project.image) {
                 description
                 Section("Technologies") {
-                    SkillsView(technologies: project.technologies)
+                    SkillsView(technologies: skills)
+                }
+                Section("Features") {
+                    ForEach(project.features) { feature in
+                        DisclosureGroup {
+                            Text(feature.description).foregroundStyle(.secondary)
+                        } label: {
+                            Label(feature.name, systemImage: feature.icon)
+                        }
+                    }
                 }
                 ProjectImagesTabView(images: images, url: $url)
                 preview
@@ -40,6 +55,11 @@ struct ProjectCardView: View {
                         .frame(width: 200)
 #endif
                 }
+#if os(macOS)
+                ToolbarItem {
+                    Spacer()
+                }
+#endif
                 ToolbarItem {
                     projectButton
                 }
@@ -61,12 +81,9 @@ struct ProjectCardView: View {
 }
 
 // MARK: Views
-extension ProjectCardView {
+extension ProjectView {
     var subheadingView: some View {
         HStack(spacing: .xSmall) {
-            if !isExpanded {
-                Image(systemName: project.category.icon)
-            }
             Text(project.category.rawValue.capitalized)
             if isExpanded {
                 Text("App")
@@ -100,12 +117,13 @@ extension ProjectCardView {
 }
 
 #Preview {
-    ProjectCardView(
+    ProjectView(
         project: .init(
             name: "Project Name",
             category: .shopping,
             image: .gemJewel,
             description: Constants.placholderParagraph,
+            features: [],
             technologies: Constants.technologies,
             appStoreURLString: "",
             videoURLString: ""

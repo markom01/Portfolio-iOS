@@ -20,7 +20,9 @@ struct ListScreen<T: View>: View {
                 .listRowSeparator(.hidden)
         }
         .removeListBg(image: bgImage)
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
 //        .scrollBounceBehavior(.basedOnSize)
     }
 }

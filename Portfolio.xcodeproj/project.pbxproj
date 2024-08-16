@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B51602832B694BD80029A32D /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B51602822B694BD80029A32D /* SwiftUIIntrospect */; };
 		B51602872B69567F0029A32D /* TabScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602862B69567F0029A32D /* TabScreenView.swift */; };
-		B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602892B6958F50029A32D /* ProjectCardView.swift */; };
+		B516028A2B6958F50029A32D /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51602892B6958F50029A32D /* ProjectView.swift */; };
 		B516028C2B6959740029A32D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028B2B6959740029A32D /* ProjectsView.swift */; };
 		B516028F2B69A2680029A32D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516028E2B69A2680029A32D /* VideoView.swift */; };
 		B526BA072C57B58B000C2897 /* JM-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B526BA062C57B58B000C2897 /* JM-2.png */; };
@@ -25,7 +25,6 @@
 		B573B7732C66324E007B4283 /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B573B7722C66324E007B4283 /* Collection+Extensions.swift */; };
 		B578CEC82B7047DA00DA3246 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B578CEC72B7047DA00DA3246 /* LaunchView.swift */; };
 		B578CECA2B70481B00DA3246 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B578CEC92B70481B00DA3246 /* ImageView.swift */; };
-		B58176032C5A810A0011DE7C /* JM-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B58176022C5A810A0011DE7C /* JM-3.png */; };
 		B58F43282B6E2EC100EC64AF /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F43272B6E2EC100EC64AF /* SwitchView.swift */; };
 		B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58FBAF32B72981900B12C36 /* ShareView.swift */; };
 		B5903EC92B9DDBEB00B24BFC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5903EC82B9DDBEB00B24BFC /* AboutView.swift */; };
@@ -41,6 +40,8 @@
 		B5DC7E372B6918D1001C7EB2 /* PortfolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E362B6918D1001C7EB2 /* PortfolioUITests.swift */; };
 		B5DC7E392B6918D1001C7EB2 /* PortfolioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC7E382B6918D1001C7EB2 /* PortfolioUITestsLaunchTests.swift */; };
 		B5E919792C4E99940037FD78 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E919782C4E99890037FD78 /* Mesh.swift */; };
+		B5E93F0B2C6CFC3600C2110A /* JM-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B58176022C5A810A0011DE7C /* JM-3.png */; };
+		B5E93F122C6E145700C2110A /* InBrowser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5E93F112C6E145700C2110A /* InBrowser-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +63,7 @@
 
 /* Begin PBXFileReference section */
 		B51602862B69567F0029A32D /* TabScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabScreenView.swift; sourceTree = "<group>"; };
-		B51602892B6958F50029A32D /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
+		B51602892B6958F50029A32D /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		B516028B2B6959740029A32D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		B516028E2B69A2680029A32D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		B526BA062C57B58B000C2897 /* JM-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JM-2.png"; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		B5DC7E362B6918D1001C7EB2 /* PortfolioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioUITests.swift; sourceTree = "<group>"; };
 		B5DC7E382B6918D1001C7EB2 /* PortfolioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B5E919782C4E99890037FD78 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		B5E93F112C6E145700C2110A /* InBrowser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InBrowser-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 		B50EF8E12C5100AD00A8FDA7 /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
+				B5E93F022C6CE69500C2110A /* InBrowser */,
 				B50EF8E22C51010500A8FDA7 /* JM */,
 			);
 			path = Screenshots;
@@ -165,7 +168,7 @@
 		B51602882B6958A90029A32D /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				B51602892B6958F50029A32D /* ProjectCardView.swift */,
+				B51602892B6958F50029A32D /* ProjectView.swift */,
 				B516028B2B6959740029A32D /* ProjectsView.swift */,
 				B526BA0B2C57D71A000C2897 /* ProjectImagesTabView.swift */,
 			);
@@ -289,6 +292,14 @@
 			path = PortfolioUITests;
 			sourceTree = "<group>";
 		};
+		B5E93F022C6CE69500C2110A /* InBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				B5E93F112C6E145700C2110A /* InBrowser-1.png */,
+			);
+			path = InBrowser;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -400,10 +411,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5E93F0B2C6CFC3600C2110A /* JM-3.png in Resources */,
 				B5DC7E232B6918D1001C7EB2 /* Preview Assets.xcassets in Resources */,
 				B526BA072C57B58B000C2897 /* JM-2.png in Resources */,
-				B58176032C5A810A0011DE7C /* JM-3.png in Resources */,
 				B526BA092C57C957000C2897 /* JM-1.png in Resources */,
+				B5E93F122C6E145700C2110A /* InBrowser-1.png in Resources */,
 				B5DC7E202B6918D1001C7EB2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,7 +481,7 @@
 				B56E872F2BA0B85800A87147 /* Models.swift in Sources */,
 				B526BA0C2C57D71A000C2897 /* ProjectImagesTabView.swift in Sources */,
 				B5DC7E1C2B6918CF001C7EB2 /* TabsView.swift in Sources */,
-				B516028A2B6958F50029A32D /* ProjectCardView.swift in Sources */,
+				B516028A2B6958F50029A32D /* ProjectView.swift in Sources */,
 				B58FBAF42B72981900B12C36 /* ShareView.swift in Sources */,
 				B5DC7E1A2B6918CF001C7EB2 /* PortfolioApp.swift in Sources */,
 				B52F53F62BA1D95100050378 /* ScrollStackView.swift in Sources */,

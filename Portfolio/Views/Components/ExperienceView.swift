@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+@_spi(Advanced) import SwiftUIIntrospect
 
 struct ExperienceView: View {
     let experience: Experience
@@ -25,6 +26,7 @@ struct ExperienceView: View {
                     SkillsView(technologies: Libraries.allCases)
                 }
             }
+            .background(.ultraThinMaterial)
             .toolbar {
                 ToolbarItem(placement: Constants.titlePlacement) {
                     header
@@ -33,6 +35,11 @@ struct ExperienceView: View {
                         .frame(width: 200)
 #endif
                 }
+#if os(macOS)
+                ToolbarItem {
+                    Spacer()
+                }
+#endif
                 ToolbarItem {
                     if let urlString = experience.urlString, let url = URL(string: urlString) {
                         Link(destination: url) {

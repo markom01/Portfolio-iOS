@@ -15,7 +15,6 @@ struct PortfolioApp: App {
         WindowGroup {
             AppView()
 #if os(macOS)
-                .navigationTitle("")
                 .frame(minWidth: 400, maxWidth: 900, maxHeight: 700)
 #endif
         }
@@ -70,7 +69,11 @@ extension AppView {
         UITabBar.appearance().clipsToBounds = true
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithTransparentBackground()
+        navAppearance.backgroundImage = UIImage()
+        navAppearance.shadowImage = UIImage()
+        navAppearance.backgroundColor = nil
         navAppearance.backgroundEffect = blurEffect
+        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().standardAppearance = navAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
     }

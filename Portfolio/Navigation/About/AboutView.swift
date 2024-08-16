@@ -12,12 +12,10 @@ struct AboutView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        VStack(spacing: .medium) {
-            ListScreen { aboutSection }
-                .navigationDestination(for: Experience.self) {
-                    ExperienceView(experience: $0, isExpanded: true)
-                }
-        }
+        ListScreen { aboutSection }
+            .navigationDestination(for: Experience.self) {
+                ExperienceView(experience: $0, isExpanded: true)
+            }
     }
 
     @ViewBuilder
