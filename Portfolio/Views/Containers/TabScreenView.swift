@@ -20,6 +20,8 @@ struct TabScreenView: View {
                         Mesh()
                             .ignoresSafeArea(edges: .all)
                             .overlay(.ultraThinMaterial)
+                    } else {
+                        Rectangle().fill(.ultraThinMaterial)
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -33,7 +35,6 @@ struct TabScreenView: View {
                             alignment: .center
                         )
                         .scaleEffect(0.8)
-                        .frame(width: 200)
                     }
                     ToolbarItem(placement: .topBarTrailing) { navigationBarRightItem }
                 }

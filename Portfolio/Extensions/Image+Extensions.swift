@@ -8,10 +8,10 @@
 import SwiftUI
 
 extension Image {
-    func setup(size: CGFloat) -> some View {
+    func setup(size: CGFloat, contentMode: ContentMode) -> some View {
         return self
             .resizable()
-            .scaledToFit()
-            .frame(width: size)
+            .aspectRatio(contentMode: contentMode)
+            .frame(width: size, height: size)
     }
 }

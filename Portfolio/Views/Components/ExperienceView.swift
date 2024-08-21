@@ -32,7 +32,6 @@ struct ExperienceView: View {
                     header
 #if os(iOS)
                         .scaleEffect(0.8)
-                        .frame(width: 200)
 #endif
                 }
 #if os(macOS)

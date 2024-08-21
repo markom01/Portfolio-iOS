@@ -48,7 +48,7 @@ struct AboutView: View {
                 .contextMenu {
                     Link("See on Map", destination: url)
                 } preview: {
-                    ImageView(source: .url("https://ychef.files.bbci.co.uk/1500x1000/p0btlr60.jpeg"), size: 300)
+                    ImageView(source: .url("https://ychef.files.bbci.co.uk/1500x1000/p0btlr60.jpeg"), size: 300, contentMode: .fill)
                         .overlay { Color.primary.opacity(0.1) }
                         .overlay(alignment: .top) {
                             RoundedRectangle(cornerRadius: .xSmall)

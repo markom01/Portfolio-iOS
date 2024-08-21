@@ -37,8 +37,21 @@ struct AppView: View {
 #elseif os(iOS)
             .onAppear(perform: setupTheme)
             .environment(\.colorScheme, isDarkMode ? .dark : .light)
-            .environment(\.openURL, OpenURLAction { url in
-                openWebSheet(url)
+            .environment(
+                \.openURL,
+                 OpenURLAction { url in
+                     if let project = Constants.projects.first(where: { $0.name.rawValue.replacingOccurrences(of: " ", with: "") == url.lastPathComponent }), url.absoluteString.contains("projects/") {
+                         UIApplication.window?.rootViewController?.present(
+                            UINavigationController(
+                                rootViewController: UIHostingController(
+                                    rootView: ProjectView(project: project, isExpanded: true)
+                                )
+                            ),
+                            animated: true
+                         )
+                     } else {
+                         openWebSheet(url)
+                     }
                 return .handled
             })
             .onChange(of: isDarkMode, setupTheme)

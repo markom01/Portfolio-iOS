@@ -53,6 +53,7 @@ struct HeaderView: View {
                     .padding(.horizontal)
             }
         }
+        .fixedSize()
     }
 }
 

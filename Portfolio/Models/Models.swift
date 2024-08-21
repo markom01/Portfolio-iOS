@@ -8,36 +8,107 @@
 import SwiftUI
 
 struct Constants {
+    static let appScheme = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Portfolio"
+
     static let placholderParagraph = """
     Morbi lacinia lobortis magna nec commodo. Fusce faucibus ipsum felis, ac egestas nisi aliquam varius. Donec sed elementum turpis. Maecenas suscipit fermentum orci nec pretium. Nam at orci orci. Proin sodales.
     """
 
     static let projects: [Project] = [
         .init(
-            name: "JM",
-            category: .shopping,
+            name: .JM,
+            category: .Shopping,
             image: .gemJewel,
-            description: Constants.placholderParagraph,
+            description: """
+            [Jewelers Mutual](https://www.jewelersmutual.com) Consumer App for managing jewelery items.
+            """,
             features: [
-                .init(name: "Downloads", icon: "square.and.arrow.down", description: "Enables downloading of remote files."),
-                .init(name: "Tabs", icon: "table.fill", description: "Makes available switching between pages smoothly.")
+                .init(name: "Charts", icon: "chart.pie", description: "Pie chart view of jewelery categories by value and count."),
+                .init(name: "Jewelry Box", icon: "cube.box", description: "Place to view, search, filter, add end edit personal jewelery."),
+                .init(name: "Jewelery Locator", icon: "storefront", description: "Jewelers Marketplace Map where user can search for nearest jewelry store."),
+                .init(name: "Jewelry Protection", icon: "shield", description: "Displaying of policies with protected jewelry items."),
+                .init(name: "Shake to Report", icon: "exclamationmark.bubble", description: "Shake device to send feedback or report an issue in app.")
             ],
-            technologies: Constants.technologies,
+            technologies: [Libraries.swiftUIIntrospect, Libraries.AppAuth, AppleFrameworks.WebKit, Tech.Postman, Tech.Scrum],
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
             videoURLString: ""
         ),
         .init(
-            name: "InBrowser",
-            category: .browser,
+            name: .InBrowser,
+            category: .Browser,
             image: .inBrowser,
             description: """
             iOS private browser. Each time app is closed, everything user is done will be erased, including history, cookies, and sessions.
             """,
             features: [
-                .init(name: "Downloads", icon: "square.and.arrow.down", description: "")
+                .init(name: "Tornado Clear", icon: "tornado", description: "On tap of tornado, all data is deleted."),
+                .init(name: "Settings", icon: "gear", description: "Contains preferences for changing browser agent, search engine and more privacy features."),
+                .init(name: "Downloads", icon: "square.and.arrow.down", description: "Enables downloading of remote files."),
+                .init(name: "Tabs", icon: "table", description: "Makes available switching between pages smoothly."),
+                .init(name: "Search Suggestions", icon: "text.magnifyingglass", description: "Helps in search by autocompleting results while showing website favicon and title.")
             ],
-            technologies: [Libraries.Lottie, Libraries.MixPanel, Libraries.swiftUIIntrospect, AppleFrameworks.WebKit, Tech.Animations, Tech.UserDefaults],
+            technologies: [Libraries.Lottie, Libraries.MixPanel, Libraries.swiftUIIntrospect, AppleFrameworks.WebKit, Tech.Animations],
             appStoreURLString: "https://apps.apple.com/us/app/inbrowser-private-browsing/id598907571?platform=iphone",
+            videoURLString: ""
+        ),
+        .init(
+            name: .Mory,
+            category: .Assistant,
+            image: .mory,
+            description: "Personal AI assistant app which simplifies daily tasks like creating contacts, events, mails & more.",
+            features: [
+                .init(name: "Contacts", icon: "person.crop.circle", description: "Adding, editing and deleting contacts that can be imported from Google or Microsoft account."),
+                .init(name: "Mail", icon: "envelope", description: "Ability to send and receive e-mails with preview-able attachemnts."),
+                .init(name: "Calendar", icon: "calendar", description: "Scheduling events and preview by year, month and week agenda."),
+                .init(name: "Interactive Widget", icon: "app", description: "Quick add of contacts, events, mails & more."),
+                .init(name: "AI Avatar", icon: "brain", description: "User is able to talk to Mory AI and make contacts, events, mails & more.")
+            ],
+            technologies: [Libraries.swiftUIIntrospect, Libraries.Lottie, Libraries.TUSKit, Tech.Localization],
+            videoURLString: ""
+        ),
+        .init(
+            name: .ScanSDK,
+            category: .SDK,
+            image: .freelance,
+            description: "iOS framework for scanning images and extracting text with Optical Character Recognition.",
+            features: [
+                .init(name: "OCR", icon: "doc.text.magnifyingglass", description: "Searches for text from image."),
+                .init(
+                    name: "Text Extraction",
+                    icon: "text.book.closed",
+                    description: "Connects specific part of text with provided key. For example, with provided license number label from driving license image, it returns license number text."
+                ),
+                .init(name: "Live Text", icon: "livephoto", description: "Enables [interaction with text](https://support.apple.com/en-us/120004) from image.")
+            ],
+            technologies: [AppleFrameworks.VisionKit, Tech.sdkDev, Tech.unitTest],
+            videoURLString: ""
+        ),
+        .init(
+            name: .TruckingHub,
+            category: .Business,
+            image: .freelance,
+            description: "App for truckers to track fleet management, regulatory compliance and more.",
+            features: [
+                .init(name: "Calendar", icon: "calendar.day.timeline.left", description: "Custom animated calendar by week and month."),
+                .init(
+                    name: "Document Scanner",
+                    icon: "doc.viewfinder",
+                    description: .init("Uses \(Project.Name.ScanSDK.inAppURL) to find and extract information from driving license.")
+                )
+            ],
+            technologies: [Libraries.SwiftyJSON],
+            videoURLString: ""
+        ),
+        .init(
+            name: .AlertEOS,
+            category: .Medical,
+            image: .freelance,
+            description: "Alarm app for doctors and nurses to be notified about patient condition.",
+            features: [
+                .init(name: "Notifications", icon: "light.beacon.min", description: "Alarms are sent and received over WebSocket."),
+                .init(name: "Settings", icon: "gear", description: "Admin can change connection settings directly in app.")
+            ],
+            technologies: [Libraries.Starscream, Libraries.SDWebImage],
             videoURLString: ""
         )
     ]
@@ -129,18 +200,22 @@ enum AppleFrameworks: String, CaseIterable, Skill {
     case WebKit
     case VisionKit
     case Combine
+    case QuickLook
     case Cocoa = "Cocoa (Touch)"
 
     var url: String? {
-        switch self {
-        case .SwiftUI: "https://developer.apple.com/xcode/swiftui"
-        case .UIKit: "https://developer.apple.com/documentation/uikit#overview"
-        case .AppKit: "https://developer.apple.com/documentation/appkit"
-        case .WebKit: "https://developer.apple.com/documentation/webkit"
-        case .VisionKit: "https://developer.apple.com/documentation/visionkit"
-        case .Combine: "https://developer.apple.com/documentation/combine"
+        var baseUrl = "https://developer.apple.com/documentation/"
+        let path: String? = switch self {
+        case .SwiftUI: "swiftui"
+        case .UIKit: "uikit"
+        case .AppKit: "appkit"
+        case .WebKit: "webkit"
+        case .VisionKit: "visionkit"
+        case .Combine: "combine"
+        case .QuickLook: "quicklook"
         case .Swift, .Cocoa: nil
         }
+        return baseUrl + (path ?? "")
     }
 
     var imageURL: String? { nil }
@@ -160,7 +235,7 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
     case Scrum
     case spm = "Swift Package Manager"
     case pods = "CocoaPods"
-    case postman
+    case Postman
     case GithubDesktop = "Github Desktop"
     var id: UUID { UUID() }
 
@@ -177,26 +252,39 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
 }
 
 struct Project: Identifiable {
-    let name: String
+    let name: Name
     let category: Category
     let image: ImageResource
-    let description: String
+    let description: LocalizedStringKey
     let features: [Feature]
     let technologies: [Skill]
-    let appStoreURLString: String
+    var appStoreURLString: String?
     let videoURLString: String
     let id = UUID()
 
     enum Category: String {
-        case shopping
-        case browser
+        case Shopping
+        case Browser
+        case Assistant
+        case SDK
+        case Business
+        case Medical
     }
 
     struct Feature: Identifiable {
         let name: String
         let icon: String
-        let description: String
+        let description: LocalizedStringKey
         var id: String { name }
+    }
+
+    enum Name: String, Codable {
+        case JM, InBrowser, Mory, ScanSDK, AlertEOS
+        case TruckingHub = "Trucking Hub"
+
+        var inAppURL: String {
+            "[\(rawValue)](\(Constants.appScheme)://projects/\(rawValue.replacingOccurrences(of: " ", with: "")))"
+        }
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct ImageView: View {
     let source: Source
     let size: CGFloat
+    var contentMode: ContentMode = .fit
 
     var body: some View {
         switch source {
@@ -22,14 +23,14 @@ struct ImageView: View {
                             .frame(height: size)
                             .redacted(reason: .placeholder)
                             .foregroundStyle(.secondary.opacity(0.3))
-                    case .success(let image): image.setup(size: size)
+                    case .success(let image): image.setup(size: size, contentMode: contentMode)
                     case .failure(let error): EmptyView()
                     @unknown default: fatalError()
                     }
                 }
             }
         default:
-            source.image?.setup(size: size)
+            source.image?.setup(size: size, contentMode: contentMode)
         }
     }
 }

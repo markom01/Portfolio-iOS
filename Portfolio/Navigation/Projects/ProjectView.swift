@@ -23,8 +23,12 @@ struct ProjectView: View {
     var isExpanded = false
     var skills: [Skill] {
         var skills = project.technologies
-        let commonSkills: [Skill] = [AppleFrameworks.Swift, AppleFrameworks.SwiftUI, AppleFrameworks.UIKit, Tech.MVC, Tech.MVVM, Tech.GithubDesktop]
-        skills.append(contentsOf: commonSkills)
+        let commonSkills: [Skill] = [AppleFrameworks.Swift, AppleFrameworks.SwiftUI, AppleFrameworks.UIKit, AppleFrameworks.Combine, Tech.MVC, Tech.MVVM, Tech.UserDefaults, Tech.GithubDesktop, Tech.spm, Tech.pods, Libraries.AlamoFire]
+        for element in commonSkills {
+            if !skills.contains(where: { $0.rawValue == element.rawValue }) {
+                skills.append(element)
+            }
+        }
         return skills
     }
 
@@ -40,7 +44,14 @@ struct ProjectView: View {
                         DisclosureGroup {
                             Text(feature.description).foregroundStyle(.secondary)
                         } label: {
-                            Label(feature.name, systemImage: feature.icon)
+                            Label {
+                                Text(feature.name)
+                            } icon: {
+                                Image(systemName: feature.icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20)
+                            }
                         }
                     }
                 }
@@ -52,7 +63,6 @@ struct ProjectView: View {
                     header
 #if os(iOS)
                         .scaleEffect(0.8)
-                        .frame(width: 200)
 #endif
                 }
 #if os(macOS)
@@ -73,7 +83,7 @@ struct ProjectView: View {
     var header: some View {
         HeaderView(
             isExpanded: false,
-            headingView: .init(Text(project.name)),
+            headingView: .init(Text(project.name.rawValue)),
             subHeadingView: .init(subheadingView),
             imageSource: .named(project.image)
         )
@@ -84,8 +94,8 @@ struct ProjectView: View {
 extension ProjectView {
     var subheadingView: some View {
         HStack(spacing: .xSmall) {
-            Text(project.category.rawValue.capitalized)
-            if isExpanded {
+            Text(project.category.rawValue)
+            if isExpanded && project.category != .SDK {
                 Text("App")
             }
         }
@@ -93,7 +103,7 @@ extension ProjectView {
 
     @ViewBuilder
     var projectButton: some View {
-        if let appStoreURL = URL(string: project.appStoreURLString) {
+        if let urlString = project.appStoreURLString, let appStoreURL = URL(string: urlString) {
             Link("App Store", destination: appStoreURL)
         }
     }
@@ -119,10 +129,10 @@ extension ProjectView {
 #Preview {
     ProjectView(
         project: .init(
-            name: "Project Name",
-            category: .shopping,
+            name: .JM,
+            category: .Shopping,
             image: .gemJewel,
-            description: Constants.placholderParagraph,
+            description: .init(Constants.placholderParagraph),
             features: [],
             technologies: Constants.technologies,
             appStoreURLString: "",

@@ -43,7 +43,7 @@ struct ProjectsView: View {
                             } else { row(project) }
                         }
                         .buttonStyle(PlainButtonStyle())
-                        Text(project.name).font(.caption).tint(.primary)
+                        Text(project.name.rawValue).font(.caption).tint(.primary)
                     }
                 }
             }
