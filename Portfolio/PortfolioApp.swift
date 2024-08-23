@@ -37,27 +37,14 @@ struct AppView: View {
 #elseif os(iOS)
             .onAppear(perform: setupTheme)
             .environment(\.colorScheme, isDarkMode ? .dark : .light)
-            .environment(
-                \.openURL,
-                 OpenURLAction { url in
-                     if let project = Constants.projects.first(where: { $0.name.rawValue.replacingOccurrences(of: " ", with: "") == url.lastPathComponent }), url.absoluteString.contains("projects/") {
-                         UIApplication.window?.rootViewController?.present(
-                            UINavigationController(
-                                rootViewController: UIHostingController(
-                                    rootView: ProjectView(project: project, isExpanded: true)
-                                )
-                            ),
-                            animated: true
-                         )
-                     } else {
-                         openWebSheet(url)
-                     }
-                return .handled
-            })
             .onChange(of: isDarkMode, setupTheme)
             .animation(.linear(duration: 0.3), value: isDarkMode)
             .id(isDarkMode)
 #endif
+            .environment(\.openURL, OpenURLAction {
+                openProject(url: $0)
+                return .handled
+            })
     }
 }
 
@@ -101,6 +88,32 @@ extension AppView {
         }
     }
 #endif
+
+    func openProject(url: URL) {
+        if let project = Constants.projects.first(where: { $0.name.rawValue.replacingOccurrences(of: " ", with: "") == url.lastPathComponent }), url.absoluteString.contains("projects/") {
+#if os(macOS)
+            let hostingVC = NSHostingController(rootView: ProjectView(project: project, isExpanded: true))
+            let window = NSWindow(contentViewController: hostingVC)
+            window.level = .popUpMenu
+            window.setContentSize(.init(width: 700, height: 500))
+            window.makeKeyAndOrderFront(nil)
+            window.orderFrontRegardless()
+#elseif os(iOS)
+            UIApplication.window?.rootViewController?.present(
+               UINavigationController(
+                   rootViewController: UIHostingController(
+                       rootView: ProjectView(project: project, isExpanded: true)
+                   )
+               ),
+               animated: true
+            )
+#endif
+        } else {
+#if os(iOS)
+            openWebSheet(url)
+#endif
+        }
+    }
 }
 
 #if os(iOS)

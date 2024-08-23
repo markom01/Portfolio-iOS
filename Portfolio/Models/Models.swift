@@ -110,6 +110,18 @@ struct Constants {
             ],
             technologies: [Libraries.Starscream, Libraries.SDWebImage],
             videoURLString: ""
+        ),
+        .init(
+            name: .AirTouch,
+            category: .Communication,
+            image: .freelance,
+            description: "Communication app with both audio and video calls and contacts.",
+            features: [
+                .init(name: "Multiple Sign Up Options", icon: "person.crop.circle.badge.plus", description: "Sign up with Google, Microsoft or mail."),
+                .init(name: "Contacts", icon: "book.pages", description: "List of imported contacts from phone and created in-app.")
+            ],
+            technologies: [Libraries.SDWebImage, Libraries.AppAuth],
+            videoURLString: ""
         )
     ]
 
@@ -269,6 +281,7 @@ struct Project: Identifiable {
         case SDK
         case Business
         case Medical
+        case Communication
     }
 
     struct Feature: Identifiable {
@@ -279,7 +292,7 @@ struct Project: Identifiable {
     }
 
     enum Name: String, Codable {
-        case JM, InBrowser, Mory, ScanSDK, AlertEOS
+        case JM, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch
         case TruckingHub = "Trucking Hub"
 
         var inAppURL: String {
