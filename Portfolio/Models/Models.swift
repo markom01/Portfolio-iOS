@@ -17,10 +17,10 @@ struct Constants {
     static let projects: [Project] = [
         .init(
             name: .JM,
-            category: .Shopping,
+            category: .Insurance,
             image: .gemJewel,
             description: """
-            [Jewelers Mutual](https://www.jewelersmutual.com) Consumer App for managing jewelery items.
+            [Jewelers Mutual](https://www.jewelersmutual.com) Consumer App for insuring and managing jewelery items.
             """,
             features: [
                 .init(name: "Charts", icon: "chart.pie", description: "Pie chart view of jewelery categories by value and count."),
@@ -31,6 +31,22 @@ struct Constants {
             ],
             technologies: [Libraries.swiftUIIntrospect, Libraries.AppAuth, AppleFrameworks.WebKit, Tech.Postman, Tech.Scrum],
             appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: ""
+        ),
+        .init(
+            name: .Luxsurance,
+            category: .Insurance,
+            image: .luxsurance,
+            description: """
+            [Luxsurance](https://www.luxsurance.com) App for managing luxury jewelery and connecting with retailers.
+            """,
+            features: [
+                .init(name: "Collections", icon: "diamond", description: "Place to view, search, filter, add end edit personal jewelery."),
+                .init(name: "Notifications", icon: "bell.badge", description: "In-app notifications from Jeweler about buyed jewelry and offers."),
+                .init(name: "Chat", icon: "message", description: "Get in touch with retailers where jewelry is buyed.")
+            ],
+            technologies: [Libraries.AppAuth, Libraries.AlamoFire, Libraries.SDWebImage, AppleFrameworks.WebKit],
+            appStoreURLString: "https://apps.apple.com/us/app/luxsurance/id1478032005",
             videoURLString: ""
         ),
         .init(
@@ -69,7 +85,7 @@ struct Constants {
         .init(
             name: .ScanSDK,
             category: .SDK,
-            image: .freelance,
+            image: .scanSDK,
             description: "iOS framework for scanning images and extracting text with Optical Character Recognition.",
             features: [
                 .init(name: "OCR", icon: "doc.text.magnifyingglass", description: "Searches for text from image."),
@@ -86,7 +102,7 @@ struct Constants {
         .init(
             name: .TruckingHub,
             category: .Business,
-            image: .freelance,
+            image: .truckingHub,
             description: "App for truckers to track fleet management, regulatory compliance and more.",
             features: [
                 .init(name: "Calendar", icon: "calendar.day.timeline.left", description: "Custom animated calendar by week and month."),
@@ -102,7 +118,7 @@ struct Constants {
         .init(
             name: .AlertEOS,
             category: .Medical,
-            image: .freelance,
+            image: .alertEOS,
             description: "Alarm app for doctors and nurses to be notified about patient condition.",
             features: [
                 .init(name: "Notifications", icon: "light.beacon.min", description: "Alarms are sent and received over WebSocket."),
@@ -114,7 +130,7 @@ struct Constants {
         .init(
             name: .AirTouch,
             category: .Communication,
-            image: .freelance,
+            image: .airtouch,
             description: "Communication app with both audio and video calls and contacts.",
             features: [
                 .init(name: "Multiple Sign Up Options", icon: "person.crop.circle.badge.plus", description: "Sign up with Google, Microsoft or mail."),
@@ -216,7 +232,7 @@ enum AppleFrameworks: String, CaseIterable, Skill {
     case Cocoa = "Cocoa (Touch)"
 
     var url: String? {
-        var baseUrl = "https://developer.apple.com/documentation/"
+        let baseUrl = "https://developer.apple.com/documentation/"
         let path: String? = switch self {
         case .SwiftUI: "swiftui"
         case .UIKit: "uikit"
@@ -275,7 +291,7 @@ struct Project: Identifiable {
     let id = UUID()
 
     enum Category: String {
-        case Shopping
+        case Insurance
         case Browser
         case Assistant
         case SDK
@@ -292,7 +308,7 @@ struct Project: Identifiable {
     }
 
     enum Name: String, Codable {
-        case JM, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch
+        case JM, Luxsurance, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch, RushFiles
         case TruckingHub = "Trucking Hub"
 
         var inAppURL: String {

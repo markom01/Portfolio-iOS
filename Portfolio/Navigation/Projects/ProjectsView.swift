@@ -19,7 +19,7 @@ struct ProjectsView: View {
     @Namespace var namespace
 
     var body: some View {
-        VStack {
+        ScrollStackView {
             LazyVGrid(columns: Array(repeating: .init(spacing: .medium), count: 4)) {
                 ForEach(projects) { project in
                     VStack {

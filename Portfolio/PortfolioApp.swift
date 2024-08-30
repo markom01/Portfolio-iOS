@@ -61,21 +61,6 @@ extension AppView {
         UIApplication.window?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.window?.rootViewController?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         UIApplication.shared.setAlternateIconName(isDarkMode ? nil : "AppIconLight")
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        let appearance = UITabBarAppearance()
-        appearance.backgroundEffect = blurEffect
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-        UITabBar.appearance().clipsToBounds = true
-        let navAppearance = UINavigationBarAppearance()
-        navAppearance.configureWithTransparentBackground()
-        navAppearance.backgroundImage = UIImage()
-        navAppearance.shadowImage = UIImage()
-        navAppearance.backgroundColor = nil
-        navAppearance.backgroundEffect = blurEffect
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().standardAppearance = navAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
     }
 
     func openWebSheet(_ url: URL) {

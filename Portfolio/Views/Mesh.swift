@@ -11,14 +11,6 @@ import SwiftUI
 struct Mesh: View {
     @State var t: Float = 0.0
     @State var timer: Timer?
-    static let colors = Array(1...10).map { _ in
-        Color(
-            red: .random(in: 0...1),
-            green: .random(in: 0...1),
-            blue: .random(in: 0...1),
-            opacity: .random(in: 0.3...0.7)
-        )
-    }
 
     var body: some View {
         MeshGradient(
@@ -35,7 +27,7 @@ struct Mesh: View {
                 [sinInRange(0.3...0.6, offset: 0.339, timeScale: 0.784, t: t), sinInRange(1.0...1.2, offset: 1.22, timeScale: 0.772, t: t)],
                 [sinInRange(1.0...1.5, offset: 0.939, timeScale: 0.056, t: t), sinInRange(1.3...1.7, offset: 0.47, timeScale: 0.342, t: t)]
             ],
-            colors: Self.colors
+            colors: [.black, .white, .truckingHub, .inBrowser, .alertEOS, .airTouch]
         )
         .onAppear {
             timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in

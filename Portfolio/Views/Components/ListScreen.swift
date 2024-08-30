@@ -22,6 +22,8 @@ struct ListScreen<T: View>: View {
         .removeListBg(image: bgImage)
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.ultraThinMaterial.opacity(0.1), for: .navigationBar, .tabBar)
+        .toolbarBackground(.visible, for: .navigationBar, .tabBar)
 #endif
 //        .scrollBounceBehavior(.basedOnSize)
     }

@@ -130,7 +130,7 @@ extension ProjectView {
     ProjectView(
         project: .init(
             name: .JM,
-            category: .Shopping,
+            category: .Insurance,
             image: .gemJewel,
             description: .init(Constants.placholderParagraph),
             features: [],
