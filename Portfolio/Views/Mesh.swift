@@ -27,7 +27,7 @@ struct Mesh: View {
                 [sinInRange(0.3...0.6, offset: 0.339, timeScale: 0.784, t: t), sinInRange(1.0...1.2, offset: 1.22, timeScale: 0.772, t: t)],
                 [sinInRange(1.0...1.5, offset: 0.939, timeScale: 0.056, t: t), sinInRange(1.3...1.7, offset: 0.47, timeScale: 0.342, t: t)]
             ],
-            colors: [.black, .white, .truckingHub, .inBrowser, .alertEOS, .airTouch]
+            colors: [.truckingHub, .inBrowser, .alertEOS, .airTouch, .rushFiles, .luxsurance]
         )
         .onAppear {
             timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in

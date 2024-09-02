@@ -15,6 +15,7 @@ struct TabScreenView: View {
         NavigationStack {
             data.content
 #if os(iOS)
+                .toolbarBackground(.ultraThinMaterial.opacity(0.1), for: .navigationBar, .tabBar)
                 .toolbarBackground(.visible, for: .navigationBar, .tabBar)
                 .background {
                     if #available(iOS 18, *) {

@@ -138,6 +138,19 @@ struct Constants {
             ],
             technologies: [Libraries.SDWebImage, Libraries.AppAuth],
             videoURLString: ""
+        ),
+        .init(
+            name: .RushFiles,
+            category: .Utils,
+            image: .rushFiles,
+            description: "File Cloud solution for comapnies with app branding possibility.",
+            features: [
+                .init(name: "File Cloud", icon: "externaldrive.badge.icloud", description: "Uploading, previewing and locking all types of files."),
+                .init(name: "Folders", icon: "folder", description: "Supporting file oganization into folders and sharing link."),
+                .init(name: "MS Office integration", icon: "doc", description: "Edit files from cloud in MS Office apps.")
+            ],
+            technologies: [AppleFrameworks.WebKit, Libraries.AlamoFire],
+            videoURLString: ""
         )
     ]
 
@@ -298,6 +311,7 @@ struct Project: Identifiable {
         case Business
         case Medical
         case Communication
+        case Utils
     }
 
     struct Feature: Identifiable {
@@ -308,8 +322,9 @@ struct Project: Identifiable {
     }
 
     enum Name: String, Codable {
-        case JM, Luxsurance, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch, RushFiles
+        case JM, Luxsurance, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch
         case TruckingHub = "Trucking Hub"
+        case RushFiles = "Rush Files"
 
         var inAppURL: String {
             "[\(rawValue)](\(Constants.appScheme)://projects/\(rawValue.replacingOccurrences(of: " ", with: "")))"

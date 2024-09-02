@@ -15,7 +15,7 @@ extension View {
     func removeListBg(image: ImageResource? = nil) -> some View {
         scrollContentBackground(.hidden)
 #if os(macOS)
-        .background(.ultraThinMaterial)
+            .background(.ultraThickMaterial)
 #endif
         .background {
             if let image {
@@ -26,7 +26,7 @@ extension View {
                     .ignoresSafeArea(.all)
                     .blurOverlay()
 #elseif os(macOS)
-                    .overlay(.thickMaterial)
+                    .overlay(.ultraThickMaterial)
 #endif
             }
         }
@@ -34,8 +34,7 @@ extension View {
     }
 
     func blurOverlay() -> some View {
-        overlay(.thinMaterial)
-            .overlay(.thinMaterial)
+        overlay(.thickMaterial)
             .overlay(.black.opacity(0.1))
     }
 
