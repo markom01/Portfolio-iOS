@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectImagesTabView: View {
-    let images: [Screenshot]
+    let images: [Project.Screenshot]
     @Binding var url: URL?
     @State var imageHeight: CGFloat = 0
 
@@ -34,11 +34,6 @@ struct ProjectImagesTabView: View {
 #endif
             }
         }
-    }
-
-    struct Screenshot {
-        let image: String
-        var url: URL? { Bundle.main.url(forResource: image, withExtension: "png") }
     }
 
     @ViewBuilder

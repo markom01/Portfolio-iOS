@@ -42,9 +42,6 @@ struct TabScreenView: View {
                 }
 #endif
         }
-        .tabItem {
-            Label(data.navigation.title, systemImage: data.navigation.tabIcon)
-        }
     }
 }
 

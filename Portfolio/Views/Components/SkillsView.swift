@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SkillsView: View {
     let technologies: [Skill]
+    var adjustEdgeInsets = false
 
     var body: some View {
         ScrollStackView(axis: .horizontal, spacing: .small) {
@@ -31,6 +32,7 @@ struct SkillsView: View {
             }
         }
         .padding(.vertical, .xSmall)
+        .listRowInsets(adjustEdgeInsets ? .init(top: .small, leading: 0, bottom: .small, trailing: 16) : nil)
     }
 
     func label(_ tech: Skill, isLink: Bool) -> some View {

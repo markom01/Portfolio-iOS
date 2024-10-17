@@ -8,26 +8,42 @@
 import SwiftUI
 
 struct TabsView: View {
-    let tabs: [TabScreenView.Data] = [
-        .init(
-            navigation: .init(
-                title: "Projects", tabIcon: "folder"
+    @Namespace var namespace
+
+    var tabs: [TabScreenView.Data] {
+        [
+            .init(
+                navigation: .init(
+                    title: "Projects", tabIcon: "folder"
+                ),
+                content: .init(
+                    ProjectsView(namespace: namespace)
+                        .navigationDestination(for: Project.self) {
+                            if #available(iOS 18, *) {
+                                ProjectView(project: $0, isExpanded: true)
+#if os(iOS)
+                                    .navigationTransition(.zoom(sourceID: $0.id, in: namespace))
+#endif
+                            } else { ProjectView(project: $0, isExpanded: true) }
+                        }
+                )
             ),
-            content: .init(ProjectsView())
-        ),
-        .init(
-            navigation: .init(
-                title: "About", tabIcon: "person"
-            ),
-            content: .init(AboutView())
-        )
-    ]
+            .init(
+                navigation: .init(
+                    title: "About", tabIcon: "person"
+                ),
+                content: .init(AboutView())
+            )
+        ]
+    }
     @State private var selectedTab: TabScreenView.Data?
 
     var body: some View {
         TabView {
-            ForEach(Array(tabs.enumerated()), id: \.element.id) {
-                TabScreenView(data: $1).tag($0)
+            ForEach(Array(tabs.enumerated()), id: \.element.id) { index, tab in
+                Tab(tab.navigation.title, systemImage: tab.navigation.tabIcon) {
+                    TabScreenView(data: tab).tag(index)
+                }
             }
         }
 #if os(macOS)

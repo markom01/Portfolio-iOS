@@ -15,11 +15,6 @@ struct ProjectView: View {
 
     @Environment(\.colorScheme) var colorScheme
     @State var url: URL?
-    var images: [ProjectImagesTabView.Screenshot] {
-        Array(1...10)
-            .map { .init(image: "\(project.name)-\($0)") }
-            .filter { $0.url != nil }
-    }
     var isExpanded = false
     var skills: [Skill] {
         var skills = project.technologies
@@ -55,7 +50,7 @@ struct ProjectView: View {
                         }
                     }
                 }
-                ProjectImagesTabView(images: images, url: $url)
+                ProjectImagesTabView(images: project.images, url: $url)
                 preview
             }
             .toolbar {
@@ -74,7 +69,7 @@ struct ProjectView: View {
                     projectButton
                 }
             }
-            .quickLookPreview($url, in: images.compactMap({ $0.url }))
+            .quickLookPreview($url, in: project.images.map { $0.url })
         } else {
             header
         }

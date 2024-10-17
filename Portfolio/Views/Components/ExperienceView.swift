@@ -12,19 +12,41 @@ struct ExperienceView: View {
     let experience: Experience
     var isExpanded = false
 
+    @Namespace var namespace
+
     var body: some View {
         if isExpanded {
             ListScreen {
                 Section("About") { Text(experience.about) }
-                Section("Apple Frameworks") {
-                    SkillsView(technologies: AppleFrameworks.allCases)
+                Section("Tech Stack") {
+                    DisclosureGroup {
+                        SkillsView(technologies: AppleFrameworks.allCases, adjustEdgeInsets: true)
+                    } label: {
+                        Text("Apple Frameworks")
+                    }
+                    DisclosureGroup {
+                        SkillsView(technologies: experience.technologies, adjustEdgeInsets: true)
+                    } label: {
+                        Text("Technologies")
+                    }
+                    DisclosureGroup {
+                        SkillsView(technologies: Libraries.allCases, adjustEdgeInsets: true)
+                    } label: {
+                        Text("Libraries")
+                    }
                 }
-                Section("Technologies") {
-                    SkillsView(technologies: experience.technologies)
+                Section("Apps") {
+                    ProjectsView(namespace: namespace, projects: experience.projects)
+                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
-                Section("Libraries") {
-                    SkillsView(technologies: Libraries.allCases)
-                }
+            }
+            .navigationDestination(for: Project.self) {
+                if #available(iOS 18, *) {
+                    ProjectView(project: $0, isExpanded: true)
+#if os(iOS)
+                        .navigationTransition(.zoom(sourceID: $0.id, in: namespace))
+#endif
+                } else { ProjectView(project: $0, isExpanded: true) }
             }
             .background(.ultraThinMaterial)
             .toolbar {

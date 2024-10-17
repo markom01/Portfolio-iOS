@@ -10,13 +10,12 @@ import SwiftUIIntrospect
 import _AVKit_SwiftUI
 
 struct ProjectsView: View {
+    let namespace: Namespace.ID
+    var projects: [Project] = Constants.projects
+
 #if os(macOS)
     @State var hoveredId: UUID?
 #endif
-
-    var projects: [Project] = Constants.projects
-
-    @Namespace var namespace
 
     var body: some View {
         ScrollStackView {
@@ -45,17 +44,10 @@ struct ProjectsView: View {
                         .buttonStyle(PlainButtonStyle())
                         Text(project.name.rawValue).font(.caption).tint(.primary)
                     }
+                    .padding(.vertical, .small)
                 }
             }
             .padding()
-            .navigationDestination(for: Project.self) {
-                if #available(iOS 18, *) {
-                    ProjectView(project: $0, isExpanded: true)
-#if os(iOS)
-                        .navigationTransition(.zoom(sourceID: $0.id, in: namespace))
-#endif
-                } else { ProjectView(project: $0, isExpanded: true) }
-            }
             Spacer()
         }
 #if os(macOS)
@@ -76,11 +68,5 @@ struct ProjectsView: View {
                        .clipShape(RoundedRectangle(cornerRadius: .small))
                }
 #endif
-    }
-}
-
-#Preview {
-    NavigationStack {
-        ProjectsView()
     }
 }

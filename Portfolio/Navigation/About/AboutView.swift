@@ -24,14 +24,22 @@ struct AboutView: View {
             Text("Proven ability to develop user-friendly and visually appealing interfaces, since 2023.")
                 .lineLimit(nil)
         }
-        Section("Apple Frameworks") {
-            SkillsView(technologies: AppleFrameworks.allCases)
-        }
-        Section("Technologies") {
-            SkillsView(technologies: Tech.allCases)
-        }
-        Section("Libraries") {
-            SkillsView(technologies: Libraries.allCases)
+        Section("Tech Stack") {
+            DisclosureGroup {
+                SkillsView(technologies: AppleFrameworks.allCases, adjustEdgeInsets: true)
+            } label: {
+                Text("Apple Frameworks")
+            }
+            DisclosureGroup {
+                SkillsView(technologies: Tech.allCases, adjustEdgeInsets: true)
+            } label: {
+                Text("Technologies")
+            }
+            DisclosureGroup {
+                SkillsView(technologies: Libraries.allCases, adjustEdgeInsets: true)
+            } label: {
+                Text("Libraries")
+            }
         }
         Section("Experience") {
             ForEach(Constants.experiences) { experience in

@@ -330,6 +330,18 @@ struct Project: Identifiable {
             "[\(rawValue)](\(Constants.appScheme)://projects/\(rawValue.replacingOccurrences(of: " ", with: "")))"
         }
     }
+
+    struct Screenshot {
+        let image: String
+        let url: URL
+    }
+
+    var images: [Screenshot] {
+        if let urls = Bundle.main.urls(forResourcesWithExtension: "png", subdirectory: nil)?
+            .filter({ $0.lastPathComponent.hasPrefix(name.rawValue) }) {
+            return urls.map { .init(image: $0.lastPathComponent, url: $0) }
+        } else { return [] }
+    }
 }
 
 extension Project: Hashable {
