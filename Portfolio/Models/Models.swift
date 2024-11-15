@@ -16,30 +16,13 @@ struct Constants {
 
     static let projects: [Project] = [
         .init(
-            name: .JM,
-            category: .Insurance,
-            image: .gemJewel,
-            description: """
-            [Jewelers Mutual](https://www.jewelersmutual.com) Consumer App for insuring and managing jewelery items.
-            """,
-            features: [
-                .init(name: "Charts", icon: "chart.pie", description: "Pie chart view of jewelery categories by value and count."),
-                .init(name: "Jewelry Box", icon: "cube.box", description: "Place to view, search, filter, add end edit personal jewelery."),
-                .init(name: "Jewelery Locator", icon: "storefront", description: "Jewelers Marketplace Map where user can search for nearest jewelry store."),
-                .init(name: "Jewelry Protection", icon: "shield", description: "Displaying of policies with protected jewelry items."),
-                .init(name: "Shake to Report", icon: "exclamationmark.bubble", description: "Shake device to send feedback or report an issue in app.")
-            ],
-            technologies: [Libraries.swiftUIIntrospect, Libraries.AppAuth, AppleFrameworks.WebKit, Tech.Postman, Tech.Scrum],
-            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
-            videoURLString: ""
-        ),
-        .init(
             name: .Luxsurance,
             category: .Insurance,
             image: .luxsurance,
-            description: """
+            description: .init("""
             [Luxsurance](https://www.luxsurance.com) App for managing luxury jewelery and connecting with retailers.
-            """,
+            Similar to \(Project.Name.JMConsumer.inAppURL) app since they share same user data for Vault, Profile and Protection.
+            """),
             features: [
                 .init(name: "Collections", icon: "diamond", description: "Place to view, search, filter, add end edit personal jewelery."),
                 .init(name: "Notifications", icon: "bell.badge", description: "In-app notifications from Jeweler about buyed jewelry and offers."),
@@ -48,6 +31,25 @@ struct Constants {
             technologies: [Libraries.AppAuth, Libraries.AlamoFire, Libraries.SDWebImage, AppleFrameworks.WebKit],
             appStoreURLString: "https://apps.apple.com/us/app/luxsurance/id1478032005",
             videoURLString: ""
+        ),
+        .init(
+            name: .JMConsumer,
+            category: .Insurance,
+            image: .gemJewel,
+            description: .init("""
+            [Jewelers Mutual](https://www.jewelersmutual.com) Consumer App for insuring and managing jewelery items.
+            Similar to \(Project.Name.Luxsurance.inAppURL) app since they share same user data for Vault, Profile and Protection.
+            """),
+            features: [
+                .init(name: "Charts", icon: "chart.pie", description: "Pie chart view of jewelery categories by value and count."),
+                .init(name: "Vault", icon: "cube.box", description: "Place to view, search, filter, add end edit personal jewelery."),
+                .init(name: "Jewelery Locator", icon: "storefront", description: "Jewelers Marketplace Map where user can search for nearest jewelry store."),
+                .init(name: "Jewelry Protection", icon: "shield", description: "Displaying of policies with protected jewelry items."),
+                .init(name: "Shake to Report", icon: "exclamationmark.bubble", description: "Shake device to send feedback or report an issue in app.")
+            ],
+            technologies: [Libraries.swiftUIIntrospect, Libraries.AppAuth, AppleFrameworks.WebKit, Tech.Postman, Tech.Scrum],
+            appStoreURLString: "https://apps.apple.com/us/app/gem-jewel/id6466446330",
+            videoURLString: Bundle.main.url(forResource: "JM_Consumer", withExtension: "mov")!.absoluteString
         ),
         .init(
             name: .InBrowser,
@@ -64,8 +66,8 @@ struct Constants {
                 .init(name: "Search Suggestions", icon: "text.magnifyingglass", description: "Helps in search by autocompleting results while showing website favicon and title.")
             ],
             technologies: [Libraries.Lottie, Libraries.MixPanel, Libraries.swiftUIIntrospect, AppleFrameworks.WebKit, Tech.Animations],
-            appStoreURLString: "https://apps.apple.com/us/app/inbrowser-private-browsing/id598907571?platform=iphone",
-            videoURLString: ""
+            appStoreURLString: "https://apps.apple.com/us/app/inbrowser-private-browsing/id598907571",
+            videoURLString: Bundle.main.url(forResource: "inbrowser", withExtension: "mov")!.absoluteString
         ),
         .init(
             name: .Mory,
@@ -80,7 +82,7 @@ struct Constants {
                 .init(name: "AI Avatar", icon: "brain", description: "User is able to talk to Mory AI and make contacts, events, mails & more.")
             ],
             technologies: [Libraries.swiftUIIntrospect, Libraries.Lottie, Libraries.TUSKit, Tech.Localization],
-            videoURLString: ""
+            videoURLString: Bundle.main.url(forResource: "Mory", withExtension: "mov")!.absoluteString
         ),
         .init(
             name: .ScanSDK,
@@ -97,6 +99,18 @@ struct Constants {
                 .init(name: "Live Text", icon: "livephoto", description: "Enables [interaction with text](https://support.apple.com/en-us/120004) from image.")
             ],
             technologies: [AppleFrameworks.VisionKit, Tech.sdkDev, Tech.unitTest],
+            videoURLString: Bundle.main.url(forResource: "ScanSDK", withExtension: "mov")!.absoluteString
+        ),
+        .init(
+            name: .AlertEOS,
+            category: .Medical,
+            image: .alertEOS,
+            description: "Alarm app for doctors and nurses to be notified about patient condition.",
+            features: [
+                .init(name: "Notifications", icon: "light.beacon.min", description: "Alarms are sent and received over WebSocket."),
+                .init(name: "Settings", icon: "gear", description: "Admin can change connection settings directly in app.")
+            ],
+            technologies: [Libraries.Starscream, Libraries.SDWebImage],
             videoURLString: ""
         ),
         .init(
@@ -113,18 +127,7 @@ struct Constants {
                 )
             ],
             technologies: [Libraries.SwiftyJSON],
-            videoURLString: ""
-        ),
-        .init(
-            name: .AlertEOS,
-            category: .Medical,
-            image: .alertEOS,
-            description: "Alarm app for doctors and nurses to be notified about patient condition.",
-            features: [
-                .init(name: "Notifications", icon: "light.beacon.min", description: "Alarms are sent and received over WebSocket."),
-                .init(name: "Settings", icon: "gear", description: "Admin can change connection settings directly in app.")
-            ],
-            technologies: [Libraries.Starscream, Libraries.SDWebImage],
+            appStoreURLString: "https://apps.apple.com/us/app/inbrowser-private-browsing/id598907571?platform=iphone",
             videoURLString: ""
         ),
         .init(
@@ -150,6 +153,7 @@ struct Constants {
                 .init(name: "MS Office integration", icon: "doc", description: "Edit files from cloud in MS Office apps.")
             ],
             technologies: [AppleFrameworks.WebKit, Libraries.AlamoFire],
+            appStoreURLString: "https://apps.apple.com/us/app/rushfiles/id716007009",
             videoURLString: ""
         )
     ]
@@ -242,21 +246,27 @@ enum AppleFrameworks: String, CaseIterable, Skill {
     case VisionKit
     case Combine
     case QuickLook
+    case Storyboard
     case Cocoa = "Cocoa (Touch)"
 
     var url: String? {
-        let baseUrl = "https://developer.apple.com/documentation/"
-        let path: String? = switch self {
-        case .SwiftUI: "swiftui"
-        case .UIKit: "uikit"
-        case .AppKit: "appkit"
-        case .WebKit: "webkit"
-        case .VisionKit: "visionkit"
-        case .Combine: "combine"
-        case .QuickLook: "quicklook"
-        case .Swift, .Cocoa: nil
+        let baseUrl = "https://developer.apple.com/"
+        if self == .Storyboard {
+            return baseUrl +  "library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html"
+        } else {
+            let path: String? = switch self {
+            case .SwiftUI: "swiftui"
+            case .UIKit: "uikit"
+            case .AppKit: "appkit"
+            case .WebKit: "webkit"
+            case .VisionKit: "visionkit"
+            case .Combine: "combine"
+            case .QuickLook: "quicklook"
+            case .Swift, .Cocoa: nil
+            default: nil
+            }
+            return baseUrl + ("documentation/\(path ?? "")")
         }
-        return baseUrl + (path ?? "")
     }
 
     var imageURL: String? { nil }
@@ -322,9 +332,10 @@ struct Project: Identifiable {
     }
 
     enum Name: String, Codable {
-        case JM, Luxsurance, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch
+        case Luxsurance, InBrowser, Mory, ScanSDK, AlertEOS, AirTouch
         case TruckingHub = "Trucking Hub"
         case RushFiles = "Rush Files"
+        case JMConsumer = "JM Consumer"
 
         var inAppURL: String {
             "[\(rawValue)](\(Constants.appScheme)://projects/\(rawValue.replacingOccurrences(of: " ", with: "")))"

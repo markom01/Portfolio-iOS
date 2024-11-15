@@ -36,7 +36,7 @@ struct ExperienceView: View {
                     }
                 }
                 Section("Apps") {
-                    ProjectsView(namespace: namespace, projects: experience.projects)
+                    ProjectsView(namespace: namespace, animateToolbars: false, projects: experience.projects)
                         .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
             }

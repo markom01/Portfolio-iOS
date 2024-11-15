@@ -11,11 +11,14 @@ import _AVKit_SwiftUI
 
 struct ProjectsView: View {
     let namespace: Namespace.ID
+    var animateToolbars = true
+    var animationDelay: CGFloat = 1
     var projects: [Project] = Constants.projects
 
 #if os(macOS)
     @State var hoveredId: UUID?
 #endif
+    @State var showLaunchScreen = true
 
     var body: some View {
         ScrollStackView {
@@ -42,13 +45,25 @@ struct ProjectsView: View {
                             } else { row(project) }
                         }
                         .buttonStyle(PlainButtonStyle())
-                        Text(project.name.rawValue).font(.caption).tint(.primary)
+                        Text(project.name.rawValue)
+                            .lineLimit(1)
+                            .font(.caption)
+                            .tint(.primary)
                     }
                     .padding(.vertical, .small)
                 }
             }
             .padding()
             Spacer()
+        }
+        .toolbarVisibility(showLaunchScreen && animateToolbars ? .hidden : .automatic, for: .tabBar)
+        .animation(.default, value: showLaunchScreen)
+        .onAppear {
+            if animateToolbars {
+                DispatchQueue.main.asyncAfter(deadline: .now() + animationDelay) {
+                    showLaunchScreen = false
+                }
+            }
         }
 #if os(macOS)
         .removeListBg(image: projects.first(where: { $0.id == hoveredId })?.image)

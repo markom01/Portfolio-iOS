@@ -30,7 +30,9 @@ extension View {
 #endif
             }
         }
+#if os(macOS)
         .clipped()
+#endif
     }
 
     func blurOverlay() -> some View {

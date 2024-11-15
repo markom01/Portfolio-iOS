@@ -17,7 +17,7 @@ struct TabsView: View {
                     title: "Projects", tabIcon: "folder"
                 ),
                 content: .init(
-                    ProjectsView(namespace: namespace)
+                    ProjectsView(namespace: namespace, animationDelay: 0.5)
                         .navigationDestination(for: Project.self) {
                             if #available(iOS 18, *) {
                                 ProjectView(project: $0, isExpanded: true)

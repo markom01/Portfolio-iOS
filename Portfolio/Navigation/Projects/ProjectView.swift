@@ -15,6 +15,7 @@ struct ProjectView: View {
 
     @Environment(\.colorScheme) var colorScheme
     @State var url: URL?
+    @State var showLaunchScreen = true
     var isExpanded = false
     var skills: [Skill] {
         var skills = project.technologies
@@ -53,6 +54,18 @@ struct ProjectView: View {
                 ProjectImagesTabView(images: project.images, url: $url)
                 preview
             }
+            .overlay {
+                if showLaunchScreen {
+                    ZStack {
+                        Color(UIColor.systemBackground)
+                            .ignoresSafeArea()
+                        ImageView(source: .named(project.image), size: 100)
+                            .clipShape(RoundedRectangle(cornerRadius: .small))
+                    }
+                }
+            }
+            .animation(.default, value: showLaunchScreen)
+            .toolbarVisibility(showLaunchScreen ? .hidden : .visible, for: .navigationBar, .tabBar)
             .toolbar {
                 ToolbarItem(placement: Constants.titlePlacement) {
                     header
@@ -70,6 +83,11 @@ struct ProjectView: View {
                 }
             }
             .quickLookPreview($url, in: project.images.map { $0.url })
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showLaunchScreen = false
+                }
+            }
         } else {
             header
         }
@@ -123,15 +141,6 @@ extension ProjectView {
 
 #Preview {
     ProjectView(
-        project: .init(
-            name: .JM,
-            category: .Insurance,
-            image: .gemJewel,
-            description: .init(Constants.placholderParagraph),
-            features: [],
-            technologies: Constants.technologies,
-            appStoreURLString: "",
-            videoURLString: ""
-        ), isExpanded: true
+        project: Constants.projects[1], isExpanded: true
     )
 }
