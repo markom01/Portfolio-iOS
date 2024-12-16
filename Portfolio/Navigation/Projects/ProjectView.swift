@@ -30,62 +30,65 @@ struct ProjectView: View {
 
     var body: some View {
         if isExpanded {
-            ListScreen(bgImage: project.image) {
-                description
-                Section("Technologies") {
-                    SkillsView(technologies: skills)
-                }
-                Section("Features") {
-                    ForEach(project.features) { feature in
-                        DisclosureGroup {
-                            Text(feature.description).foregroundStyle(.secondary)
-                        } label: {
-                            Label {
-                                Text(feature.name)
-                            } icon: {
-                                Image(systemName: feature.icon)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20)
+            GeometryReader { geometry in
+                ListScreen(bgImage: project.image) {
+                    if showLaunchScreen {
+                        ZStack {
+                            ImageView(source: .named(project.image), size: 100)
+                                .clipShape(RoundedRectangle(cornerRadius: .small))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: geometry.size.height)
+                        .listRowBackground(Color.clear)
+                    } else {
+                        description
+                        Section("Technologies") {
+                            SkillsView(technologies: skills)
+                        }
+                        Section("Features") {
+                            ForEach(project.features) { feature in
+                                DisclosureGroup {
+                                    Text(feature.description).foregroundStyle(.secondary)
+                                } label: {
+                                    Label {
+                                        Text(feature.name)
+                                    } icon: {
+                                        Image(systemName: feature.icon)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20)
+                                    }
+                                }
                             }
                         }
+                        ProjectImagesTabView(images: project.images, url: $url)
+                        preview
                     }
                 }
-                ProjectImagesTabView(images: project.images, url: $url)
-                preview
-            }
-            .overlay {
-                if showLaunchScreen {
-                    ZStack {
-                        Color(UIColor.systemBackground)
-                            .ignoresSafeArea()
-                        ImageView(source: .named(project.image), size: 100)
-                            .clipShape(RoundedRectangle(cornerRadius: .small))
-                    }
-                }
-            }
-            .animation(.default, value: showLaunchScreen)
-            .toolbarVisibility(showLaunchScreen ? .hidden : .visible, for: .navigationBar, .tabBar)
-            .toolbar {
-                ToolbarItem(placement: Constants.titlePlacement) {
-                    header
+                .ignoresSafeArea(edges: showLaunchScreen ? .all : [])
+                .animation(.default, value: showLaunchScreen)
+                .toolbarVisibility(showLaunchScreen ? .hidden : .visible, for: .navigationBar, .tabBar)
+                .toolbar {
+                    ToolbarItem(placement: Constants.titlePlacement) {
+                        header
 #if os(iOS)
-                        .scaleEffect(0.8)
+                            .scaleEffect(0.8)
 #endif
-                }
+                    }
 #if os(macOS)
-                ToolbarItem {
-                    Spacer()
-                }
+                    ToolbarItem {
+                        Spacer()
+                    }
 #endif
-                ToolbarItem {
-                    projectButton
+                    ToolbarItem {
+                        projectButton
+                    }
                 }
-            }
-            .quickLookPreview($url, in: project.images.map { $0.url })
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showLaunchScreen = false
+                .quickLookPreview($url, in: project.images.map { $0.url })
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        showLaunchScreen = false
+                    }
                 }
             }
         } else {
@@ -141,6 +144,6 @@ extension ProjectView {
 
 #Preview {
     ProjectView(
-        project: Constants.projects[1], isExpanded: true
+        project: Constants.projects[7], isExpanded: false
     )
 }

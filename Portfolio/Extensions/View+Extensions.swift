@@ -19,9 +19,11 @@ extension View {
 #endif
         .background {
             if let image {
-                Image(image)
-                    .resizable()
-                    .scaledToFill()
+                Mesh(
+                    colors: UIImage(resource: image)
+                        .dominantColors()!
+                        .map { Color($0) }
+                )
 #if os(iOS)
                     .ignoresSafeArea(.all)
                     .blurOverlay()

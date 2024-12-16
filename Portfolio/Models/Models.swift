@@ -302,7 +302,7 @@ enum Tech: String, Identifiable, CaseIterable, Skill {
     var imageURL: String? { nil }
 }
 
-struct Project: Identifiable {
+struct Project: Identifiable, @unchecked Sendable {
     let name: Name
     let category: Category
     let image: ImageResource

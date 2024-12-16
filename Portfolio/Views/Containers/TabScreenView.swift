@@ -19,7 +19,11 @@ struct TabScreenView: View {
                 .toolbarBackground(.visible, for: .navigationBar, .tabBar)
                 .background {
                     if #available(iOS 18, *) {
-                        Mesh()
+                        Mesh(
+                            colors: Constants.projects
+                                .map { UIImage(resource: $0.image) }
+                                .map { Color($0.dominantColors(isMultiple: false)!.first!) }
+                        )
                             .ignoresSafeArea(edges: .all)
                             .overlay(.ultraThinMaterial)
                     } else {

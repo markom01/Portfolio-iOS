@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 @available(iOS 18.0, macOS 15, *)
 struct Mesh: View {
+    let colors: [Color]
     @State var t: Float = 0.0
     @State var timer: Timer?
+    @State private var timerCancellable: AnyCancellable?
 
     var body: some View {
         MeshGradient(
@@ -27,18 +30,17 @@ struct Mesh: View {
                 [sinInRange(0.3...0.6, offset: 0.339, timeScale: 0.784, t: t), sinInRange(1.0...1.2, offset: 1.22, timeScale: 0.772, t: t)],
                 [sinInRange(1.0...1.5, offset: 0.939, timeScale: 0.056, t: t), sinInRange(1.3...1.7, offset: 0.47, timeScale: 0.342, t: t)]
             ],
-            colors: Constants.projects.map {
-                Color(UIImage(resource: $0.image).dominantColor()!)
-            }
+            colors: colors
         )
         .onAppear {
-            timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                t += 0.02
-            }
+            timerCancellable = Timer.publish(every: 0.02, on: .main, in: .common)
+                .autoconnect()
+                .sink { _ in
+                    t += 0.02
+                }
         }
         .onDisappear {
-            timer?.invalidate()
-            timer = nil
+            timerCancellable?.cancel()
         }
     }
 
