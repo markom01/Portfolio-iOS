@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#endif
 
 extension Image {
     func setup(size: CGFloat, contentMode: ContentMode) -> some View {
@@ -16,6 +19,7 @@ extension Image {
     }
 }
 
+#if canImport(UIKit)
 extension UIImage {
     func dominantColors(isMultiple: Bool = true) -> [UIColor]? {
         guard let cgImage = self.cgImage else { return nil }
@@ -58,3 +62,4 @@ extension UIImage {
         return dominantColors
     }
 }
+#endif

@@ -31,6 +31,7 @@ struct TabScreenView: View {
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbarVisibility(.hidden, for: .navigationBar)
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HeaderView(

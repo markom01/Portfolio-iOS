@@ -67,7 +67,9 @@ struct ProjectView: View {
                 }
                 .ignoresSafeArea(edges: showLaunchScreen ? .all : [])
                 .animation(.default, value: showLaunchScreen)
+#if os(iOS)
                 .toolbarVisibility(showLaunchScreen ? .hidden : .visible, for: .navigationBar, .tabBar)
+#endif
                 .toolbar {
                     ToolbarItem(placement: Constants.titlePlacement) {
                         header

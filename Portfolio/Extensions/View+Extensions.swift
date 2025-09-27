@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 extension View {
     func backButton(_ selectedId: Binding<UUID?>) -> some View {
         self.modifier(BackButtonModifier(selectedId: selectedId))
@@ -19,16 +25,16 @@ extension View {
 #endif
         .background {
             if let image {
-                Mesh(
-                    colors: UIImage(resource: image)
-                        .dominantColors()!
-                        .map { Color($0) }
-                )
 #if os(iOS)
+                Mesh(
+                    colors: {
+                        UIImage(resource: image)
+                            .dominantColors()!
+                            .map { Color($0) }
+                    }()
+                )
                     .ignoresSafeArea(.all)
                     .blurOverlay()
-#elseif os(macOS)
-                    .overlay(.ultraThickMaterial)
 #endif
             }
         }

@@ -39,10 +39,12 @@ struct TabsView: View {
     @State private var selectedTab: TabScreenView.Data?
 
     var body: some View {
-        TabView {
-            ForEach(Array(tabs.enumerated()), id: \.element.id) { index, tab in
-                Tab(tab.navigation.title, systemImage: tab.navigation.tabIcon) {
-                    TabScreenView(data: tab).tag(index)
+        NavigationStack {
+            TabView {
+                ForEach(Array(tabs.enumerated()), id: \.element.id) { index, tab in
+                    Tab(tab.navigation.title, systemImage: tab.navigation.tabIcon) {
+                        TabScreenView(data: tab).tag(index)
+                    }
                 }
             }
         }

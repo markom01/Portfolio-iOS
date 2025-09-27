@@ -56,7 +56,9 @@ struct ProjectsView: View {
             .padding()
             Spacer()
         }
+#if os(iOS)
         .toolbarVisibility(showLaunchScreen && animateToolbars ? .hidden : .automatic, for: .tabBar)
+#endif
         .animation(.default, value: showLaunchScreen)
         .onAppear {
             if animateToolbars {
