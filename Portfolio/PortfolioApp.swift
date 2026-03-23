@@ -13,6 +13,7 @@ import AVKit
 struct PortfolioApp: App {
     var body: some Scene {
         WindowGroup {
+//                        BrowserView()
             AppView()
 #if os(macOS)
                 .frame(minWidth: 400, maxWidth: 900, maxHeight: 700)
@@ -65,11 +66,12 @@ extension AppView {
 
     func openWebSheet(_ url: URL) {
         if UIApplication.shared.canOpenURL(url) {
-            let safariVC = SFSafariViewController(url: url)
-            safariVC.modalPresentationStyle = .pageSheet
-            safariVC.preferredBarTintColor = isDarkMode ? .black : .white
-            safariVC.preferredControlTintColor = .accent
-            UIApplication.window?.rootViewController?.present(safariVC, animated: true)
+//            let safariVC = SFSafariViewController(url: url)
+//            safariVC.modalPresentationStyle = .pageSheet
+//            safariVC.preferredBarTintColor = isDarkMode ? .black : .white
+//            safariVC.preferredControlTintColor = .accent
+//            UIApplication.window?.rootViewController?.present(safariVC, animated: true)
+            UIApplication.window?.rootViewController?.present(UIHostingController(rootView: BrowserView(navPath: [.init(url: url)])), animated: true)
         }
     }
 #endif
